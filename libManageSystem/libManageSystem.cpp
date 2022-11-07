@@ -9,6 +9,7 @@ int main()
     cout << "Ding Ruogu in position!" << endl;
     cout << "Ju Wentao in position!" << endl;
     cout << "Pan Mingdong in position!" << endl;
+
 }
 
 
