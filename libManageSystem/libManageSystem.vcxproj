@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="libManageSystem.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="标头.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
