@@ -130,7 +130,7 @@
     <ClCompile Include="libManageSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="标头.h" />
+    <ClInclude Include="head.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
