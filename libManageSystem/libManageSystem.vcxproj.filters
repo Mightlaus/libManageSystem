@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="head.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Book.h">
       <Filter>头文件</Filter>
     </ClInclude>
