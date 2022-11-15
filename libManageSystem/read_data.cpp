@@ -38,14 +38,6 @@ vector<string*> read_csv()
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-	for (auto s:data)
-	{
-		for (int k = 0; k < 9; k++)
-		{
-			cout << s[k] << "   ";
-		}
-		cout << endl;
-	}
 	inFile.close();
 	return data;
 }
