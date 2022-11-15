@@ -1,6 +1,21 @@
 ﻿#include "readfiles.h"
+#include "Book.h"
+#include "Repo.h"
+
+
 int main()
 {
+	//测试类 begins
+	auto repo = Repo();
+
+	for (int i = 0; i < 5; i++)
+	{
+		auto mybook = Book("Caption", "Author", 86486, "Pub", "1989-10", i);
+		repo.addBook(mybook);
+
+	}
+	//测试类 ends
+
 	cout << "********************菜单********************" << endl;
 	cout << "1.管理员模式" << endl;
 	cout << "2.用户模式" << endl;
