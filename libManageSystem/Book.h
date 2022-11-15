@@ -49,7 +49,8 @@ public:
 	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针
 
 	//方法
-	void resetCaption(string new_caption);
+	void resetCaption(string 
+		_caption);
 	void resetCaption(char* new_caption);
 
 	void resetAuthor(string new_author);
