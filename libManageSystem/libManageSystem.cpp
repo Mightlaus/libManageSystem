@@ -1,7 +1,7 @@
 ﻿#include "read_data.h"
 #include "Book.h"
 #include "Repo.h"
-
+#include "string"
 
 int main()
 {
@@ -9,10 +9,17 @@ int main()
 	auto repo = Repo();
 
 	vector<string*> bookBatch = read_csv();
-	repo.addBookBatch(bookBatch, 10);
-	//string auStr = "Author";
-	//////auto vec = repo.findBook_author(auStr);
-	//vec[0]->resetAuthor("AHAHA");
+	repo.addBookBatch(bookBatch, 30);
+	int i = 0;
+	for (string caption = "asd"; i < 10; i++)
+	{
+		caption = "asd";
+		caption += 'j' - i;
+		Book book(caption, "a", 11, "a", "a", 10, "a");
+		repo.addBook(book);
+	}
+	string author = "a";
+	auto result = repo.findBook_author(author);
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
@@ -59,6 +66,6 @@ int main()
 			cout << "输入格式非法，请重试！" << endl;
 		}
 	}
-	
+
 	return 0;
 }
