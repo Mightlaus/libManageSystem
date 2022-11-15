@@ -8,12 +8,14 @@ int main()
 	//测试类 begins
 	auto repo = Repo();
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		auto mybook = Book("Caption", "Author", 86486, "Pub", "1989-10", i);
+		auto mybook = Book("Caption", "Author", i, "Pub", "1989-10", 0);
 		repo.addBook(mybook);
 
 	}
+
+	auto vec = repo.findBook(10);
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;

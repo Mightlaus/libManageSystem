@@ -22,7 +22,7 @@ public:
 		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price) {}
 
 	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price)
-		:caption(caption), author(author), isbn(isbn), price(price)
+		:author(author), isbn(isbn), price(price)
 	{
 		string cp(caption);
 		this->caption = cp;
