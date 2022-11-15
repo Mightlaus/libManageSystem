@@ -242,3 +242,7 @@ vector<Book*> Repo::rankBook_newest(int rank_len)
 	return vector<Book*>(result_vec);
 }
 
+void Repo::testTime(string str)
+{
+	cout << publishTime(str);
+}

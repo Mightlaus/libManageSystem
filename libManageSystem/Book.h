@@ -46,7 +46,7 @@ public:
 	int price;
 
 
-	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针
+	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
 
 	//方法
 	void resetCaption(string 

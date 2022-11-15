@@ -24,6 +24,7 @@ public:
 
 	// 图书排行榜功能：返回排行榜图书
 	vector<Book*> rankBook_newest(int rank_len);
+	void testTime(string str);
 
 };
 

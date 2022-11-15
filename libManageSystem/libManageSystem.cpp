@@ -10,16 +10,9 @@ int main()
 
 	vector<string*> bookBatch = read_csv();
 	repo.addBookBatch(bookBatch, 30);
-	int i = 0;
-	for (string caption = "asd"; i < 10; i++)
-	{
-		//caption = "asd";
-		caption += 'j' - i;
-		Book book(caption, "a", 11, "a", "a", 10, "a");
-		repo.addBook(book);
-	}
-	string publish = "科学";
-	auto result = repo.findBook_publish(publish);
+
+	auto vec = repo.rankBook_newest(10);
+	
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
