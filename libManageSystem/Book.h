@@ -18,11 +18,11 @@ private:
 
 
 public:
-	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, int price)
-		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price) {}
+	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, int price, string description)
+		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price), description(description) {}
 
-	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price)
-		:caption(caption), author(author), isbn(isbn), price(price)
+	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char *description)
+		:author(author), isbn(isbn), price(price)
 	{
 		string cp(caption);
 		this->caption = cp;
@@ -32,6 +32,8 @@ public:
 		this->publishing = pb;
 		string pt(published_time);
 		this->published_time = pt;
+		string dc(description);
+		this->description = dc;
 	}
 
 	// 属性
@@ -40,13 +42,15 @@ public:
 	unsigned long long isbn;
 	string publishing;
 	string published_time;
+	string description;
 	int price;
 
 
 	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针
 
 	//方法
-	void resetCaption(string new_caption);
+	void resetCaption(string 
+		_caption);
 	void resetCaption(char* new_caption);
 
 	void resetAuthor(string new_author);
