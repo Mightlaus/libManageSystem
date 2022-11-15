@@ -8,22 +8,17 @@ int main()
 	//测试类 begins
 	auto repo = Repo();
 
-	for (int i = 0; i < 9999; i++)
-	{
-		auto mybook = Book("Caption", "Author", i, "Pub", "1989-10", 0, "description");
-		repo.addBook(mybook);
-
-	}
-	string auStr = "Author";
-	auto vec = repo.findBook_author(auStr);
-	vec[0]->resetAuthor("AHAHA");
+	vector<string*> bookBatch = read_csv();
+	repo.addBookBatch(bookBatch, 10);
+	//string auStr = "Author";
+	//////auto vec = repo.findBook_author(auStr);
+	//vec[0]->resetAuthor("AHAHA");
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
 	cout << "1.管理员模式" << endl;
 	cout << "2.用户模式" << endl;
 	cout << "3.退出" << endl;
-	read_csv();
 	while (1)
 	{
 		cout << "请输入您的选择：";

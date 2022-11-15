@@ -14,6 +14,7 @@ private:
 
 public:
 	void addBook(Book book);
+	void addBookBatch(vector<string*>, int batch_size);
 
 	// 返回存放所有结果的***Book指针***的vector，如果没找到返回空列表
 	vector<Book*> findBook_isbn(unsigned long long isbn);

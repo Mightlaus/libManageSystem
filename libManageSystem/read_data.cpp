@@ -26,7 +26,7 @@ vector<string*> read_csv()
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 37; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)
@@ -38,14 +38,7 @@ vector<string*> read_csv()
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-	for (auto s:data)
-	{
-		for (int k = 0; k < 9; k++)
-		{
-			cout << s[k] << "   ";
-		}
-		cout << endl;
-	}
+
 	inFile.close();
 	return data;
 }

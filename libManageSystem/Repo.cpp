@@ -1,8 +1,27 @@
 #include "Repo.h"
-
 void Repo::addBook(Book book)
 {
 	p_book_repo->push_back(book);
+}
+
+void Repo::addBookBatch(vector<string*> book_batch, int batch_size)
+{
+	for (int i = 0; i < batch_size; i++)
+	{
+		for (int i = 0; i < batch_size; i++)
+		{
+			string caption = *(book_batch[i] + 2);
+			string author = * (book_batch[i] + 3);
+			unsigned long long isbn = stoll( * (book_batch[i] + 1));
+			string publishing = *(book_batch[i] + 4);
+			string published_time = *(book_batch[i] + 5);
+			string description = *(book_batch[i] + 8);;
+			int price = stoi( * (book_batch[i] + 6));
+
+			Book thisBook(caption, author, isbn, publishing, published_time, price, description);
+			addBook(thisBook);
+		}
+	}
 }
 
 vector<Book*> Repo::findBook_isbn(unsigned long long isbn)
