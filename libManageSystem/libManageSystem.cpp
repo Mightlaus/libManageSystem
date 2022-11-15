@@ -13,13 +13,13 @@ int main()
 	int i = 0;
 	for (string caption = "asd"; i < 10; i++)
 	{
-		caption = "asd";
+		//caption = "asd";
 		caption += 'j' - i;
 		Book book(caption, "a", 11, "a", "a", 10, "a");
 		repo.addBook(book);
 	}
-	string author = "a";
-	auto result = repo.findBook_author(author);
+	string publish = "科学";
+	auto result = repo.findBook_publish(publish);
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
