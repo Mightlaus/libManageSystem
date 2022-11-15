@@ -1,4 +1,4 @@
-﻿#include "readfiles.h"
+﻿#include "read_data.h"
 #include "Book.h"
 #include "Repo.h"
 
@@ -20,7 +20,7 @@ int main()
 	cout << "1.管理员模式" << endl;
 	cout << "2.用户模式" << endl;
 	cout << "3.退出" << endl;
-	readcsv();
+	read_csv();
 	while (1)
 	{
 		cout << "请输入您的选择：";
