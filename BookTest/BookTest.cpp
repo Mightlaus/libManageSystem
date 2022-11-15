@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#inclue "../libManage"
+#include "../libManageSystem/Book.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace BookTest
@@ -11,6 +11,8 @@ namespace BookTest
 		
 		TEST_METHOD(TestMethod1)
 		{
+			Book mybook();
+			
 		}
 	};
 }
