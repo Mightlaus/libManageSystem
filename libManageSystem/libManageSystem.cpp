@@ -1,5 +1,4 @@
-﻿#include "head.h"
-#include "readfiles.h"
+﻿#include "readfiles.h"
 int main()
 {
 	cout << "********************菜单********************" << endl;
