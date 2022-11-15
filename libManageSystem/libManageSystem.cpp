@@ -1,11 +1,12 @@
 ﻿#include "head.h"
-
+#include "readfiles.h"
 int main()
 {
 	cout << "********************菜单********************" << endl;
 	cout << "1.管理员模式" << endl;
 	cout << "2.用户模式" << endl;
 	cout << "3.退出" << endl;
+	readcsv();
 	while (1)
 	{
 		cout << "请输入您的选择：";
@@ -46,5 +47,6 @@ int main()
 			cout << "输入格式非法，请重试！" << endl;
 		}
 	}
-
+	
+	return 0;
 }

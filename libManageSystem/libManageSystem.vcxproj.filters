@@ -18,9 +18,15 @@
     <ClCompile Include="libManageSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="readfiles.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="head.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="readfiles.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
