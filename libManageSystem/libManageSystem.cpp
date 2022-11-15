@@ -10,7 +10,7 @@ int main()
 
 	for (int i = 0; i < 20; i++)
 	{
-		auto mybook = Book("Caption", "Author", i, "Pub", "1989-10", 0);
+		auto mybook = Book("Caption", "Author", i, "Pub", "1989-10", 0, "description");
 		repo.addBook(mybook);
 
 	}
