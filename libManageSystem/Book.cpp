@@ -37,4 +37,7 @@ void Book::addBorrowHistory(int borrow_time, string user_name)
 {
 	auto borrowHistory = new BorrowHistory(borrow_time, user_name);
 	borrow_histories.push_back(borrowHistory);
+	borrowed_times++;
 }
+
+

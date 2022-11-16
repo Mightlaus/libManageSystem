@@ -19,10 +19,10 @@ private:
 
 public:
 	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, int price, string description)
-		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price), description(description) {}
+		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price), description(description), borrowed_times(0) {}
 
 	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char *description)
-		:author(author), isbn(isbn), price(price)
+		:author(author), isbn(isbn), price(price), borrowed_times(0)
 	{
 		string cp(caption);
 		this->caption = cp;
@@ -44,6 +44,7 @@ public:
 	string published_time;
 	string description;
 	int price;
+	int borrowed_times;
 
 
 	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
@@ -61,7 +62,6 @@ public:
 	void resetPrice(int price);
 
 	void addBorrowHistory(int borrow_time = 0, string user_name = "default");
-	void addBorrowHistory(int borrow_time, char* user_name);
 
 };
 
