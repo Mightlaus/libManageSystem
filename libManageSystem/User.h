@@ -9,13 +9,13 @@ class Book;
 
 class User
 {
-private:
-	struct History
+public:
+	struct UserHistory
 	{
 		int action; // -1借书， 1还书， 0阅览
 		int time;
 		Book* p_book;
-		History(int time, int action, Book* p_book) :action(action), time(time), p_book(p_book){}
+		UserHistory(int time, int action, Book* p_book) :action(action), time(time), p_book(p_book){}
 	};
 
 public:
@@ -29,7 +29,7 @@ public:
 	char identity; // 用户身份 'S' 读者， 'A' 管理员， 'C' 游客
 	int exist;
 	string user_name;
-	vector<History> histories;
+	vector<UserHistory> histories;
 
 	// 密码操作
 	bool checkKey(string input_key); 

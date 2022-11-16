@@ -8,20 +8,20 @@ class User;
 
 class Book
 {
-private:
-	struct History
+public:
+	struct BookHistory
 	{
 		int time;
 		int action; // -1借， 0阅览，1还
 		User* user;
 
-		History(int time, int action, User* user)
+		BookHistory(int time, int action, User* user)
 			:time(time), action(action), user(user) {}
 	};
 
 
 public:
-	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, int price, string description)
+	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, double price, string description)
 		:caption(caption),
 		author(author),
 		isbn(isbn),
@@ -33,7 +33,7 @@ public:
 		exist(1),
 		borrowed(0) {}
 
-	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char* description)
+	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, double price, char* description)
 		:author(author),
 		isbn(isbn),
 		price(price),
@@ -62,15 +62,14 @@ public:
 	string publishing;
 	string published_time;
 	string description;
-	int price;
+	double price;
 	int borrowed_times;
 
 
-	vector<History> histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
+	vector<BookHistory> histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
 
 	//方法
-	void resetCaption(string
-		_caption);
+	void resetCaption(string new_caption);
 	void resetCaption(char* new_caption);
 
 	void resetAuthor(string new_author);
@@ -78,7 +77,7 @@ public:
 
 	void resetIsbn(unsigned long long new_isbn);
 
-	void resetPrice(int price);
+	void resetPrice(double price);
 
 	void addHistory(int time, int action, User* p_user);
 

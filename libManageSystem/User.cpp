@@ -27,7 +27,7 @@ int Student::returnBook(Book* p_book, int time)
 
 int User::addHistory(int time, int action, Book* p_book)
 {
-	History this_history(time, action, p_book);
-	histories.push_back(History(time, action, p_book));
+	UserHistory this_history(time, action, p_book);
+	histories.push_back(UserHistory(time, action, p_book));
 	return 0;
 }

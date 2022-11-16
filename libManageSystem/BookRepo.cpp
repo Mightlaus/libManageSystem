@@ -146,7 +146,7 @@ void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 		string publishing = *(book_batch[i] + 4);
 		string published_time = *(book_batch[i] + 5);
 		string description = *(book_batch[i] + 8);;
-		int price = stoi(*(book_batch[i] + 6));
+		double price = stoi(*(book_batch[i] + 6));
 
 		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
 		addOne(thisBook);
@@ -183,7 +183,7 @@ void BookRepo::modifIsbn(Book* p_book, unsigned long long isbn)
 	p_book->resetIsbn(isbn);
 }
 
-void BookRepo::modifPrice(Book* p_book, int price)
+void BookRepo::modifPrice(Book* p_book, double price)
 {
 	p_book->resetPrice(price);
 }

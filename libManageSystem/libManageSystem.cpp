@@ -12,15 +12,16 @@ int main()
 	vector<string*> bookBatch = read_csv();
 	repo.books.addBatch(bookBatch, 30);
 
-	string str="科学出版社";
+	string str = "科学出版社";
 	auto vec = repo.books.find_publish(str);
-	
+
 	string name = "Lihua";
 	string key = "1241";
 	auto student = Student(name, key);
 	student.borrowBook(vec[0], 10);
 	student.returnBook(vec[0], 13);
-	
+	auto x = repo.books.rankBook_newest(10);
+
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
