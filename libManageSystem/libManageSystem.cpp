@@ -1,7 +1,6 @@
 ﻿#include "read_data.h"
 #include "Book.h"
 #include "Repo.h"
-#include "string"
 
 int main()
 {
@@ -9,9 +8,10 @@ int main()
 	auto repo = Repo();
 
 	vector<string*> bookBatch = read_csv();
-	repo.addBookBatch(bookBatch, 30);
+	repo.books.addBatch(bookBatch, 30);
 
-	auto vec = repo.rankBook_newest(10);
+	string str="出版社";
+	auto vec = repo.books.find_publish(str);
 	
 	//测试类 ends
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Book.h"
+#include "BookRepo.h"
 
 
 using namespace std;
@@ -13,14 +14,7 @@ private:
 	vector<Book>* p_book_repo = new vector<Book>;
 
 public:
-	void addBook(Book book);
-	void addBookBatch(vector<string*>, int batch_size);
-
-	// 图书查找功能：返回存放所有结果的***Book指针***的vector，如果没找到返回空列表
-	vector<Book*> findBook_isbn(unsigned long long isbn);
-	vector<Book*> findBook_caption(string caption);
-	vector<Book*> findBook_author(string author);
-	vector<Book*> findBook_publish(string publish);
+	BookRepo books = BookRepo(p_book_repo);// 图书库相关功能
 
 	// 图书排行榜功能：返回排行榜图书
 	vector<Book*> rankBook_newest(int rank_len);

@@ -1,4 +1,4 @@
-#include "Repo.h"
+#include "BookRepo.h"
 #include <algorithm>
 #include <windows.h>
 #include <iostream>
@@ -20,7 +20,6 @@ void bookSort_caption(vector<Book*>& bookRepo)
 	}
 }
 
-
 // string -> wstring
 wstring str2wstr(string str)
 {
@@ -38,9 +37,8 @@ wstring str2wstr(string str)
 	return wstr;
 }
 
-
 // 模糊匹配字符串
-bool sparseMatch(string str1, string str2) 
+bool sparseMatch(string str1, string str2)
 {
 	// 首先要转换为widestring
 	wstring wstr1 = str2wstr(str1);
@@ -53,7 +51,7 @@ bool sparseMatch(string str1, string str2)
 		return false;
 	}
 
-	bool match1 = true, match2=true;
+	bool match1 = true, match2 = true;
 	for (int i = 0; i < len1; i++)
 	{
 		if (wstr2.find(wstr1[i]) == string::npos)
@@ -81,66 +79,13 @@ bool sparseMatch(string str1, string str2)
 	}
 }
 
-// 出版时间转换
-int publishTime(string str_time)
+void BookRepo::addOne(Book book)
 {
-	int time = 0;
-
-	if (str_time.empty()) {
-		return -1;
-	}
-	
-	if (stoi(str_time.substr(0, 4)) > 2022) {
-		return -1;
-	}
-
-	regex pattern_year("(\\d+)");
-	regex pattern_month("\\d+.+?(\\d+)");
-	regex pattern_day("\\d+[-_年]\\d+[-_月](\\d+)");
-
-	smatch result;
-	if (regex_search(str_time, result, pattern_year))
-	{
-		time += stoi(result.str()) * 10000;
-	}
-	if (regex_search(str_time, result, pattern_month))
-	{
-		time += stoi(result[1].str()) * 100;
-	}
-	if (regex_search(str_time, result, pattern_day))
-	{
-		time += stoi(result[1].str());
-	}
-
-	return time;
-	
+    p_book_repo->push_back(book);
 }
 
-//按出版日期降序排列 
-//todo 部分排列提高效率
-void bookSort_publish(vector<Book*>& bookRepo)
+void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 {
-	int size = bookRepo.size();
-	for (int i = 0; i < size - 1; i++)
-	{
-		for (int j = 0; j < size - 1 - i; j++)
-		{
-			if (publishTime(bookRepo[j]->published_time) < publishTime(bookRepo[j + 1]->published_time))
-			{
-				swap(bookRepo[j], bookRepo[j + 1]);
-			}
-		}
-	}
-}
-
-void Repo::addBook(Book book)
-{
-	p_book_repo->push_back(book);
-}
-
-void Repo::addBookBatch(vector<string*> book_batch, int batch_size)
-{
-
 	for (int i = 0; i < batch_size; i++)
 	{
 		string caption = *(book_batch[i] + 2);
@@ -152,12 +97,11 @@ void Repo::addBookBatch(vector<string*> book_batch, int batch_size)
 		int price = stoi(*(book_batch[i] + 6));
 
 		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
-		addBook(thisBook);
+		addOne(thisBook);
 	}
-
 }
 
-vector<Book*> Repo::findBook_isbn(unsigned long long isbn) // 精准搜索isbn
+vector<Book*> BookRepo::find_isbn(unsigned long long isbn) // 精准搜索isbn
 {
 	vector<Book*> find_result_vec;
 
@@ -173,7 +117,7 @@ vector<Book*> Repo::findBook_isbn(unsigned long long isbn) // 精准搜索isbn
 	return vector<Book*>(find_result_vec);
 }
 
-vector<Book*> Repo::findBook_caption(string caption) // 精准搜索caption
+vector<Book*> BookRepo::find_caption(string caption) // 精准搜索caption
 {
 	vector<Book*> find_result_vec;
 
@@ -189,13 +133,13 @@ vector<Book*> Repo::findBook_caption(string caption) // 精准搜索caption
 	return vector<Book*>(find_result_vec);
 }
 
-vector<Book*> Repo::findBook_author(string author) // 模糊搜索author
+vector<Book*> BookRepo::find_author(string author) // 模糊搜索author
 {
 	vector<Book*> find_result_vec;
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (sparseMatch( p_book_repo->at(i).author,author))
+		if (sparseMatch(p_book_repo->at(i).author, author))
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}
@@ -205,7 +149,7 @@ vector<Book*> Repo::findBook_author(string author) // 模糊搜索author
 	return vector<Book*>(find_result_vec);
 }
 
-vector<Book*> Repo::findBook_publish(string publish) // 模糊搜索publish
+vector<Book*> BookRepo::find_publish(string publish) // 模糊搜索publish
 {
 	vector<Book*> find_result_vec;
 
@@ -219,30 +163,4 @@ vector<Book*> Repo::findBook_publish(string publish) // 模糊搜索publish
 
 	bookSort_caption(find_result_vec);
 	return vector<Book*>(find_result_vec);
-}
-
-vector<Book*> Repo::rankBook_newest(int rank_len)
-{
-	vector<Book*> rank_vec; //全部书的排序
-	vector<Book*> result_vec; // 要取的rank
-
-	for (auto& book : *p_book_repo)
-	{
-		rank_vec.push_back(&book);
-	}
-
-	bookSort_publish(rank_vec);
-
-	for (int i = 0; i < rank_len; i++)
-	{
-		result_vec.push_back(rank_vec[i]);
-	}
-
-	
-	return vector<Book*>(result_vec);
-}
-
-void Repo::testTime(string str)
-{
-	cout << publishTime(str);
 }
