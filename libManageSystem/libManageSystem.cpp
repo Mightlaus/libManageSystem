@@ -12,7 +12,10 @@ int main()
 
 	string str="科学出版社";
 	auto vec = repo.books.find_publish(str);
-	repo.books.delBatch(vec);
+	repo.books.modifAuthor(vec[0], "modifAuthor");
+	repo.books.modifCaption(vec[1], "modifCaption");
+	repo.books.modifIsbn(vec[2], 1232144);
+	repo.books.modifPrice(vec[3], 9999);
 	
 	//测试类 ends
 

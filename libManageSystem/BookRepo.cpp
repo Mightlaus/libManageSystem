@@ -117,6 +117,27 @@ void BookRepo::delBatch(vector<Book*> book_vec)
 	}
 }
 
+void BookRepo::modifCaption(Book* p_book, string caption)
+{
+	p_book->resetCaption(caption);
+}
+
+void BookRepo::modifAuthor(Book* p_book, string author)
+{
+	p_book->resetAuthor(author);
+}
+
+void BookRepo::modifIsbn(Book* p_book, unsigned long long isbn)
+{
+	p_book->resetIsbn(isbn);
+}
+
+void BookRepo::modifPrice(Book* p_book, int price)
+{
+	p_book->resetPrice(price);
+}
+
+
 vector<Book*> BookRepo::find_isbn(unsigned long long isbn) // ¾«×¼ËÑË÷isbn
 {
 	vector<Book*> find_result_vec;

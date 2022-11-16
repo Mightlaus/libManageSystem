@@ -24,7 +24,10 @@ public:
 	void delBatch(vector<Book*> book_vec);
 
 	//¸Ä
-	void midifOne(Book* book, char modif_item);
+	void modifCaption(Book* p_book, string caption);
+	void modifAuthor(Book* p_book, string author);
+	void modifIsbn(Book* p_book, unsigned long long isbn);
+	void modifPrice(Book* p_book, int price);
 
 	//²é
 	vector<Book*> find_isbn(unsigned long long isbn);
