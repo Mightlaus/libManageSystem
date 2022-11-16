@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-
+#include "User.h"
 using namespace std;
 
 class Book
@@ -10,10 +10,10 @@ private:
 	struct BorrowHistory
 	{
 		int borrow_time;
-		string user_name;
+		User* user;
 
-		BorrowHistory(int borrow_time = 0, string user_name = "default")
-			:borrow_time(borrow_time), user_name(user_name) {}
+		BorrowHistory(int borrow_time, User* user)
+			:borrow_time(borrow_time), user(user) {}
 	};
 
 
