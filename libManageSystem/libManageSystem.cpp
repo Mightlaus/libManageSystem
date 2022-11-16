@@ -1,6 +1,8 @@
 ﻿#include "read_data.h"
 #include "Book.h"
 #include "Repo.h"
+#include "User.h"
+
 
 int main()
 {
@@ -12,10 +14,12 @@ int main()
 
 	string str="科学出版社";
 	auto vec = repo.books.find_publish(str);
-	repo.books.modifAuthor(vec[0], "modifAuthor");
-	repo.books.modifCaption(vec[1], "modifCaption");
-	repo.books.modifIsbn(vec[2], 1232144);
-	repo.books.modifPrice(vec[3], 9999);
+	
+	string name = "Lihua";
+	string key = "1241";
+	auto student = Student(name, key);
+	student.borrowBook(vec[0], 10);
+	student.returnBook(vec[0], 13);
 	
 	//测试类 ends
 

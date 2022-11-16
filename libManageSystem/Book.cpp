@@ -33,11 +33,14 @@ void Book::resetPrice(int price)
 	this->price = price;
 }
 
-void Book::addBorrowHistory(int borrow_time, User* p_user)
+void Book::addHistory(int time, int action, User* p_user)
 {
-	auto borrowHistory = new BorrowHistory(borrow_time, p_user);
-	borrow_histories.push_back(borrowHistory);
-	borrowed_times++;
+	History this_history = History(time, action, p_user);
+	histories.push_back(this_history);
+	if (action == -1)
+	{
+		borrowed_times++;
+	}
 }
 
 

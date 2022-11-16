@@ -15,6 +15,7 @@ private:
 		int action; // -1借书， 1还书， 0阅览
 		int time;
 		Book* p_book;
+		History(int time, int action, Book* p_book) :action(action), time(time), p_book(p_book){}
 	};
 
 public:
@@ -30,7 +31,7 @@ public:
 
 	// 密码操作
 	bool checkKey(string input_key); 
-	void resetKey(string new_key); 
+	int resetKey(string new_key); 
 
 	// 查找图书
 	vector<Book*> findBook_isbn(unsigned long long isbn);
@@ -39,7 +40,7 @@ public:
 	vector<Book*> findBook_publish(string publish);
 
 	// 图书变动记录
-	void addHistory(int action, int time, Book* p_book); 
+	int addHistory(int time, int action, Book* p_book);
 
 protected:
 	string key;
@@ -47,26 +48,29 @@ protected:
 
 class Student :public User
 {
+public:
 	Student(string user_name, string key) :User(user_name, key, 'S') {}
 
 	// 借还书操作
-	void borrowBook(Book* p_book, int time);
-	void returnBook(Book* p_book, int time);
+	int borrowBook(Book* p_book, int time);
+	int returnBook(Book* p_book, int time);
 };
 
 class Admin :public User
 {
+public:
 	Admin(string user_name, string key) :User(user_name, key, 'A') {}
 
 	// 管理图书操作
-	void addBook(Book* p_book, int time);
-	void delBook(Book* p_book, int time);
-	void modifBook(Book* p_book, char modif_item);
+	int addBook(Book* p_book, int time);
+	int delBook(Book* p_book, int time);
+	int modifBook(Book* p_book, char modif_item);
 
 	// 管理用户操作
 };
 
 class Customer :public User
 {
+public:
 	Customer(string user_name, string key) :User(user_name, key, 'C') {}
 };

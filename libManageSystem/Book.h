@@ -9,13 +9,14 @@ class User;
 class Book
 {
 private:
-	struct BorrowHistory
+	struct History
 	{
-		int borrow_time;
+		int time;
+		int action; // -1借， 0阅览，1还
 		User* user;
 
-		BorrowHistory(int borrow_time, User* user)
-			:borrow_time(borrow_time), user(user) {}
+		History(int time, int action, User* user)
+			:time(time), action(action), user(user) {}
 	};
 
 
@@ -29,14 +30,16 @@ public:
 		price(price),
 		description(description),
 		borrowed_times(0),
-		exist(1) {}
+		exist(1),
+		borrowed(0) {}
 
 	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char* description)
 		:author(author),
 		isbn(isbn),
 		price(price),
 		borrowed_times(0),
-		exist(1)
+		exist(1),
+		borrowed(0)
 	{
 		string cp(caption);
 		this->caption = cp;
@@ -52,6 +55,7 @@ public:
 
 	// 属性
 	int exist; // 是否还存在（没有被删除）
+	int borrowed; // 是否被借走
 	string caption;
 	string author;
 	unsigned long long isbn;
@@ -62,7 +66,7 @@ public:
 	int borrowed_times;
 
 
-	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
+	vector<History> histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
 
 	//方法
 	void resetCaption(string
@@ -76,7 +80,7 @@ public:
 
 	void resetPrice(int price);
 
-	void addBorrowHistory(int borrow_time, User* p_user);
+	void addHistory(int time, int action, User* p_user);
 
 };
 
