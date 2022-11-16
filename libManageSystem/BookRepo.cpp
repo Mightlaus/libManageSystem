@@ -132,7 +132,7 @@ bool sparseMatch(string str1, string str2)
 
 void BookRepo::addOne(Book book)
 {
-    p_book_repo->push_back(book);
+	p_book_repo->push_back(book);
 	bookNums++;
 }
 
@@ -150,7 +150,6 @@ void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 
 		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
 		addOne(thisBook);
-		bookNums++;
 	}
 }
 
@@ -261,7 +260,11 @@ vector<Book*> BookRepo::rankBook_newest(int rank_len)
 
 	for (auto& book : *p_book_repo)
 	{
-		rank_vec.push_back(&book);
+		if (book.exist)
+		{
+			rank_vec.push_back(&book);
+		}
+
 	}
 
 	bookSort_publish(rank_vec);
