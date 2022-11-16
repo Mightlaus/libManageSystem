@@ -6,9 +6,8 @@
 class BookRepo
 {
 public:
-	BookRepo(vector<Book>* p_book_repo)
+	BookRepo()
 	{
-		this->p_book_repo = p_book_repo;
 		bookNums = 0;
 	}
 
@@ -35,8 +34,10 @@ public:
 	vector<Book*> find_author(string author);
 	vector<Book*> find_publish(string publish);
 
+	vector<Book*> rankBook_newest(int rank_len);
+
 protected:
-	vector<Book>* p_book_repo;
+	vector<Book>* p_book_repo = new vector<Book>;
 	
 };
 
