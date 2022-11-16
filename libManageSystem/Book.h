@@ -21,10 +21,22 @@ private:
 
 public:
 	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, int price, string description)
-		:caption(caption), author(author), isbn(isbn), publishing(publishing), published_time(published_time), price(price), description(description), borrowed_times(0) {}
+		:caption(caption),
+		author(author),
+		isbn(isbn),
+		publishing(publishing),
+		published_time(published_time),
+		price(price),
+		description(description),
+		borrowed_times(0),
+		exist(1) {}
 
-	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char *description)
-		:author(author), isbn(isbn), price(price), borrowed_times(0)
+	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, int price, char* description)
+		:author(author),
+		isbn(isbn),
+		price(price),
+		borrowed_times(0),
+		exist(1)
 	{
 		string cp(caption);
 		this->caption = cp;
@@ -39,6 +51,7 @@ public:
 	}
 
 	// 属性
+	int exist; // 是否还存在（没有被删除）
 	string caption;
 	string author;
 	unsigned long long isbn;
@@ -52,7 +65,7 @@ public:
 	vector<BorrowHistory*> borrow_histories; // 里面存放的是结构体指针,长度也相当于是借阅次数
 
 	//方法
-	void resetCaption(string 
+	void resetCaption(string
 		_caption);
 	void resetCaption(char* new_caption);
 

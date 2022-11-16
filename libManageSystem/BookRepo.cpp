@@ -82,6 +82,7 @@ bool sparseMatch(string str1, string str2)
 void BookRepo::addOne(Book book)
 {
     p_book_repo->push_back(book);
+	bookNums++;
 }
 
 void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
@@ -98,6 +99,21 @@ void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 
 		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
 		addOne(thisBook);
+		bookNums++;
+	}
+}
+
+void BookRepo::delOne(Book* p_book)
+{
+	p_book->exist = 0;
+	bookNums--;
+}
+
+void BookRepo::delBatch(vector<Book*> book_vec)
+{
+	for (auto p_book : book_vec)
+	{
+		delOne(p_book);
 	}
 }
 
@@ -107,7 +123,7 @@ vector<Book*> BookRepo::find_isbn(unsigned long long isbn) // ¾«×¼ËÑË÷isbn
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (p_book_repo->at(i).isbn == isbn)
+		if (p_book_repo->at(i).isbn == isbn && p_book_repo->at(i).exist)
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}
@@ -123,7 +139,7 @@ vector<Book*> BookRepo::find_caption(string caption) // ¾«×¼ËÑË÷caption
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (p_book_repo->at(i).caption == caption)
+		if (p_book_repo->at(i).caption == caption && p_book_repo->at(i).exist)
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}
@@ -139,7 +155,7 @@ vector<Book*> BookRepo::find_author(string author) // Ä£ºýËÑË÷author
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (sparseMatch(p_book_repo->at(i).author, author))
+		if (sparseMatch(p_book_repo->at(i).author, author) && p_book_repo->at(i).exist)
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}
@@ -155,7 +171,7 @@ vector<Book*> BookRepo::find_publish(string publish) // Ä£ºýËÑË÷publish
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (sparseMatch(p_book_repo->at(i).publishing, publish))
+		if (sparseMatch(p_book_repo->at(i).publishing, publish) && p_book_repo->at(i).exist)
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}

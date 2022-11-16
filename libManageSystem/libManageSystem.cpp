@@ -10,8 +10,9 @@ int main()
 	vector<string*> bookBatch = read_csv();
 	repo.books.addBatch(bookBatch, 30);
 
-	string str="出版社";
+	string str="科学出版社";
 	auto vec = repo.books.find_publish(str);
+	repo.books.delBatch(vec);
 	
 	//测试类 ends
 
