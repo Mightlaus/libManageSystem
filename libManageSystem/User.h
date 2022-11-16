@@ -23,9 +23,11 @@ public:
 		this->user_name = user_name;
 		this->key = key;
 		this->identity = identity;
+		exist = 1;
 	}
 
 	char identity; // 用户身份 'S' 读者， 'A' 管理员， 'C' 游客
+	int exist;
 	string user_name;
 	vector<History> histories;
 

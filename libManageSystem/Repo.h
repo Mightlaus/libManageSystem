@@ -11,8 +11,8 @@ using namespace std;
 class Repo
 {
 private:
-	//vector<Book>* p_book_repo = new vector<Book>;
-	vector<User>* p_user_repo = new vector<User>;
+
+	
 
 public:
 	BookRepo books = BookRepo();// 图书库相关功能
