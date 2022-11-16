@@ -3,8 +3,10 @@
 #include <vector>
 #include "Book.h"
 
-
 using namespace std;
+
+class Book;
+
 class User
 {
 private:

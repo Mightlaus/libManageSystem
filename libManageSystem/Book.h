@@ -4,6 +4,8 @@
 #include "User.h"
 using namespace std;
 
+class User;
+
 class Book
 {
 private:
@@ -61,7 +63,7 @@ public:
 
 	void resetPrice(int price);
 
-	void addBorrowHistory(int borrow_time = 0, string user_name = "default");
+	void addBorrowHistory(int borrow_time, User* p_user);
 
 };
 
