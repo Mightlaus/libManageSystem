@@ -1,4 +1,4 @@
-﻿#include "read_data.h"
+﻿#include "io.h"
 #include "Book.h"
 #include "Repo.h"
 #include "User.h"
@@ -7,40 +7,17 @@
 int main()
 {
 	//测试类 begins
-	auto repo = Repo();
-	input_output io;
-	vector<string*> bookBatch = io.read_csv();
-	repo.addBookBatch(bookBatch, 47);
-	string a[1] = { "nhjuhbb" };
-	
-	io.write_csv(1,1,a);
-	//string auStr = "Author";
-	//////auto vec = repo.findBook_author(auStr);
-	//vec[0]->resetAuthor("AHAHA");
-
-	vector<string*> bookBatch = read_csv();
-	repo.books.addBatch(bookBatch, 30);
-
-	string str = "出版社";
-	auto vec = repo.books.find_publish(str);
-	repo.books.delBatch(vec);
-
-	string name = "Lihua";
-	string key = "1241";
-	auto student = Student(name, key);
-	student.borrowBook(vec[0], 10);
-	student.returnBook(vec[0], 13);
-	auto x = repo.books.rankBook_newest(10);
 
 	//测试类 ends
 
-	cout << "********************菜单********************" << endl;
-	cout << "1.管理员模式" << endl;
-	cout << "2.用户模式" << endl;
-	cout << "3.退出" << endl;
+
 	while (1)
 	{
-		cout << "请输入您的选择：";
+		cout << "********************菜单********************" << endl << endl;
+		cout << "1.管理员模式" << endl;
+		cout << "2.用户模式" << endl;
+		cout << "3.退出图书馆系统" << endl << endl;
+		cout << endl << "请输入您的选择：";
 		string option;
 		cin >> option;
 		if (option == "1")
@@ -53,9 +30,88 @@ int main()
 			string password;
 			cin >> password;
 
-
+			//判断密码
 			cout << "欢迎您！管理员" << account << endl;
+			while (1)
+			{
+				cout << "**************管理员模式**************" << endl;
+				cout << "1.更改密码" << endl;
+				cout << "2.添加学校用户" << endl;
+				cout << "3.删除学校用户" << endl;
+				cout << "4.恢复学校用户默认密码" << endl;
+				cout << "5.增加图书" << endl;
+				cout << "6.删除图书" << endl;
+				cout << "7.修改图书信息" << endl;
+				cout << "8.搜索图书" << endl;
+				cout << "9.退出管理员模式" << endl;
+				cout << endl << "请输入您的选择：";
+				string option;
+				cin >> option;
+
+
+				if (option == "1")
+				{
+					cout << "请再次输入您的密码：";
+					string verify_password;
+					cin >> verify_password;
+					
+				}
+				else if (option=="2")
+				{
+					cout << "请输入要添加的账号（学号/教师编号）：";
+					string insert_account;
+					cin >> insert_account;
+				}
+				else if(option=="3")
+				{
+					cout << "请输入要删除的账号（学号/教师编号）：";
+					string del_account;
+					cin >> del_account;
+				}
+				else if (option == "4")
+				{
+					cout << "请输入要恢复的账号（学号/教师编号）：";
+					string reset_account;
+					cin >> reset_account;
+				}
+				else if (option == "5")
+				{
+					cout << "请输入要增加的图书信息：";
+					string reset_account;
+					cin >> reset_account;
+				}
+				else if (option == "6")
+				{
+					cout << "请输入要删除的图书信息：";
+					string reset_account;
+					cin >> reset_account;
+				}
+				else if (option == "7")
+				{
+					cout << "请输入要更改的图书信息：";
+					string reset_account;
+					cin >> reset_account;
+				}
+				else if (option == "8")
+				{
+					cout << "请输入要搜索的图书信息：";
+					string reset_account;
+					cin >> reset_account;
+				}
+				else if (option == "9")
+				{
+					break;
+				}
+				else
+				{
+					cout << "输入格式非法，请重试！" << endl;
+				}
+			}
 		}
+
+
+
+
 		else if (option == "2")
 		{
 			cout << "请输入您的用户账号和密码（默认账号为学号/教师编号，默认密码为123456）："
@@ -66,13 +122,68 @@ int main()
 			string password;
 			cin >> password;
 
-
+			//判断密码
 			cout << "欢迎您！用户" << account << endl;
+			while (1)
+			{
+				cout << "**************用户模式**************" << endl;
+				cout << "1.更改密码" << endl;
+				cout << "2.借阅图书" << endl;
+				cout << "3.归还图书" << endl;
+				cout << "4.搜索图书" << endl;
+				cout << "5.查看借阅记录" << endl;
+				cout << "6.退出用户模式" << endl;
+				cout << endl << "请输入您的选择：";
+				string option;
+				cin >> option;
+
+				if (option == "1")
+				{
+					cout << "请输入您的密码：";
+					string verify_password;
+					cin >> verify_password;
+					//verify
+				}
+				else if (option == "2")
+				{
+					cout << "请输入要借阅的图书信息：";
+					string borrow;
+					cin >> borrow;
+				}
+				else if (option == "3")
+				{
+					cout << "请输入要归还的图书信息：";
+					string return_book;
+					cin >> return_book;
+				}
+				else if (option == "4")
+				{
+					cout << "请输入要搜索的图书信息：";
+					string search;
+					cin >> search;
+				}
+				else if (option == "5")
+				{
+
+				}
+				else if (option == "6")
+				{
+					break;
+				}
+				else
+				{
+					cout << "输入格式非法，请重试！" << endl;
+				}
+			}
 		}
+
+
 		else if (option == "3")
 		{
-			return 0;
+			break;
 		}
+
+
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;

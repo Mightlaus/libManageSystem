@@ -1,6 +1,6 @@
-#include "read_data.h"
+#include "io.h"
 
-void input_output::write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
+void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
 {
 	// ½«Êı¾İĞ´ÈëcsvÎÄ¼ş
 	fstream outFile;
@@ -16,7 +16,7 @@ void input_output::write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£
 	outFile.close();
 }
 
-vector<string*> input_output::read_csv()
+vector<string*> read_csv()
 {
 	// ´ÓcsvÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
 	fstream inFile;
@@ -24,7 +24,7 @@ vector<string*> input_output::read_csv()
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)
@@ -36,7 +36,15 @@ vector<string*> input_output::read_csv()
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-
+	/*for (auto s : data)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			cout << s[i] << "##";
+		}
+		cout << "@@@";
+	}*/
+	
 	inFile.close();
 	return data;
 }

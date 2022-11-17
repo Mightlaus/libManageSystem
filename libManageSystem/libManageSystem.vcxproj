@@ -130,7 +130,7 @@
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="BookRepo.cpp" />
     <ClCompile Include="libManageSystem.cpp" />
-    <ClCompile Include="read_data.cpp" />
+    <ClCompile Include="io.cpp" />
     <ClCompile Include="Repo.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserRepo.cpp" />
@@ -138,7 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Book.h" />
     <ClInclude Include="BookRepo.h" />
-    <ClInclude Include="read_data.h" />
+    <ClInclude Include="io.h" />
     <ClInclude Include="Repo.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserRepo.h" />
