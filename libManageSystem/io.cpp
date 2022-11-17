@@ -24,7 +24,7 @@ vector<string*> read_csv()
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 900; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)

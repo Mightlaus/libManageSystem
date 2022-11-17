@@ -9,12 +9,7 @@ int main()
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
-	for (int i=0;i<9;i++)
-	{
-		cout << bookBatch[185][i]<<endl;
-	}
-	//libRepo.books.addBatch(bookBatch, 180);  //181 failed, 140 desctiption goes wrong
-	libRepo.books.addBatch(bookBatch, 30);  //181 failed, 140 desctiption goes wrong
+	libRepo.books.addBatch(bookBatch, 880);  //181 failed, 140 desctiption goes wrong
 	string str("出版社");
 	auto cap_vec = libRepo.books.find_publish(str);
 	auto rank = libRepo.books.rankBook_newest(20);
