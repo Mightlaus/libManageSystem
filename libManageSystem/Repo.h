@@ -17,7 +17,7 @@ private:
 
 public:
 	BookRepo books = BookRepo();// 图书库相关功能
-	UserRepo users = UserRepo(&books);
+	UserRepo users = UserRepo(&books); //user相关功能
 	
 
 	// 图书排行榜功能：返回排行榜图书

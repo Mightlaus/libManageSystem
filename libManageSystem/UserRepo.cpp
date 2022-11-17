@@ -27,3 +27,45 @@ int UserRepo::addUser(char identity, string user_name, string key)
 
 	return 0;
 }
+
+vector<Student*> UserRepo::findStudent(string user_name)
+{
+	vector<Student*> result_vec;
+
+	for (int i = 0; i < p_student_repo->size(); i++)
+	{
+		if (p_student_repo->at(i).user_name == user_name)
+		{
+			result_vec.push_back(&p_student_repo->at(i));
+		}
+	}
+	return vector<Student*>(result_vec);
+}
+
+vector<Admin*> UserRepo::findAdmin(string user_name)
+{
+	vector<Admin*> result_vec;
+
+	for (int i = 0; i < p_admin_repo->size(); i++)
+	{
+		if (p_admin_repo->at(i).user_name == user_name)
+		{
+			result_vec.push_back(&p_admin_repo->at(i));
+		}
+	}
+	return vector<Admin*>(result_vec);
+}
+
+vector<Customer*> UserRepo::findCustomer(string user_name)
+{
+	vector<Customer*> result_vec;
+
+	for (int i = 0; i < p_customer_repo->size(); i++)
+	{
+		if (p_customer_repo->at(i).user_name == user_name)
+		{
+			result_vec.push_back(&p_customer_repo->at(i));
+		}
+	}
+	return vector<Customer*>(result_vec);
+}
