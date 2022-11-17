@@ -18,10 +18,10 @@ int main()
 
 	string name = "Lihua";
 	string key = "1241";
-	auto student = Student(name, key);
-	student.borrowBook(vec[0], 10);
-	student.returnBook(vec[0], 13);
-	auto x = repo.books.rankBook_newest(10);
+	repo.users.addUser('A', name, key);
+	auto admin = repo.users.p_admin_repo->at(0);
+	Book book(name, name, name, name, name, 1, name);
+	admin.addBook(book, 0);
 
 	//测试类 ends
 

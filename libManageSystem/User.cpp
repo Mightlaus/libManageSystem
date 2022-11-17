@@ -31,3 +31,9 @@ int User::addHistory(int time, int action, Book* p_book)
 	histories.push_back(UserHistory(time, action, p_book));
 	return 0;
 }
+
+int Admin::addBook(Book book, int time)
+{
+	p_books->addOne(book);
+	return 1;
+}
