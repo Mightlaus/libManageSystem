@@ -7,27 +7,8 @@
 int main()
 {
 	//测试类 begins
-	auto repo = Repo();
-	input_output io;
-	vector<string*> bookBatch = io.read_csv();
-	string a[1] = { "nhjuhbb" };
-	
-	io.write_csv(1,1,a);
-	//string auStr = "Author";
-	//////auto vec = repo.findBook_author(auStr);
-	//vec[0]->resetAuthor("AHAHA");
-
-	string str = "出版社";
-	auto vec = repo.books.find_publish(str);
-	repo.books.delBatch(vec);
-
-	string name = "Lihua";
-	string key = "1241";
-	repo.users.addUser('A', name, key);
-	auto admin = repo.users.p_admin_repo->at(0);
-	Book book(name, name, name, name, name, 1, name);
-	admin.addBook(book, 0);
-
+	vector<string*> bookBatch = read_csv();
+	cout << bookBatch[2][8] << endl;
 	//测试类 ends
 
 

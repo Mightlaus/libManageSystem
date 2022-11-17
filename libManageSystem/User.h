@@ -18,7 +18,7 @@ public:
 		Book* p_book;
 		UserHistory(int time, int action, Book* p_book) :action(action), time(time), p_book(p_book) {}
 	};
-	User(string user_name, string key, char identity) {
+	User(string user_name, string key, char identity, BookRepo* p_books) {
 		this->user_name = user_name;
 		this->key = key;
 		this->identity = identity;
