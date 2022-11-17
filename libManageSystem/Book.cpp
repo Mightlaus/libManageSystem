@@ -23,7 +23,7 @@ void Book::resetAuthor(char* new_author)
 
 }
 
-void Book::resetIsbn(unsigned long long new_isbn)
+void Book::resetIsbn(string new_isbn)
 {
 	isbn = new_isbn;
 }

@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <string>
 #include "Book.h"
 
 class BookRepo
@@ -25,11 +23,11 @@ public:
 	//改
 	void modifCaption(Book* p_book, string caption); //修改书名
 	void modifAuthor(Book* p_book, string author); //修改作者
-	void modifIsbn(Book* p_book, unsigned long long isbn); //修改ISBN
+	void modifIsbn(Book* p_book, string isbn); //修改ISBN
 	void modifPrice(Book* p_book, double price); //修改价格
 
 	//查
-	vector<Book*> find_isbn(unsigned long long isbn); //根据ISBN精准查找，找到的书的指针放在vector中返回，没有找到返回空vector，下同
+	vector<Book*> find_isbn(string isbn); //根据ISBN精准查找，找到的书的指针放在vector中返回，没有找到返回空vector，下同
 	vector<Book*> find_caption(string caption);
 	vector<Book*> find_author(string author); //按作者名模糊查找
 	vector<Book*> find_publish(string publish);//按出版社名模糊查找

@@ -142,11 +142,11 @@ void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 	{
 		string caption = *(book_batch[i] + 2);
 		string author = *(book_batch[i] + 3);
-		unsigned long long isbn = stoll(*(book_batch[i] + 1));
+		string isbn = *(book_batch[i] + 1);
 		string publishing = *(book_batch[i] + 4);
 		string published_time = *(book_batch[i] + 5);
 		string description = *(book_batch[i] + 8);;
-		double price = stoi(*(book_batch[i] + 6));
+		double price = stod(*(book_batch[i] + 6));
 
 		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
 		addOne(thisBook);
@@ -177,7 +177,7 @@ void BookRepo::modifAuthor(Book* p_book, string author)
 	p_book->resetAuthor(author);
 }
 
-void BookRepo::modifIsbn(Book* p_book, unsigned long long isbn)
+void BookRepo::modifIsbn(Book* p_book, string isbn)
 {
 	p_book->resetIsbn(isbn);
 }
@@ -188,7 +188,7 @@ void BookRepo::modifPrice(Book* p_book, double price)
 }
 
 
-vector<Book*> BookRepo::find_isbn(unsigned long long isbn) // 精准搜索isbn
+vector<Book*> BookRepo::find_isbn(string isbn) // 精准搜索isbn
 {
 	vector<Book*> find_result_vec;
 

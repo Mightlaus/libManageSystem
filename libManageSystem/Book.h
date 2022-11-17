@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "User.h"
 using namespace std;
 
 class User;
@@ -21,7 +20,7 @@ public:
 
 
 public:
-	Book(string caption, string author, unsigned long long isbn, string publishing, string published_time, double price, string description)
+	Book(string caption, string author, string isbn, string publishing, string published_time, double price, string description)
 		:caption(caption),
 		author(author),
 		isbn(isbn),
@@ -33,7 +32,7 @@ public:
 		exist(1),
 		borrowed(0) {}
 
-	Book(char* caption, char* author, unsigned long long isbn, char* publishing, char* published_time, double price, char* description)
+	Book(char* caption, char* author, string isbn, char* publishing, char* published_time, double price, char* description)
 		:author(author),
 		isbn(isbn),
 		price(price),
@@ -58,7 +57,7 @@ public:
 	int borrowed; // ÊÇ·ñ±»½è×ß
 	string caption;
 	string author;
-	unsigned long long isbn;
+	string isbn;
 	string publishing;
 	string published_time;
 	string description;
@@ -75,7 +74,7 @@ public:
 	void resetAuthor(string new_author);
 	void resetAuthor(char* new_author);
 
-	void resetIsbn(unsigned long long new_isbn);
+	void resetIsbn(string new_isbn);
 
 	void resetPrice(double price);
 
