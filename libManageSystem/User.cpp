@@ -42,22 +42,22 @@ int User::resetKey(string new_key)
 
 vector<Book*> User::findBook_isbn(string isbn)
 {
-	return vector<Book*>(p_books->find_isbn(isbn));
+	return vector<Book*>(p_book_repo->find_isbn(isbn));
 }
 
 vector<Book*> User::findBook_caption(string caption)
 {
-	return vector<Book*>(p_books->find_caption(caption));
+	return vector<Book*>(p_book_repo->find_caption(caption));
 }
 
 vector<Book*> User::findBook_author(string author)
 {
-	return vector<Book*>(p_books->find_author(author));
+	return vector<Book*>(p_book_repo->find_author(author));
 }
 
 vector<Book*> User::findBook_publish(string publish)
 {
-	return vector<Book*>(p_books->find_publish(publish));
+	return vector<Book*>(p_book_repo->find_publish(publish));
 }
 
 int User::addHistory(int time, int action, Book* p_book)
@@ -69,13 +69,13 @@ int User::addHistory(int time, int action, Book* p_book)
  
 int Admin::addBook(Book book, int time)
 {
-	p_books->addOne(book);
+	p_book_repo->addOne(book);
 	return 1;
 }
 
 int Admin::delBook(Book* p_book, int time)
 {
-	p_books->delOne(p_book);
+	p_book_repo->delOne(p_book);
 	return 1;
 }
 

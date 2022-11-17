@@ -10,14 +10,13 @@ int main()
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
 	libRepo.books.addBatch(bookBatch, 880);  
-	string str("北京");
-	auto cap_vec = libRepo.books.find_publish(str);
-	auto rank = libRepo.books.rankBook_newest(10);
-	libRepo.users.addUser('A', str, str);
-	Admin admin = libRepo.users.p_admin_repo->at(0);
-	Book book(str, str, str, str, str, 0.1, str);
-	admin.addBook(book, 0);
-	auto found = admin.findBook_publish(str);
+	string str("王");
+	string key = "0001";
+	//auto rank = libRepo.books.rankBook_newest(10);
+	libRepo.users.addUser('S', str, key);
+	auto p_user = libRepo.users.findStudent(str)[0];
+	cout<<p_user->checkKey(str)<<endl;
+	auto caption = p_user->findBook_author(str);
 	
 	
 	//测试类 ends
