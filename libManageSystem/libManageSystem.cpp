@@ -11,7 +11,7 @@ int main()
 	vector<string*> bookBatch = read_csv();
 	for (int i=0;i<9;i++)
 	{
-		cout << bookBatch[180][i]<<endl;
+		cout << bookBatch[185][i]<<endl;
 	}
 	//libRepo.books.addBatch(bookBatch, 180);  //181 failed, 140 desctiption goes wrong
 	//测试类 ends
@@ -170,7 +170,7 @@ int main()
 				}
 				else if (option == "5")
 				{
-
+					//直接cout借阅记录
 				}
 				else if (option == "6")
 				{
