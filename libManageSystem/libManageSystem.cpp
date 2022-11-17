@@ -19,6 +19,7 @@ int main()
 	admin.addBook(book, 0);
 	auto found = admin.findBook_publish(str);
 	
+	
 	//测试类 ends
 
 
