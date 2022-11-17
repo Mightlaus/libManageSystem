@@ -28,13 +28,19 @@ void Book::resetIsbn(unsigned long long new_isbn)
 	isbn = new_isbn;
 }
 
-void Book::resetPrice(int price)
+void Book::resetPrice(double price)
 {
 	this->price = price;
 }
 
-void Book::addBorrowHistory(int borrow_time, string user_name)
+void Book::addHistory(int time, int action, User* p_user)
 {
-	auto borrowHistory = new BorrowHistory(borrow_time, user_name);
-	borrow_histories.push_back(borrowHistory);
+	BookHistory this_history = BookHistory(time, action, p_user);
+	histories.push_back(this_history);
+	if (action == -1)
+	{
+		borrowed_times++;
+	}
 }
+
+

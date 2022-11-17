@@ -1,67 +1,9 @@
 #include "Repo.h"
-void Repo::addBook(Book book)
-{
-	p_book_repo->push_back(book);
-}
 
-void Repo::addBookBatch(vector<string*> book_batch, int batch_size)
-{
-	for (int i = 0; i < batch_size; i++)
-	{
-		string caption = *(book_batch[i] + 2);
-		string author = *(book_batch[i] + 3);
-		unsigned long long isbn = stoll(*(book_batch[i] + 1));
-		string publishing = *(book_batch[i] + 4);
-		string published_time = *(book_batch[i] + 5);
-		string description = *(book_batch[i] + 8);;
-		int price = stoi(*(book_batch[i] + 6));
+#include <algorithm>
+#include <windows.h>
+#include <iostream>
+#include <regex>
 
-		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
-		addBook(thisBook);
-	}
-}
 
-vector<Book*> Repo::findBook_isbn(unsigned long long isbn)
-{
-	vector<Book*> find_result_vec;
 
-	for (int i = 0; i < p_book_repo->size(); i++)
-	{
-		if (p_book_repo->at(i).isbn == isbn)
-		{
-			find_result_vec.push_back(&(p_book_repo->at(i)));
-		}
-	}
-
-	return vector<Book*>(find_result_vec);
-}
-
-vector<Book*> Repo::findBook_caption(string caption)
-{
-	vector<Book*> find_result_vec;
-
-	for (int i = 0; i < p_book_repo->size(); i++)
-	{
-		if (p_book_repo->at(i).caption == caption)
-		{
-			find_result_vec.push_back(&(p_book_repo->at(i)));
-		}
-	}
-
-	return vector<Book*>(find_result_vec);
-}
-
-vector<Book*> Repo::findBook_author(string author)
-{
-	vector<Book*> find_result_vec;
-
-	for (int i = 0; i < p_book_repo->size(); i++)
-	{
-		if (p_book_repo->at(i).author == author)
-		{
-			find_result_vec.push_back(&(p_book_repo->at(i)));
-		}
-	}
-
-	return vector<Book*>(find_result_vec);
-}

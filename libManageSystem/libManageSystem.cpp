@@ -1,6 +1,7 @@
 ﻿#include "read_data.h"
 #include "Book.h"
 #include "Repo.h"
+#include "User.h"
 
 
 int main()
@@ -16,6 +17,21 @@ int main()
 	//string auStr = "Author";
 	//////auto vec = repo.findBook_author(auStr);
 	//vec[0]->resetAuthor("AHAHA");
+
+	vector<string*> bookBatch = read_csv();
+	repo.books.addBatch(bookBatch, 30);
+
+	string str = "出版社";
+	auto vec = repo.books.find_publish(str);
+	repo.books.delBatch(vec);
+
+	string name = "Lihua";
+	string key = "1241";
+	auto student = Student(name, key);
+	student.borrowBook(vec[0], 10);
+	student.returnBook(vec[0], 13);
+	auto x = repo.books.rankBook_newest(10);
+
 	//测试类 ends
 
 	cout << "********************菜单********************" << endl;
@@ -62,6 +78,6 @@ int main()
 			cout << "输入格式非法，请重试！" << endl;
 		}
 	}
-	
+
 	return 0;
 }
