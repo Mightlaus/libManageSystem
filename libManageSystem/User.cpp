@@ -25,13 +25,33 @@ int Student::returnBook(Book* p_book, int time)
 	return 1;
 }
 
+vector<Book*> User::findBook_isbn(string isbn)
+{
+	return vector<Book*>(p_books->find_isbn(isbn));
+}
+
+vector<Book*> User::findBook_caption(string caption)
+{
+	return vector<Book*>(p_books->find_caption(caption));
+}
+
+vector<Book*> User::findBook_author(string author)
+{
+	return vector<Book*>(p_books->find_author(author));
+}
+
+vector<Book*> User::findBook_publish(string publish)
+{
+	return vector<Book*>(p_books->find_publish(publish));
+}
+
 int User::addHistory(int time, int action, Book* p_book)
 {
 	UserHistory this_history(time, action, p_book);
 	histories.push_back(UserHistory(time, action, p_book));
 	return 0;
 }
-
+ 
 int Admin::addBook(Book book, int time)
 {
 	p_books->addOne(book);
