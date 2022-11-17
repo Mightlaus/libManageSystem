@@ -25,6 +25,21 @@ int Student::returnBook(Book* p_book, int time)
 	return 1;
 }
 
+bool User::checkKey(string input_key)
+{
+	if (input_key == this->key)
+	{
+		return true;
+	}
+	return false;
+}
+
+int User::resetKey(string new_key)
+{
+	this->key = new_key;
+	return 1;
+}
+
 vector<Book*> User::findBook_isbn(string isbn)
 {
 	return vector<Book*>(p_books->find_isbn(isbn));
@@ -74,7 +89,7 @@ int Admin::modifBook(Book* p_book, char modif_item, string new_content)
 	else if (modif_item == 'A')
 	{
 		p_book->resetAuthor(new_content);
-		return 1
+		return 1;
 	}
 	else if (modif_item=='I')
 	{

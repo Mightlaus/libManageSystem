@@ -6,7 +6,6 @@
 
 using namespace std;
 
-class Book;
 
 class User
 {
