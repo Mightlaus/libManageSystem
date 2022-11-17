@@ -4,5 +4,9 @@
 #include <fstream>
 #include <vector>
 using namespace std;
-vector<string*> read_csv();
-void write_csv(int n, int m, string* s);
+class input_output
+{
+public:
+	vector<string*> read_csv();
+	void write_csv(int n, int m, string* s);
+};

@@ -1,6 +1,6 @@
 #include "read_data.h"
 
-void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
+void input_output::write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
 {
 	// ½«Êı¾İĞ´ÈëcsvÎÄ¼ş
 	fstream outFile;
@@ -13,12 +13,10 @@ void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁ
 		}
 		outFile << endl;
 	}
-
-
 	outFile.close();
 }
 
-vector<string*> read_csv()
+vector<string*> input_output::read_csv()
 {
 	// ´ÓcsvÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
 	fstream inFile;
@@ -26,7 +24,7 @@ vector<string*> read_csv()
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 500; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)

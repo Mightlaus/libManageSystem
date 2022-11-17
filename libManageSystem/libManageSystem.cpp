@@ -7,9 +7,12 @@ int main()
 {
 	//测试类 begins
 	auto repo = Repo();
-
-	vector<string*> bookBatch = read_csv();
-	repo.addBookBatch(bookBatch, 10);
+	input_output io;
+	vector<string*> bookBatch = io.read_csv();
+	repo.addBookBatch(bookBatch, 47);
+	string a[1] = { "nhjuhbb" };
+	
+	io.write_csv(1,1,a);
 	//string auStr = "Author";
 	//////auto vec = repo.findBook_author(auStr);
 	//vec[0]->resetAuthor("AHAHA");
