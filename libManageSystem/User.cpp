@@ -57,3 +57,41 @@ int Admin::addBook(Book book, int time)
 	p_books->addOne(book);
 	return 1;
 }
+
+int Admin::delBook(Book* p_book, int time)
+{
+	p_books->delOne(p_book);
+	return 1;
+}
+
+int Admin::modifBook(Book* p_book, char modif_item, string new_content)
+{
+	if (modif_item == 'C')
+	{
+		p_book->resetCaption(new_content);
+		return 1;
+	}
+	else if (modif_item == 'A')
+	{
+		p_book->resetAuthor(new_content);
+		return 1
+	}
+	else if (modif_item=='I')
+	{
+		p_book->resetIsbn(new_content);
+		return 1;
+	}
+	else if (modif_item == 'D')
+	{
+		p_book->resetDescription(new_content);
+		return 1;
+	}
+
+	return 0;
+}
+
+int Admin::modifBook(Book* p_book, char modif_tiem, double new_price)
+{
+	p_book->resetPrice(new_price);
+	return 1;
+}

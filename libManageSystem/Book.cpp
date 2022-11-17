@@ -28,6 +28,11 @@ void Book::resetIsbn(string new_isbn)
 	isbn = new_isbn;
 }
 
+void Book::resetDescription(string new_description)
+{
+	this->description = new_description;
+}
+
 void Book::resetPrice(double price)
 {
 	this->price = price;

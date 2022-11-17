@@ -24,14 +24,14 @@ vector<string*> read_csv()
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 900; i++)
+	for (int i = 0; i < 880; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)
 		{
 			getline(inFile, bookInfo[j], ',');
 		}
-		getline(inFile, tmp, '~');
+		getline(inFile, tmp, '&');
 		tmp.erase(tmp.end() - 1);
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);

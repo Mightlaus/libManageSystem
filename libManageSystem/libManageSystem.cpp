@@ -9,10 +9,10 @@ int main()
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
-	libRepo.books.addBatch(bookBatch, 880);  //181 failed, 140 desctiption goes wrong
-	string str("出版社");
+	libRepo.books.addBatch(bookBatch, 880);  
+	string str("北京");
 	auto cap_vec = libRepo.books.find_publish(str);
-	auto rank = libRepo.books.rankBook_newest(20);
+	auto rank = libRepo.books.rankBook_newest(10);
 	libRepo.users.addUser('A', str, str);
 	Admin admin = libRepo.users.p_admin_repo->at(0);
 	Book book(str, str, str, str, str, 0.1, str);

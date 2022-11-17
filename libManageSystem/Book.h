@@ -76,6 +76,8 @@ public:
 
 	void resetIsbn(string new_isbn);
 
+	void resetDescription(string new_description);
+
 	void resetPrice(double price);
 
 	void addHistory(int time, int action, User* p_user);
