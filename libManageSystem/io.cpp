@@ -31,7 +31,7 @@ vector<string*> read_csv()
 		{
 			getline(inFile, bookInfo[j], ',');
 		}
-		getline(inFile, tmp, '*');
+		getline(inFile, tmp, '~');
 		tmp.erase(tmp.end() - 1);
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);

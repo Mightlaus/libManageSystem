@@ -9,7 +9,11 @@ int main()
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
-	libRepo.books.addBatch(bookBatch, 180);  //181 failed, 140 desctiption goes wrong
+	for (int i=0;i<9;i++)
+	{
+		cout << bookBatch[46][i]<<endl;
+	}
+	//libRepo.books.addBatch(bookBatch, 180);  //181 failed, 140 desctiption goes wrong
 	//测试类 ends
 
 
