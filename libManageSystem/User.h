@@ -36,7 +36,7 @@ public:
 	int resetKey(string new_key); 
 
 	// ≤È’“Õº È
-	vector<Book*> findBook_isbn(unsigned long long isbn);
+	vector<Book*> findBook_isbn(string isbn);
 	vector<Book*> findBook_caption(string caption);
 	vector<Book*> findBook_author(string author);
 	vector<Book*> findBook_publish(string publish);
