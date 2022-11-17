@@ -36,14 +36,13 @@ vector<string*> read_csv()
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-	/*for (auto s : data)
+	
+	/*
+	for (int i = 0; i < 9; i++)
 	{
-		for (int i = 0; i < 9; i++)
-		{
-			cout << s[i] << "##";
-		}
-		cout << "@@@";
-	}*/
+		cout << data[37][i] << endl;
+	}
+	*/
 	
 	inFile.close();
 	return data;
