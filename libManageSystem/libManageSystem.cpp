@@ -7,8 +7,9 @@
 int main()
 {
 	//测试类 begins
+	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
-	cout << bookBatch[2][8] << endl;
+	libRepo.books.addBatch(bookBatch, 180);  //181 failed, 140 desctiption goes wrong
 	//测试类 ends
 
 
