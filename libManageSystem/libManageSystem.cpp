@@ -143,20 +143,23 @@ void adminfunc(Repo& libRepo)
 		//添加图书
 		else if (option == "5")
 		{
-			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的isbn，书名，作者，出版社，出版时间，价格，页数，描述，中间用空格隔开" << endl;
+			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的书名，作者，isbn，出版社，出版时间，描述，页数，价格，中间用空格隔开" << endl;
 			int size;
 			cin >> size;
-			vector<string*> book_batch;
 			for (int i=0;i<size;i++)
 			{
-				string book_info[8];
-				for(int j=0;j<8;j++)
+				string book_info[6];
+				for(int j=0;j<6;j++)
 				{
 					cin >> book_info[j];
 				}
-				book_batch.push_back(book_info);
+				int pagenum;
+				cin >> pagenum;
+				double price;
+				cin >> price;
+				Book book(book_info[0], book_info[1], book_info[2], book_info[3], book_info[4], book_info[5], pagenum, price);
+				libRepo.books.addOne(book);
 			}
-			libRepo.books.addBatch(book_batch,size);
 			cout << "添加图书成功！返回管理员模式" << endl;
 		}
 
@@ -166,22 +169,23 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要删除的图书信息：";
 			string del_book;
 			cin >> del_book;
+			
 		}
 
 		//更改图书
 		else if (option == "7")
 		{
 			cout << "请输入要更改的图书信息：";
-			string reset_account;
-			cin >> reset_account;
+			string change_book_info;
+			cin >> change_book_info;
 		}
 
 		//搜索图书
 		else if (option == "8")
 		{
 			cout << "请输入要搜索的图书信息：";
-			string reset_account;
-			cin >> reset_account;
+			string search_book_info;
+			cin >> search_book_info;
 		}
 
 		//退出
