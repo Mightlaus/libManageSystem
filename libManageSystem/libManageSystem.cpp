@@ -239,8 +239,28 @@ void adminfunc(Repo& libRepo)
 		else if (option == "8")
 		{
 			cout << "请输入要搜索的图书信息：";
-			string search_book_info;
-			cin >> search_book_info;
+			string search_bookinfo;
+			cin >> search_bookinfo;
+			if (!curruser->findBook_author(search_bookinfo).empty())
+			{
+				cout << "成功通过作者查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_caption(search_bookinfo).empty())
+			{
+				cout << "成功通过书名查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_isbn(search_bookinfo).empty())
+			{
+				cout << "成功通过ISBN号查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_publish(search_bookinfo).empty())
+			{
+				cout << "成功通过出版社查找到图书！返回管理员模式" << endl;
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回管理员模式" << endl;
+			}
 		}
 
 		//退出
