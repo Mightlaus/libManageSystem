@@ -72,8 +72,8 @@ public:
 	// 管理用户操作
 };
 
-class Customer :public User
+class Visitor :public User
 {
 public:
-	Customer(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'C', p_book_repo) {}
+	Visitor(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'C', p_book_repo) {}
 };

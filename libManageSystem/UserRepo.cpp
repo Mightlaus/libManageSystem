@@ -27,13 +27,13 @@ int UserRepo::addUser(char identity, string user_name, string key)
 	}
 	else if (identity == 'C')
 	{
-		if (!findCustomer(user_name).empty())
+		if (!findVisitor(user_name).empty())
 		{
 			return -1;
 		}
-		Customer customer(user_name, key, p_book_repo);
-		p_customer_repo->push_back(customer);
-		customerNums++;
+		Visitor visitor(user_name, key, p_book_repo);
+		p_visitor_repo->push_back(visitor);
+		visitorNums++;
 		return 1;
 	}
 
@@ -68,16 +68,16 @@ int UserRepo::delStudent(Student* p_student)
 	}
 }
 
-int UserRepo::delCustomer(Customer* p_customer)
+int UserRepo::delVisitor(Visitor* p_visitor)
 {
-	if (p_customer->exist == 0)
+	if (p_visitor->exist == 0)
 	{
 		return 0;
 	}
 	else
 	{
-		p_customer->exist = 0;
-		customerNums--;
+		p_visitor->exist = 0;
+		visitorNums--;
 		return 1;
 	}
 	return 0;
@@ -95,7 +95,7 @@ int UserRepo::modifKey(Admin* p_admin, string new_key)
 	return 1;
 }
 
-int UserRepo::modifKey(Customer* p_cust, string new_key)
+int UserRepo::modifKey(Visitor* p_cust, string new_key)
 {
 	p_cust->resetKey(new_key);
 	return 1;
@@ -130,16 +130,16 @@ vector<Admin*> UserRepo::findAdmin(string user_name)
 	return vector<Admin*>(result_vec);
 }
 
-vector<Customer*> UserRepo::findCustomer(string user_name)
+vector<Visitor*> UserRepo::findVisitor(string user_name)
 {
-	vector<Customer*> result_vec;
+	vector<Visitor*> result_vec;
 
-	for (int i = 0; i < p_customer_repo->size(); i++)
+	for (int i = 0; i < p_visitor_repo->size(); i++)
 	{
-		if (p_customer_repo->at(i).user_name == user_name and p_customer_repo->at(i).exist)
+		if (p_visitor_repo->at(i).user_name == user_name and p_visitor_repo->at(i).exist)
 		{
-			result_vec.push_back(&p_customer_repo->at(i));
+			result_vec.push_back(&p_visitor_repo->at(i));
 		}
 	}
-	return vector<Customer*>(result_vec);
+	return vector<Visitor*>(result_vec);
 }

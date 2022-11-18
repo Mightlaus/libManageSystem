@@ -188,6 +188,34 @@ void userfunc(Repo libRepo)
 		}
 	}
 }
+void visitorfunc(Repo libRepo)
+{
+	cout << "欢迎您，游客！" << endl;
+	while (1)
+	{
+		cout << "**************游客模式**************" << endl;
+		cout << "1.搜索图书" << endl;
+		cout << "2.退出游客模式" << endl;
+		cout << endl << "请输入您的选择：";
+		string option;
+		cin >> option;
+
+		if (option == "1")
+		{
+			cout << "请输入要搜索的图书信息：";
+			string search;
+			cin >> search;
+		}
+		else if (option == "2")
+		{
+			break;
+		}
+		else
+		{
+			cout << "输入格式非法，请重试！" << endl;
+		}
+	}
+}
 int main()
 {
 	//测试类 begins
@@ -206,7 +234,8 @@ int main()
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
-		cout << "3.退出图书馆系统" << endl << endl;
+		cout << "3.游客模式" << endl;
+		cout << "4.退出图书馆系统" << endl << endl;
 		cout << endl << "请输入您的选择：";
 		string option;
 		cin >> option;
@@ -219,6 +248,10 @@ int main()
 			userfunc(libRepo);
 		}
 		else if (option == "3")
+		{
+			visitorfunc(libRepo);
+		}
+		else if (option == "4")
 		{
 			break;
 		}
