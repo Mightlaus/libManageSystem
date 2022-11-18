@@ -145,10 +145,11 @@ void BookRepo::addBatch(vector<string*> book_batch, int batch_size)
 		string isbn = *(book_batch[i] + 1);
 		string publishing = *(book_batch[i] + 4);
 		string published_time = *(book_batch[i] + 5);
-		string description = *(book_batch[i] + 8);;
+		string description = *(book_batch[i] + 8);
+		int pages = stoi(*(book_batch[i] + 7));
 		double price = stod(*(book_batch[i] + 6));
 
-		Book thisBook(caption, author, isbn, publishing, published_time, price, description);
+		Book thisBook(caption, author, isbn, publishing, published_time, description, pages, price);
 		addOne(thisBook);
 	}
 }

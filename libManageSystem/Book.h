@@ -20,37 +20,19 @@ public:
 
 
 public:
-	Book(string caption, string author, string isbn, string publishing, string published_time, double price, string description)
+	Book(string caption, string author, string isbn, string publishing, string published_time, string description, int pages, double price)
 		:caption(caption),
 		author(author),
 		isbn(isbn),
 		publishing(publishing),
 		published_time(published_time),
-		price(price),
 		description(description),
+		pages(pages),
+		price(price),
+
 		borrowed_times(0),
 		exist(1),
 		borrowed(0) {}
-
-	Book(char* caption, char* author, string isbn, char* publishing, char* published_time, double price, char* description)
-		:author(author),
-		isbn(isbn),
-		price(price),
-		borrowed_times(0),
-		exist(1),
-		borrowed(0)
-	{
-		string cp(caption);
-		this->caption = cp;
-		string au(author);
-		this->author = au;
-		string pb(publishing);
-		this->publishing = pb;
-		string pt(published_time);
-		this->published_time = pt;
-		string dc(description);
-		this->description = dc;
-	}
 
 	// 属性
 	int exist; // 是否还存在（没有被删除）
@@ -61,6 +43,7 @@ public:
 	string publishing;
 	string published_time;
 	string description;
+	int pages;
 	double price;
 	int borrowed_times;
 
