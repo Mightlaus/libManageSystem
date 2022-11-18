@@ -2,29 +2,208 @@
 #include "Book.h"
 #include "Repo.h"
 #include "User.h"
+using namespace std;
+
+void adminfunc(Repo libRepo)
+{
+	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）"<<endl;
+	string account;
+	cin >> account;
+	if(account=="*") return;
+	while (libRepo.users.findAdmin(account).empty())
+	{
+		cout << "账号不存在，请重试！" << endl<<"请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）"<<endl;
+		cin >> account;
+		if (account == "*")	return;
+	}
+	
+	Admin* curruser = libRepo.users.findAdmin(account)[0];
+
+	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）"<<endl;
+	string password;
+	cin >> password;
+	if (password == "*") return;
+	while (!curruser->checkKey(password))
+	{
+		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）"<<endl;
+		cin >> password;
+		if (password == "*") return;
+	}
 
 
+	cout << "欢迎您，管理员" << account << '！'<<endl;
+	while (1)
+	{
+		cout << "**************管理员模式**************" << endl;
+		cout << "1.更改密码" << endl;
+		cout << "2.添加学校用户" << endl;
+		cout << "3.删除学校用户" << endl;
+		cout << "4.恢复学校用户默认密码" << endl;
+		cout << "5.增加图书" << endl;
+		cout << "6.删除图书" << endl;
+		cout << "7.修改图书信息" << endl;
+		cout << "8.搜索图书" << endl;
+		cout << "9.退出管理员模式" << endl;
+		cout << endl << "请输入您的选择：";
+		string option;
+		cin >> option;
+
+
+		if (option == "1")
+		{
+			cout << "请再次输入您的密码：";
+			string verify_password;
+			cin >> verify_password;
+
+		}
+		else if (option == "2")
+		{
+			cout << "请输入要添加的账号（学号/教师编号）：";
+			string insert_account;
+			cin >> insert_account;
+		}
+		else if (option == "3")
+		{
+			cout << "请输入要删除的账号（学号/教师编号）：";
+			string del_account;
+			cin >> del_account;
+		}
+		else if (option == "4")
+		{
+			cout << "请输入要恢复的账号（学号/教师编号）：";
+			string reset_account;
+			cin >> reset_account;
+		}
+		else if (option == "5")
+		{
+			cout << "请输入要增加的图书信息：";
+			string reset_account;
+			cin >> reset_account;
+		}
+		else if (option == "6")
+		{
+			cout << "请输入要删除的图书信息：";
+			string reset_account;
+			cin >> reset_account;
+		}
+		else if (option == "7")
+		{
+			cout << "请输入要更改的图书信息：";
+			string reset_account;
+			cin >> reset_account;
+		}
+		else if (option == "8")
+		{
+			cout << "请输入要搜索的图书信息：";
+			string reset_account;
+			cin >> reset_account;
+		}
+		else if (option == "9")
+		{
+			break;
+		}
+		else
+		{
+			cout << "输入格式非法，请重试！" << endl;
+		}
+	}
+}
+void userfunc(Repo libRepo)
+{
+	cout << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+	string account;
+	cin >> account;
+	if (account == "*") return;
+	while (libRepo.users.findStudent(account).empty())
+	{
+		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+		cin >> account;
+		if (account == "*")	return;
+	}
+
+	Student* curruser = libRepo.users.findStudent(account)[0];
+
+	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
+	string password;
+	cin >> password;
+	if (password == "*") return;
+	while (!curruser->checkKey(password))
+	{
+		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
+		cin >> password;
+		if (password == "*") return;
+	}
+
+	//判断密码
+	cout << "欢迎您，用户" << account << '！'<<endl;
+	while (1)
+	{
+		cout << "**************用户模式**************" << endl;
+		cout << "1.更改密码" << endl;
+		cout << "2.借阅图书" << endl;
+		cout << "3.归还图书" << endl;
+		cout << "4.搜索图书" << endl;
+		cout << "5.查看借阅记录" << endl;
+		cout << "6.退出用户模式" << endl;
+		cout << endl << "请输入您的选择：";
+		string option;
+		cin >> option;
+
+		if (option == "1")
+		{
+			cout << "请输入您的密码：";
+			string verify_password;
+			cin >> verify_password;
+			//verify
+		}
+		else if (option == "2")
+		{
+			cout << "请输入要借阅的图书信息：";
+			string borrow;
+			cin >> borrow;
+		}
+		else if (option == "3")
+		{
+			cout << "请输入要归还的图书信息：";
+			string return_book;
+			cin >> return_book;
+		}
+		else if (option == "4")
+		{
+			cout << "请输入要搜索的图书信息：";
+			string search;
+			cin >> search;
+		}
+		else if (option == "5")
+		{
+			//直接cout借阅记录
+		}
+		else if (option == "6")
+		{
+			break;
+		}
+		else
+		{
+			cout << "输入格式非法，请重试！" << endl;
+		}
+	}
+}
 int main()
 {
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
 	libRepo.books.addBatch(bookBatch, 880);  
-	string str("王");
-	string key = "0001";
-	//auto rank = libRepo.books.rankBook_newest(10);
+	string str("居文涛");
+	string key = "123456";
 	libRepo.users.addUser('S', str, key);
-	auto p_user = libRepo.users.findStudent(str)[0];
-	cout<<p_user->checkKey(str)<<endl;
-	auto caption = p_user->findBook_author(str);
 	
 	
 	//测试类 ends
-
-
+	
 	while (1)
 	{
-		cout << "********************菜单********************" << endl << endl;
+		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
 		cout << "3.退出图书馆系统" << endl << endl;
@@ -33,168 +212,16 @@ int main()
 		cin >> option;
 		if (option == "1")
 		{
-			cout << "请输入您的管理员账号和密码（默认账号为学号/教师编号，默认密码为123456）："
-				<< endl << "账号：";
-			string account;
-			cin >> account;
-			cout << "密码：";
-			string password;
-			cin >> password;
-
-			//判断密码
-			cout << "欢迎您！管理员" << account << endl;
-			while (1)
-			{
-				cout << "**************管理员模式**************" << endl;
-				cout << "1.更改密码" << endl;
-				cout << "2.添加学校用户" << endl;
-				cout << "3.删除学校用户" << endl;
-				cout << "4.恢复学校用户默认密码" << endl;
-				cout << "5.增加图书" << endl;
-				cout << "6.删除图书" << endl;
-				cout << "7.修改图书信息" << endl;
-				cout << "8.搜索图书" << endl;
-				cout << "9.退出管理员模式" << endl;
-				cout << endl << "请输入您的选择：";
-				string option;
-				cin >> option;
-
-
-				if (option == "1")
-				{
-					cout << "请再次输入您的密码：";
-					string verify_password;
-					cin >> verify_password;
-					
-				}
-				else if (option=="2")
-				{
-					cout << "请输入要添加的账号（学号/教师编号）：";
-					string insert_account;
-					cin >> insert_account;
-				}
-				else if(option=="3")
-				{
-					cout << "请输入要删除的账号（学号/教师编号）：";
-					string del_account;
-					cin >> del_account;
-				}
-				else if (option == "4")
-				{
-					cout << "请输入要恢复的账号（学号/教师编号）：";
-					string reset_account;
-					cin >> reset_account;
-				}
-				else if (option == "5")
-				{
-					cout << "请输入要增加的图书信息：";
-					string reset_account;
-					cin >> reset_account;
-				}
-				else if (option == "6")
-				{
-					cout << "请输入要删除的图书信息：";
-					string reset_account;
-					cin >> reset_account;
-				}
-				else if (option == "7")
-				{
-					cout << "请输入要更改的图书信息：";
-					string reset_account;
-					cin >> reset_account;
-				}
-				else if (option == "8")
-				{
-					cout << "请输入要搜索的图书信息：";
-					string reset_account;
-					cin >> reset_account;
-				}
-				else if (option == "9")
-				{
-					break;
-				}
-				else
-				{
-					cout << "输入格式非法，请重试！" << endl;
-				}
-			}
+			adminfunc(libRepo);
 		}
-
-
-
-
 		else if (option == "2")
 		{
-			cout << "请输入您的用户账号和密码（默认账号为学号/教师编号，默认密码为123456）："
-				<< endl << "账号：";
-			string account;
-			cin >> account;
-			cout << "密码：";
-			string password;
-			cin >> password;
-
-			//判断密码
-			cout << "欢迎您！用户" << account << endl;
-			while (1)
-			{
-				cout << "**************用户模式**************" << endl;
-				cout << "1.更改密码" << endl;
-				cout << "2.借阅图书" << endl;
-				cout << "3.归还图书" << endl;
-				cout << "4.搜索图书" << endl;
-				cout << "5.查看借阅记录" << endl;
-				cout << "6.退出用户模式" << endl;
-				cout << endl << "请输入您的选择：";
-				string option;
-				cin >> option;
-
-				if (option == "1")
-				{
-					cout << "请输入您的密码：";
-					string verify_password;
-					cin >> verify_password;
-					//verify
-				}
-				else if (option == "2")
-				{
-					cout << "请输入要借阅的图书信息：";
-					string borrow;
-					cin >> borrow;
-				}
-				else if (option == "3")
-				{
-					cout << "请输入要归还的图书信息：";
-					string return_book;
-					cin >> return_book;
-				}
-				else if (option == "4")
-				{
-					cout << "请输入要搜索的图书信息：";
-					string search;
-					cin >> search;
-				}
-				else if (option == "5")
-				{
-					//直接cout借阅记录
-				}
-				else if (option == "6")
-				{
-					break;
-				}
-				else
-				{
-					cout << "输入格式非法，请重试！" << endl;
-				}
-			}
+			userfunc(libRepo);
 		}
-
-
 		else if (option == "3")
 		{
 			break;
 		}
-
-
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
