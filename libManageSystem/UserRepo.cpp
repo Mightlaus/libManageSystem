@@ -1,5 +1,21 @@
 #include "UserRepo.h"
 
+// 按student借阅次数降序排列
+void studentSort_borrowest(vector<Student*>& studentRepo, int len)
+{
+	int size = studentRepo.size();
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = size - 1; j > i; j--)
+		{
+			if (studentRepo[j]->histories.size() > studentRepo[j - 1]->histories.size())
+			{
+				swap(studentRepo[j], studentRepo[j - 1]);
+			}
+		}
+	}
+}
+
 int UserRepo::addUser(char identity, string user_name, string key)
 {
 
@@ -143,3 +159,28 @@ vector<Visitor*> UserRepo::findVisitor(string user_name)
 	}
 	return vector<Visitor*>(result_vec);
 }
+
+vector<Student*> UserRepo::rankUser_borrowest(int rank_len)
+{
+	vector<Student*> rank_vec; //全部student的排序
+	vector<Student*> result_vec; // 要取的rank
+
+	for (auto& student : *p_student_repo)
+	{
+		if (student.exist)
+		{
+			rank_vec.push_back(&student);
+		}
+
+	}
+
+	studentSort_borrowest(rank_vec, rank_len);
+
+	for (int i = 0; i < rank_len; i++)
+	{
+		result_vec.push_back(rank_vec[i]);
+	}
+
+	return vector<Student*>(result_vec);
+}
+

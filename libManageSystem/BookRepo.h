@@ -7,6 +7,7 @@ public:
 	BookRepo()
 	{
 		bookNums = 0;
+		p_book_repo = new vector<Book>;
 	}
 
 	
@@ -33,10 +34,10 @@ public:
 	vector<Book*> find_publish(string publish);//按出版社名模糊查找
 
 	vector<Book*> rankBook_newest(int rank_len); //在书库中找到最新出版的rank_len本书并返回
-
+	vector<Book*> rankBook_borrowest(int rank_len); //在书库中找到被借阅次数最多的rank_len本书并返回
 
 protected:
-	vector<Book>* p_book_repo = new vector<Book>; //书库
+	vector<Book>* p_book_repo; //书库
 	
 };
 

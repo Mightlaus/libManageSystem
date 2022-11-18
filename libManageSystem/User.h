@@ -66,10 +66,8 @@ public:
 	// 管理图书操作
 	int addBook(Book book, int time);
 	int delBook(Book* p_book, int time);
-	int modifBook(Book* p_book, char modif_item, string new_content); // 除price外的其他属性
-	int modifBook(Book* p_book, double new_price); // price属性
-
-	// 管理用户操作
+	int modifBook(Book* p_book, char modif_item, string new_content); // 除price、pages外的其他属性
+	int modifBook(Book* p_book, char modif_tiem, double new_price); // price属性
 };
 
 class Visitor :public User
