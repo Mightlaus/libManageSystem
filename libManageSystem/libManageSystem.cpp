@@ -166,18 +166,73 @@ void adminfunc(Repo& libRepo)
 		//删除图书
 		else if (option == "6")
 		{
-			cout << "请输入要删除的图书信息：";
-			string del_book;
-			cin >> del_book;
-			
+			cout << "请输入要删除的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			string del_bookinfo;
+			cin >> del_bookinfo;
+			if (!curruser->findBook_author(del_bookinfo).empty())
+			{
+				curruser->delBook(curruser->findBook_author(del_bookinfo)[0], 0);
+				cout << "删除图书成功！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_caption(del_bookinfo).empty())
+			{
+				curruser->delBook(curruser->findBook_caption(del_bookinfo)[0], 0);
+				cout << "删除图书成功！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_isbn(del_bookinfo).empty())
+			{
+				curruser->delBook(curruser->findBook_isbn(del_bookinfo)[0], 0);
+				cout << "删除图书成功！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_publish(del_bookinfo).empty())
+			{
+				curruser->delBook(curruser->findBook_publish(del_bookinfo)[0], 0);
+				cout << "删除图书成功！返回管理员模式" << endl;
+			}
+			else
+			{
+				cout << "不存在该本图书！返回管理员模式" << endl;
+			}
 		}
 
 		//更改图书
 		else if (option == "7")
 		{
-			cout << "请输入要更改的图书信息：";
-			string change_book_info;
-			cin >> change_book_info;
+			cout << "请输入要更改的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			string change_bookinfo;
+			cin >> change_bookinfo;
+			if (!curruser->findBook_author(change_bookinfo).empty())
+			{
+				cout << "成功通过作者查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				string change_str;
+				cin >> change_str;
+				curruser->modifBook(curruser->findBook_author(change_bookinfo)[0], change_str[0], change_str.substr(1));
+			}
+			else if (!curruser->findBook_caption(change_bookinfo).empty())
+			{
+				cout << "成功通过书名查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				string change_str;
+				cin >> change_str;
+				curruser->modifBook(curruser->findBook_caption(change_bookinfo)[0], change_str[0], change_str.substr(1));
+			}
+			else if (!curruser->findBook_isbn(change_bookinfo).empty())
+			{
+				cout << "成功通过ISBN号查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				string change_str;
+				cin >> change_str;
+				curruser->modifBook(curruser->findBook_isbn(change_bookinfo)[0], change_str[0], change_str.substr(1));
+			}
+			else if (!curruser->findBook_publish(change_bookinfo).empty())
+			{
+				cout << "成功通过出版社查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				string change_str;
+				cin >> change_str;
+				curruser->modifBook(curruser->findBook_publish(change_bookinfo)[0], change_str[0], change_str.substr(1));
+			}
+			else
+			{
+				cout << "不存在该本图书！返回管理员模式" << endl;
+			}
 		}
 
 		//搜索图书
