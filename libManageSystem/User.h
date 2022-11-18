@@ -25,7 +25,7 @@ public:
 		exist = 1;
 	}
 
-	char identity; // 用户身份 'S' 读者， 'A' 管理员， 'C' 游客
+	char identity; // 用户身份 'S' 读者， 'A' 管理员， 'V' 游客
 	int exist;
 	string user_name;
 	vector<UserHistory> histories;
@@ -75,5 +75,5 @@ public:
 class Visitor :public User
 {
 public:
-	Visitor(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'C', p_book_repo) {}
+	Visitor(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'V', p_book_repo) {}
 };

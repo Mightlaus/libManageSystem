@@ -18,8 +18,8 @@ public:
 	int studentNums;
 	int visitorNums;
 
-	//增user identity:'S'->student, 'A'->admin, 'C'->visitor; 如果用户已存在，返回-1，identity类型错误返回0，成功返回1
-	int addUser(char identity, string user_name, string key);
+	//增user identity:'S'->student, 'A'->admin, 'V'->visitor; 如果用户已存在，返回-1，identity类型错误返回0，成功返回1
+	int addUser(char identity, string user_name, string key="123456");
 
 	//删user 如果用户不存在(exist=0)返回0， 成功返回1；
 	int delAdmin(Admin* p_admin);

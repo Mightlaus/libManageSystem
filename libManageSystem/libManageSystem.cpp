@@ -4,41 +4,41 @@
 #include "User.h"
 using namespace std;
 
-void adminfunc(Repo libRepo)
+void adminfunc(Repo& libRepo)
 {
-	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）"<<endl;
+	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 	string account;
 	cin >> account;
-	if(account=="*") return;
+	if (account == "*") return;
 	while (libRepo.users.findAdmin(account).empty())
 	{
-		cout << "账号不存在，请重试！" << endl<<"请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）"<<endl;
+		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin >> account;
 		if (account == "*")	return;
 	}
-	
+
 	Admin* curruser = libRepo.users.findAdmin(account)[0];
 
-	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）"<<endl;
+	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 	string password;
 	cin >> password;
 	if (password == "*") return;
 	while (!curruser->checkKey(password))
 	{
-		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）"<<endl;
+		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 		cin >> password;
 		if (password == "*") return;
 	}
 
 
-	cout << "欢迎您，管理员" << account << '！'<<endl;
+	cout << "欢迎您，管理员" << account << "！" << endl;
 	while (1)
 	{
 		cout << "**************管理员模式**************" << endl;
 		cout << "1.更改密码" << endl;
-		cout << "2.添加学校用户" << endl;
-		cout << "3.删除学校用户" << endl;
-		cout << "4.恢复学校用户默认密码" << endl;
+		cout << "2.添加用户" << endl;
+		cout << "3.删除用户" << endl;
+		cout << "4.恢复用户默认密码" << endl;
 		cout << "5.增加图书" << endl;
 		cout << "6.删除图书" << endl;
 		cout << "7.修改图书信息" << endl;
@@ -51,64 +51,141 @@ void adminfunc(Repo libRepo)
 
 		if (option == "1")
 		{
-			cout << "请再次输入您的密码：";
-			string verify_password;
-			cin >> verify_password;
-
+			while(1)
+			{
+				cout << "请再次输入您的密码(输入*以回到管理员模式)：";
+				string verify_password;
+				cin >> verify_password;
+				if (curruser->checkKey(verify_password))
+				{
+					cout << "请输入新的密码：";
+					string new_key;
+					cin >> new_key;
+					curruser->resetKey(new_key);
+					cout << "更改密码成功！返回管理员模式" << endl;
+					break;
+				}
+				else if (verify_password == "*")
+				{
+					break;
+				}
+				else
+				{
+					cout << "密码错误！请再试一次（输入*以回到管理员模式）" << endl;
+				}
+			}
 		}
+
+
 		else if (option == "2")
 		{
-			cout << "请输入要添加的账号（学号/教师编号）：";
+			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”";
 			string insert_account;
 			cin >> insert_account;
+			if (libRepo.users.addUser(insert_account[0], insert_account.substr(1))==0)
+			{
+				cout << "输入格式错误！返回管理员模式" << endl;
+			}
+			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == -1)
+			{
+				cout << "用户" << insert_account << "已存在！返回管理员模式" << endl;
+				continue;
+			}
+			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1))==1)
+			{
+				cout << "添加账号" << insert_account << "成功！返回管理员模式" << endl;
+			}
 		}
+
+
 		else if (option == "3")
 		{
 			cout << "请输入要删除的账号（学号/教师编号）：";
 			string del_account;
 			cin >> del_account;
+			if (libRepo.users.delAdmin(libRepo.users.findAdmin(del_account)[0]) || libRepo.users.delStudent(libRepo.users.findStudent(del_account)[0]) || libRepo.users.delVisitor(libRepo.users.findVisitor(del_account)[0]))
+			{
+				cout << "删除账号"<<del_account<<"成功！返回管理员模式" << endl;
+			}
+			else
+			{
+				cout << "此用户不存在！返回管理员模式" << endl;
+			}
 		}
+
+
 		else if (option == "4")
 		{
 			cout << "请输入要恢复的账号（学号/教师编号）：";
 			string reset_account;
 			cin >> reset_account;
+			if (!libRepo.users.findAdmin(reset_account).empty())
+			{
+				libRepo.users.modifKey(libRepo.users.findAdmin(reset_account)[0], "123456");
+				cout << "恢复管理员账号" << reset_account << "成功！返回管理员模式" << endl;
+			}
+			else if (!libRepo.users.findStudent(reset_account).empty())
+			{
+				libRepo.users.modifKey(libRepo.users.findStudent(reset_account)[0], "123456");
+				cout << "恢复学生账号" << reset_account << "成功！返回管理员模式" << endl;
+			}
+			else if (!libRepo.users.findVisitor(reset_account).empty())
+			{
+				libRepo.users.modifKey(libRepo.users.findVisitor(reset_account)[0], "123456");
+				cout << "恢复游客账号" << reset_account << "成功！返回管理员模式" << endl;
+			}
+			else
+			{
+				cout << "账号不存在！返回管理员模式" << endl;
+			}
 		}
+
+
 		else if (option == "5")
 		{
 			cout << "请输入要增加的图书信息：";
 			string reset_account;
 			cin >> reset_account;
 		}
+
+
 		else if (option == "6")
 		{
 			cout << "请输入要删除的图书信息：";
 			string reset_account;
 			cin >> reset_account;
 		}
+
+
 		else if (option == "7")
 		{
 			cout << "请输入要更改的图书信息：";
 			string reset_account;
 			cin >> reset_account;
 		}
+
+
 		else if (option == "8")
 		{
 			cout << "请输入要搜索的图书信息：";
 			string reset_account;
 			cin >> reset_account;
 		}
+
+
 		else if (option == "9")
 		{
 			break;
 		}
+
+
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
 		}
 	}
 }
-void userfunc(Repo libRepo)
+void userfunc(Repo& libRepo)
 {
 	cout << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 	string account;
@@ -119,6 +196,7 @@ void userfunc(Repo libRepo)
 		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin >> account;
 		if (account == "*")	return;
+		libRepo.users.
 	}
 
 	Student* curruser = libRepo.users.findStudent(account)[0];
@@ -134,8 +212,8 @@ void userfunc(Repo libRepo)
 		if (password == "*") return;
 	}
 
-	//判断密码
-	cout << "欢迎您，用户" << account << '！'<<endl;
+
+	cout << "欢迎您，用户" << account << "！" << endl;
 	while (1)
 	{
 		cout << "**************用户模式**************" << endl;
@@ -151,10 +229,29 @@ void userfunc(Repo libRepo)
 
 		if (option == "1")
 		{
-			cout << "请输入您的密码：";
-			string verify_password;
-			cin >> verify_password;
-			//verify
+			while (1)
+			{
+				cout << "请再次输入您的密码(输入*以回到用户模式)：";
+				string verify_password;
+				cin >> verify_password;
+				if (curruser->checkKey(verify_password))
+				{
+					cout << "请输入新的密码：";
+					string new_key;
+					cin >> new_key;
+					curruser->resetKey(new_key);
+					cout << "更改密码成功！返回用户模式" << endl;
+					break;
+				}
+				else if (verify_password == "*")
+				{
+					break;
+				}
+				else
+				{
+					cout << "密码错误！请再试一次（输入*以回到用户模式）" << endl;
+				}
+			}
 		}
 		else if (option == "2")
 		{
@@ -188,7 +285,7 @@ void userfunc(Repo libRepo)
 		}
 	}
 }
-void visitorfunc(Repo libRepo)
+void visitorfunc(Repo& libRepo)
 {
 	cout << "欢迎您，游客！" << endl;
 	while (1)
@@ -221,14 +318,14 @@ int main()
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
-	libRepo.books.addBatch(bookBatch, 880);  
+	libRepo.books.addBatch(bookBatch, 880);
 	string str("居文涛");
 	string key = "123456";
 	libRepo.users.addUser('S', str, key);
-	
-	
+
+
 	//测试类 ends
-	
+
 	while (1)
 	{
 		cout << "********************主菜单********************" << endl << endl;

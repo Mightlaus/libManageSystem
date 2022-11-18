@@ -25,7 +25,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 		studentNums++;
 		return 1;
 	}
-	else if (identity == 'C')
+	else if (identity == 'V')
 	{
 		if (!findVisitor(user_name).empty())
 		{
