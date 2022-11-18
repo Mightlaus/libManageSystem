@@ -48,10 +48,10 @@ void adminfunc(Repo& libRepo)
 		string option;
 		cin >> option;
 
-
+		//更改密码
 		if (option == "1")
 		{
-			while(1)
+			while (1)
 			{
 				cout << "请再次输入您的密码(输入*以回到管理员模式)：";
 				string verify_password;
@@ -76,13 +76,13 @@ void adminfunc(Repo& libRepo)
 			}
 		}
 
-
+		//添加用户
 		else if (option == "2")
 		{
 			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”";
 			string insert_account;
 			cin >> insert_account;
-			if (libRepo.users.addUser(insert_account[0], insert_account.substr(1))==0)
+			if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == 0)
 			{
 				cout << "输入格式错误！返回管理员模式" << endl;
 			}
@@ -91,13 +91,13 @@ void adminfunc(Repo& libRepo)
 				cout << "用户" << insert_account << "已存在！返回管理员模式" << endl;
 				continue;
 			}
-			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1))==1)
+			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == 1)
 			{
 				cout << "添加账号" << insert_account << "成功！返回管理员模式" << endl;
 			}
 		}
 
-
+		//删除用户
 		else if (option == "3")
 		{
 			cout << "请输入要删除的账号（学号/教师编号）：";
@@ -105,7 +105,7 @@ void adminfunc(Repo& libRepo)
 			cin >> del_account;
 			if (libRepo.users.delAdmin(libRepo.users.findAdmin(del_account)[0]) || libRepo.users.delStudent(libRepo.users.findStudent(del_account)[0]) || libRepo.users.delVisitor(libRepo.users.findVisitor(del_account)[0]))
 			{
-				cout << "删除账号"<<del_account<<"成功！返回管理员模式" << endl;
+				cout << "删除账号" << del_account << "成功！返回管理员模式" << endl;
 			}
 			else
 			{
@@ -113,7 +113,7 @@ void adminfunc(Repo& libRepo)
 			}
 		}
 
-
+		//恢复账号
 		else if (option == "4")
 		{
 			cout << "请输入要恢复的账号（学号/教师编号）：";
@@ -140,23 +140,36 @@ void adminfunc(Repo& libRepo)
 			}
 		}
 
-
+		//添加图书
 		else if (option == "5")
 		{
-			cout << "请输入要增加的图书信息：";
-			string reset_account;
-			cin >> reset_account;
+			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的isbn，书名，作者，出版社，出版时间，价格，页数，描述，中间用空格隔开" << endl;
+			int size;
+			cin >> size;
+			vector<string*> book_batch;
+			for (int i=0;i<size;i++)
+			{
+				string book_info[8];
+				for(int j=0;j<8;j++)
+				{
+					cin >> book_info[j];
+				}
+				book_batch.push_back(book_info);
+			}
+			libRepo.books.addBatch(book_batch,size);
+			cout << "添加图书成功！返回管理员模式" << endl;
 		}
 
-
+		//删除图书
 		else if (option == "6")
 		{
 			cout << "请输入要删除的图书信息：";
-			string reset_account;
-			cin >> reset_account;
+			string del_book;
+			cin >> del_book;
+			libRepo.books.
 		}
 
-
+		//更改图书
 		else if (option == "7")
 		{
 			cout << "请输入要更改的图书信息：";
@@ -164,7 +177,7 @@ void adminfunc(Repo& libRepo)
 			cin >> reset_account;
 		}
 
-
+		//搜索图书
 		else if (option == "8")
 		{
 			cout << "请输入要搜索的图书信息：";
@@ -172,7 +185,7 @@ void adminfunc(Repo& libRepo)
 			cin >> reset_account;
 		}
 
-
+		//退出
 		else if (option == "9")
 		{
 			break;
@@ -196,7 +209,6 @@ void userfunc(Repo& libRepo)
 		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin >> account;
 		if (account == "*")	return;
-		libRepo.users.
 	}
 
 	Student* curruser = libRepo.users.findStudent(account)[0];
@@ -227,6 +239,7 @@ void userfunc(Repo& libRepo)
 		string option;
 		cin >> option;
 
+		//更改密码
 		if (option == "1")
 		{
 			while (1)
@@ -253,32 +266,44 @@ void userfunc(Repo& libRepo)
 				}
 			}
 		}
+
+		//借阅图书
 		else if (option == "2")
 		{
 			cout << "请输入要借阅的图书信息：";
 			string borrow;
 			cin >> borrow;
 		}
+
+		//归还图书
 		else if (option == "3")
 		{
 			cout << "请输入要归还的图书信息：";
 			string return_book;
 			cin >> return_book;
 		}
+
+		//搜索图书
 		else if (option == "4")
 		{
 			cout << "请输入要搜索的图书信息：";
 			string search;
 			cin >> search;
 		}
+
+		//查询借阅记录
 		else if (option == "5")
 		{
 			//直接cout借阅记录
 		}
+
+		//退出
 		else if (option == "6")
 		{
 			break;
 		}
+
+
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
@@ -297,16 +322,21 @@ void visitorfunc(Repo& libRepo)
 		string option;
 		cin >> option;
 
+		//搜索图书
 		if (option == "1")
 		{
 			cout << "请输入要搜索的图书信息：";
 			string search;
 			cin >> search;
 		}
+
+		//退出
 		else if (option == "2")
 		{
 			break;
 		}
+
+
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
