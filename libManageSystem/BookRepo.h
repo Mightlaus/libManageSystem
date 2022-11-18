@@ -7,6 +7,7 @@ public:
 	BookRepo()
 	{
 		bookNums = 0;
+		p_book_repo = new vector<Book>;
 	}
 
 	
@@ -36,7 +37,7 @@ public:
 
 
 protected:
-	vector<Book>* p_book_repo = new vector<Book>; //Êé¿â
+	vector<Book>* p_book_repo; //Êé¿â
 	
 };
 

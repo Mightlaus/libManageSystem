@@ -166,7 +166,6 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要删除的图书信息：";
 			string del_book;
 			cin >> del_book;
-			libRepo.books.
 		}
 
 		//更改图书

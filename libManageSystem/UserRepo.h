@@ -11,6 +11,9 @@ public:
 		int adminNums=0;
 		int studentNums=0;
 		int visitorNums=0;
+		p_admin_repo = new vector<Admin>;
+		p_student_repo = new vector<Student>;
+		p_visitor_repo = new vector<Visitor>;
 	}
 
 	int userNums;
@@ -38,8 +41,8 @@ public:
 	
 protected:
 	BookRepo* p_book_repo;
-	vector<Admin>* p_admin_repo = new vector<Admin>;
-	vector<Student>* p_student_repo = new vector<Student>;
-	vector<Visitor>* p_visitor_repo = new vector<Visitor>;
+	vector<Admin>* p_admin_repo;
+	vector<Student>* p_student_repo;
+	vector<Visitor>* p_visitor_repo;
 };
 
