@@ -38,6 +38,8 @@ public:
 	vector<Student*> findStudent(string user_name);
 	vector<Admin*> findAdmin(string user_name);
 	vector<Visitor*> findVisitor(string user_name);
+
+	vector<Student*> rankUser_borrowest(int rank_len); //在Student库中找到借阅图书次数最多的学生并返回
 	
 protected:
 	BookRepo* p_book_repo;
