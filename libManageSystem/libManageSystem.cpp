@@ -365,8 +365,28 @@ void userfunc(Repo& libRepo)
 		else if (option == "4")
 		{
 			cout << "请输入要搜索的图书信息：";
-			string search;
-			cin >> search;
+			string search_bookinfo;
+			cin >> search_bookinfo;
+			if (!curruser->findBook_author(search_bookinfo).empty())
+			{
+				cout << "成功通过作者查找到图书！返回用户模式" << endl;
+			}
+			else if (!curruser->findBook_caption(search_bookinfo).empty())
+			{
+				cout << "成功通过书名查找到图书！返回用户模式" << endl;
+			}
+			else if (!curruser->findBook_isbn(search_bookinfo).empty())
+			{
+				cout << "成功通过ISBN号查找到图书！返回用户模式" << endl;
+			}
+			else if (!curruser->findBook_publish(search_bookinfo).empty())
+			{
+				cout << "成功通过出版社查找到图书！返回用户模式" << endl;
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+			}
 		}
 
 		//查询借阅记录
@@ -403,9 +423,29 @@ void visitorfunc(Repo& libRepo)
 		//搜索图书
 		if (option == "1")
 		{
-			cout << "请输入要搜索的图书信息：";
-			string search;
-			cin >> search;
+			/*cout << "请输入要搜索的图书信息：";
+			string search_bookinfo;
+			cin >> search_bookinfo;
+			if (!curruser->findBook_author(search_bookinfo).empty())
+			{
+				cout << "成功通过作者查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_caption(search_bookinfo).empty())
+			{
+				cout << "成功通过书名查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_isbn(search_bookinfo).empty())
+			{
+				cout << "成功通过ISBN号查找到图书！返回管理员模式" << endl;
+			}
+			else if (!curruser->findBook_publish(search_bookinfo).empty())
+			{
+				cout << "成功通过出版社查找到图书！返回管理员模式" << endl;
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回管理员模式" << endl;
+			}*/
 		}
 
 		//退出
