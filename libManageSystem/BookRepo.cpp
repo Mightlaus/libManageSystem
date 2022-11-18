@@ -40,7 +40,7 @@ int publishTime(string str_time)
 }
 
 //按出版日期降序排列 
-void bookSort_publish(vector<Book*>& bookRepo, int len = 5)
+void bookSort_publish(vector<Book*>& bookRepo, int len)
 {
 	int size = bookRepo.size();
 	for (int i = 0; i < len; i++)
@@ -54,6 +54,23 @@ void bookSort_publish(vector<Book*>& bookRepo, int len = 5)
 		}
 	}
 }
+
+// 按被借阅次数降序排列
+void bookSort_borrowest(vector<Book*>& bookRepo, int len)
+{
+	int size = bookRepo.size();
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = size - 1; j > i; j--)
+		{
+			if (bookRepo[j]->histories.size() > bookRepo[j - 1]->histories.size())
+			{
+				swap(bookRepo[j], bookRepo[j - 1]);
+			}
+		}
+	}
+}
+
 
 // 按书名升序排列
 void bookSort_caption(vector<Book*>& bookRepo)
@@ -268,7 +285,32 @@ vector<Book*> BookRepo::rankBook_newest(int rank_len)
 
 	}
 
-	bookSort_publish(rank_vec);
+	bookSort_publish(rank_vec, rank_len);
+
+	for (int i = 0; i < rank_len; i++)
+	{
+		result_vec.push_back(rank_vec[i]);
+	}
+
+
+	return vector<Book*>(result_vec);
+}
+
+vector<Book*> BookRepo::rankBook_borrowest(int rank_len)
+{
+	vector<Book*> rank_vec; //全部书的排序
+	vector<Book*> result_vec; // 要取的rank
+
+	for (auto& book : *p_book_repo)
+	{
+		if (book.exist)
+		{
+			rank_vec.push_back(&book);
+		}
+
+	}
+
+	bookSort_borrowest(rank_vec, rank_len);
 
 	for (int i = 0; i < rank_len; i++)
 	{
