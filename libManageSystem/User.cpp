@@ -20,7 +20,7 @@ int Student::returnBook(Book* p_book, int time)
 	if (!p_book->exist) return 0;
 
 	p_book->addHistory(time, 1, this);
-	this->addHistory(time, -1, p_book);
+	this->addHistory(time, 1, p_book);
 	p_book->borrowed = 0;
 	return 1;
 }

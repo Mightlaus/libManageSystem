@@ -369,7 +369,7 @@ void userfunc(Repo& libRepo)
 			else
 			{
 				int return_result = curruser->returnBook(result[0], 0);
-				if (curruser->returnBook(result[0], 0) == 0)
+				if (return_result == 0)
 					cout << "这本书已被管理员删除！返回用户模式" << endl;
 				else
 					cout << "归还成功！返回用户模式" << endl;
@@ -396,7 +396,17 @@ void userfunc(Repo& libRepo)
 		//查询借阅记录
 		else if (option == "5")
 		{
-			
+			for (User::UserHistory i : curruser->histories)
+			{
+				cout << i.time << " ";
+				if (i.action == -1)
+					cout << "借阅 ";
+				if (i.action == 1)
+					cout << "归还 ";
+				if (i.action == 0)
+					cout << "阅览 ";
+				cout << i.p_book->caption << endl;
+			}
 		}
 
 		//退出
