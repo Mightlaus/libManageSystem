@@ -4,6 +4,34 @@
 #include "User.h"
 using namespace std;
 
+vector<Book*> search_book(User* curruser, string book_info)
+{
+	vector<Book*> search_result;
+	for (Book* i : curruser->findBook_author(book_info))
+	{
+		search_result.push_back(i);
+	}
+	for (Book* i : curruser->findBook_caption(book_info))
+	{
+		search_result.push_back(i);
+	}
+	for (Book* i : curruser->findBook_isbn(book_info))
+	{
+		search_result.push_back(i);
+	}
+	for (Book* i : curruser->findBook_publish(book_info))
+	{
+		search_result.push_back(i);
+	}
+	return search_result;
+}
+vector<Book*> search_book(User* curruser, char type, string book_info)
+{
+	if (type == 'A') return curruser->findBook_author(book_info);
+	if (type == 'C') return curruser->findBook_caption(book_info);
+	if (type == 'I') return curruser->findBook_isbn(book_info);
+	if (type == 'P') return curruser->findBook_publish(book_info);
+}
 void adminfunc(Repo& libRepo)
 {
 	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
@@ -109,7 +137,7 @@ void adminfunc(Repo& libRepo)
 			}
 			else
 			{
-				cout << "此用户不存在！返回管理员模式" << endl;
+				cout << "账号不存在！返回管理员模式" << endl;
 			}
 		}
 
@@ -146,10 +174,10 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的书名，作者，isbn，出版社，出版时间，描述，页数，价格，中间用空格隔开" << endl;
 			int size;
 			cin >> size;
-			for (int i=0;i<size;i++)
+			for (int i = 0; i < size; i++)
 			{
 				string book_info[6];
-				for(int j=0;j<6;j++)
+				for (int j = 0; j < 6; j++)
 				{
 					cin >> book_info[j];
 				}
@@ -169,29 +197,14 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要删除的图书信息：（可以为书名，作者，ISBN号，出版社）";
 			string del_bookinfo;
 			cin >> del_bookinfo;
-			if (!curruser->findBook_author(del_bookinfo).empty())
+			vector<Book*> result = search_book(curruser, del_bookinfo);
+			if (!result.empty())
 			{
-				curruser->delBook(curruser->findBook_author(del_bookinfo)[0], 0);
-				cout << "删除图书成功！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_caption(del_bookinfo).empty())
-			{
-				curruser->delBook(curruser->findBook_caption(del_bookinfo)[0], 0);
-				cout << "删除图书成功！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_isbn(del_bookinfo).empty())
-			{
-				curruser->delBook(curruser->findBook_isbn(del_bookinfo)[0], 0);
-				cout << "删除图书成功！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_publish(del_bookinfo).empty())
-			{
-				curruser->delBook(curruser->findBook_publish(del_bookinfo)[0], 0);
-				cout << "删除图书成功！返回管理员模式" << endl;
+				curruser->delBook(result[0], 0);
 			}
 			else
 			{
-				cout << "不存在该本图书！返回管理员模式" << endl;
+				cout << "图书馆还没有这本书哦！返回管理员模式" << endl;
 			}
 		}
 
@@ -201,37 +214,22 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要更改的图书信息：（可以为书名，作者，ISBN号，出版社）";
 			string change_bookinfo;
 			cin >> change_bookinfo;
-			if (!curruser->findBook_author(change_bookinfo).empty())
+			vector<Book*> result = search_book(curruser, change_bookinfo);
+			if (!result.empty())
 			{
-				cout << "成功通过作者查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				cout << "成功查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
 				string change_str;
 				cin >> change_str;
-				curruser->modifBook(curruser->findBook_author(change_bookinfo)[0], change_str[0], change_str.substr(1));
-			}
-			else if (!curruser->findBook_caption(change_bookinfo).empty())
-			{
-				cout << "成功通过书名查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
-				string change_str;
-				cin >> change_str;
-				curruser->modifBook(curruser->findBook_caption(change_bookinfo)[0], change_str[0], change_str.substr(1));
-			}
-			else if (!curruser->findBook_isbn(change_bookinfo).empty())
-			{
-				cout << "成功通过ISBN号查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
-				string change_str;
-				cin >> change_str;
-				curruser->modifBook(curruser->findBook_isbn(change_bookinfo)[0], change_str[0], change_str.substr(1));
-			}
-			else if (!curruser->findBook_publish(change_bookinfo).empty())
-			{
-				cout << "成功通过出版社查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
-				string change_str;
-				cin >> change_str;
-				curruser->modifBook(curruser->findBook_publish(change_bookinfo)[0], change_str[0], change_str.substr(1));
+				while (curruser->modifBook(result[0], change_str[0], change_str.substr(1)) == 0)
+				{
+					cout << "格式错误！请重试" << endl;
+					cin >> change_str;
+				}
+				cout << "修改图书信息成功！返回管理员模式" << endl;
 			}
 			else
 			{
-				cout << "不存在该本图书！返回管理员模式" << endl;
+				cout << "图书馆还没有这本书哦！返回管理员模式" << endl;
 			}
 		}
 
@@ -241,21 +239,10 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要搜索的图书信息：";
 			string search_bookinfo;
 			cin >> search_bookinfo;
-			if (!curruser->findBook_author(search_bookinfo).empty())
+			vector<Book*> result = search_book(curruser, search_bookinfo);
+			if (!result.empty())
 			{
-				cout << "成功通过作者查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_caption(search_bookinfo).empty())
-			{
-				cout << "成功通过书名查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_isbn(search_bookinfo).empty())
-			{
-				cout << "成功通过ISBN号查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_publish(search_bookinfo).empty())
-			{
-				cout << "成功通过出版社查找到图书！返回管理员模式" << endl;
+				cout << "成功查找到图书！返回管理员模式" << endl;
 			}
 			else
 			{
@@ -348,23 +335,51 @@ void userfunc(Repo& libRepo)
 		//借阅图书
 		else if (option == "2")
 		{
-			cout << "请输入要借阅的图书信息：";
-			string borrow;
-			cin >> borrow;
+			cout << "请输入要借阅的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			string borrow_bookinfo;
+			cin >> borrow_bookinfo;
+			vector<Book*> result = search_book(curruser, borrow_bookinfo);
+			if (result.empty())
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+			}
+			else
+			{
+				int borrow_result = curruser->borrowBook(result[0], 0);
+				if (borrow_result == 0)
+					cout << "这本书已被管理员删除！返回用户模式" << endl;
+				else if (borrow_result == -1)
+					cout << "这本书已经被借走啦！返回用户模式" << endl;
+				else
+					cout<<"借阅成功！返回用户模式" << endl;
+			}
 		}
 
 		//归还图书
 		else if (option == "3")
 		{
-			cout << "请输入要归还的图书信息：";
-			string return_book;
-			cin >> return_book;
+			cout << "请输入要归还的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			string return_bookinfo;
+			cin >> return_bookinfo;
+			vector<Book*> result = search_book(curruser, return_bookinfo);
+			if (result.empty())
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+			}
+			else
+			{
+				int return_result = curruser->returnBook(result[0], 0);
+				if (curruser->returnBook(result[0], 0) == 0)
+					cout << "这本书已被管理员删除！返回用户模式" << endl;
+				else
+					cout << "归还成功！返回用户模式" << endl;
+			}
 		}
 
 		//搜索图书
 		else if (option == "4")
 		{
-			cout << "请输入要搜索的图书信息：";
+			cout << "请输入要搜索的图书信息：（可以为书名，作者，ISBN号，出版社）";
 			string search_bookinfo;
 			cin >> search_bookinfo;
 			if (!curruser->findBook_author(search_bookinfo).empty())
@@ -392,7 +407,7 @@ void userfunc(Repo& libRepo)
 		//查询借阅记录
 		else if (option == "5")
 		{
-			//直接cout借阅记录
+			
 		}
 
 		//退出
@@ -420,32 +435,12 @@ void visitorfunc(Repo& libRepo)
 		string option;
 		cin >> option;
 
+		
+
 		//搜索图书
 		if (option == "1")
 		{
-			/*cout << "请输入要搜索的图书信息：";
-			string search_bookinfo;
-			cin >> search_bookinfo;
-			if (!curruser->findBook_author(search_bookinfo).empty())
-			{
-				cout << "成功通过作者查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_caption(search_bookinfo).empty())
-			{
-				cout << "成功通过书名查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_isbn(search_bookinfo).empty())
-			{
-				cout << "成功通过ISBN号查找到图书！返回管理员模式" << endl;
-			}
-			else if (!curruser->findBook_publish(search_bookinfo).empty())
-			{
-				cout << "成功通过出版社查找到图书！返回管理员模式" << endl;
-			}
-			else
-			{
-				cout << "图书馆还没有这本书哦！返回管理员模式" << endl;
-			}*/
+
 		}
 
 		//退出
@@ -461,12 +456,14 @@ void visitorfunc(Repo& libRepo)
 		}
 	}
 }
+
 int main()
 {
 	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv();
 	libRepo.books.addBatch(bookBatch, 880);
+
 	string str("居文涛");
 	string key = "123456";
 	libRepo.users.addUser('S', str, key);
