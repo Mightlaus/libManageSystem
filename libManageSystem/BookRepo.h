@@ -36,6 +36,9 @@ public:
 	vector<Book*> rankBook_newest(int rank_len); //在书库中找到最新出版的rank_len本书并返回
 	vector<Book*> rankBook_borrowest(int rank_len); //在书库中找到被借阅次数最多的rank_len本书并返回
 
+	//推荐,返回借阅传入图书的全部用户借阅的其他所有书
+	vector<Book*> recommend(Book* p_book);
+
 protected:
 	vector<Book>* p_book_repo; //书库
 	

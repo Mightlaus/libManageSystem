@@ -448,7 +448,6 @@ void visitorfunc(Repo& libRepo)
 			break;
 		}
 
-
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
@@ -466,6 +465,10 @@ int main()
 	string str("居文涛");
 	string key = "123456";
 	libRepo.users.addUser('S', str, key);
+
+	string str2("丁若谷");
+	string key2 = "123456";
+	libRepo.users.addUser('S', str2, key2);
 
 
 	//测试类 ends

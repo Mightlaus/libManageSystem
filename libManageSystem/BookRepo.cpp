@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <iostream>
 #include <regex>
+#include "User.h"
 
 // 出版时间转换
 int publishTime(string str_time)
@@ -319,4 +320,38 @@ vector<Book*> BookRepo::rankBook_borrowest(int rank_len)
 
 
 	return vector<Book*>(result_vec);
+}
+
+vector<Book*> BookRepo::recommend(Book* p_book)
+{
+	vector<Book*> recm_list;
+	vector<User*> parallels;
+
+	//找到借这本书的所有user放到parallels里
+	for (auto history : p_book->histories)
+	{
+		if (history.action == 1)
+		{
+			for (auto p_user : parallels)
+			{
+				if (p_user->user_name == history.user->user_name) continue;
+
+				parallels.push_back(history.user);
+				// 找到这个user所借的所有书放到recm_list中
+				for (auto u_history : history.user->histories)
+				{
+					if (u_history.action == 1)
+					{
+						for (auto book : recm_list)
+						{
+							if (u_history.p_book->caption == book->caption) continue;
+							recm_list.push_back(u_history.p_book);
+						}
+						
+					}
+				}
+			}
+		}
+	}
+	return vector<Book*>(recm_list);
 }
