@@ -4,7 +4,15 @@
 #include "User.h"
 using namespace std;
 
-vector<Book*> search_book(User* curruser, string book_info)
+void showBooks(vector<Book*> book)
+{
+	cout << "搜索到" << book.size() << "个结果，以下是搜索到的结果:" << endl;
+	for (int i = 0; i < book.size(); i++)
+	{
+		cout << i + 1 << ". " << book[i]->caption << " " << book[i]->author << " " << book[i]->publishing << " " << endl;
+	}
+}
+vector<Book*> globalSearch(User* curruser, string book_info)
 {
 	vector<Book*> search_result;
 	for (Book* i : curruser->findBook_author(book_info))
@@ -25,7 +33,7 @@ vector<Book*> search_book(User* curruser, string book_info)
 	}
 	return search_result;
 }
-vector<Book*> search_book(User* curruser, char type, string book_info)
+vector<Book*> specificSearch(User* curruser, char type, string book_info)
 {
 	if (type == 'A') return curruser->findBook_author(book_info);
 	if (type == 'C') return curruser->findBook_caption(book_info);
@@ -194,13 +202,55 @@ void adminfunc(Repo& libRepo)
 		//删除图书
 		else if (option == "6")
 		{
-			cout << "请输入要删除的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回管理员模式" << endl;
+				continue;
+			}
+			cout << "请输入要删除的图书信息：";
 			string del_bookinfo;
 			cin >> del_bookinfo;
-			vector<Book*> result = search_book(curruser, del_bookinfo);
+			vector<Book*> result;
+			if (search_type == 1)
+			{
+				result = specificSearch(curruser, 'C', del_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', del_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', del_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', del_bookinfo);
+			}
+			else
+			{
+				result = globalSearch(curruser, del_bookinfo);
+			}
+
 			if (!result.empty())
 			{
-				curruser->delBook(result[0], 0);
+				showBooks(result);
+				cout << "请输入要删除的图书序号：";
+				int choice;
+				cin >> choice;
+				if (choice > 0 && choice <= result.size())
+				{
+					curruser->delBook(result[choice - 1], 0);
+					cout << "删除图书《" << result[choice - 1]->caption << "》成功！" << endl;
+				}
+				else
+				{
+					cout << "输入格式非法！返回管理员模式" << endl;
+					continue;
+				}
 			}
 			else
 			{
@@ -211,21 +261,59 @@ void adminfunc(Repo& libRepo)
 		//更改图书
 		else if (option == "7")
 		{
-			cout << "请输入要更改的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回管理员模式" << endl;
+				continue;
+			}
+			cout << "请输入要更改的图书信息：";
 			string change_bookinfo;
 			cin >> change_bookinfo;
-			vector<Book*> result = search_book(curruser, change_bookinfo);
+			vector<Book*> result;
+			if (search_type == 1)
+			{
+				result = specificSearch(curruser, 'C', change_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', change_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', change_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', change_bookinfo);
+			}
+			else
+			{
+				result = globalSearch(curruser, change_bookinfo);
+			}
+
 			if (!result.empty())
 			{
-				cout << "成功查找到这本书！请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				showBooks(result);
+				cout << "请输入要修改的图书序号：";
+				int choice;
+				cin >> choice;
+				if (choice <1 || choice > result.size())
+				{
+					cout << "输入格式非法！返回管理员模式" << endl;
+					continue;
+				}
+				cout << "请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
 				string change_str;
 				cin >> change_str;
-				while (curruser->modifBook(result[0], change_str[0], change_str.substr(1)) == 0)
+				while (curruser->modifBook(result[choice - 1], change_str[0], change_str.substr(1)) == 0)
 				{
-					cout << "格式错误！请重试" << endl;
+					cout << "输入格式错误！请重试" << endl;
 					cin >> change_str;
 				}
-				cout << "修改图书信息成功！返回管理员模式" << endl;
+				cout << "修改图书《" << result[choice - 1]->caption << "》信息成功！返回管理员模式" << endl;
 			}
 			else
 			{
@@ -236,13 +324,43 @@ void adminfunc(Repo& libRepo)
 		//搜索图书
 		else if (option == "8")
 		{
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回管理员模式" << endl;
+				continue;
+			}
 			cout << "请输入要搜索的图书信息：";
 			string search_bookinfo;
 			cin >> search_bookinfo;
-			vector<Book*> result = search_book(curruser, search_bookinfo);
+			vector<Book*> result;
+			if (search_type == 1)
+			{
+				result = specificSearch(curruser, 'C', search_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', search_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', search_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', search_bookinfo);
+			}
+			else
+			{
+				result = globalSearch(curruser, search_bookinfo);
+			}
+
 			if (!result.empty())
 			{
-				cout << "成功查找到图书！返回管理员模式" << endl;
+				showBooks(result);
+				cout << "返回管理员模式" << endl;
 			}
 			else
 			{
@@ -335,61 +453,174 @@ void userfunc(Repo& libRepo)
 		//借阅图书
 		else if (option == "2")
 		{
-			cout << "请输入要借阅的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回用户模式" << endl;
+				continue;
+			}
+			cout << "请输入要借阅的图书信息：";
 			string borrow_bookinfo;
 			cin >> borrow_bookinfo;
-			vector<Book*> result = search_book(curruser, borrow_bookinfo);
-			if (result.empty())
+			vector<Book*> result;
+			if (search_type == 1)
 			{
-				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+				result = specificSearch(curruser, 'C', borrow_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', borrow_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', borrow_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', borrow_bookinfo);
 			}
 			else
 			{
-				int borrow_result = curruser->borrowBook(result[0], 0);
-				if (borrow_result == 0)
-					cout << "这本书已被管理员删除！返回用户模式" << endl;
-				else if (borrow_result == -1)
-					cout << "这本书已经被借走啦！返回用户模式" << endl;
+				result = globalSearch(curruser, borrow_bookinfo);
+			}
+
+			if (!result.empty())
+			{
+				showBooks(result);
+				cout << "请输入要借阅的图书序号：";
+				int choice;
+				cin >> choice;
+				if (choice > 0 && choice <= result.size())
+				{
+					int borrow_result = curruser->borrowBook(result[choice - 1], 0);
+					if (borrow_result == 0)
+						cout << "《" << result[choice - 1]->caption << "》已被管理员删除！返回用户模式" << endl;
+					else if (borrow_result == -1)
+						cout << "《" << result[choice - 1]->caption << "》已经被借走啦！返回用户模式" << endl;
+					else
+						cout << "借阅《" << result[choice - 1]->caption << "》成功！返回用户模式" << endl;
+				}
 				else
-					cout<<"借阅成功！返回用户模式" << endl;
+				{
+					cout << "输入格式非法！返回用户模式" << endl;
+					continue;
+				}
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
 			}
 		}
 
 		//归还图书
 		else if (option == "3")
 		{
-			cout << "请输入要归还的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回用户模式" << endl;
+				continue;
+			}
+			cout << "请输入要归还的图书信息：";
 			string return_bookinfo;
 			cin >> return_bookinfo;
-			vector<Book*> result = search_book(curruser, return_bookinfo);
-			if (result.empty())
+			vector<Book*> result;
+			if (search_type == 1)
 			{
-				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+				result = specificSearch(curruser, 'C', return_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', return_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', return_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', return_bookinfo);
 			}
 			else
 			{
-				int return_result = curruser->returnBook(result[0], 0);
-				if (return_result == 0)
-					cout << "这本书已被管理员删除！返回用户模式" << endl;
+				result = globalSearch(curruser, return_bookinfo);
+			}
+
+			if (!result.empty())
+			{
+				showBooks(result);
+				cout << "请输入要借阅的图书序号：";
+				int choice;
+				cin >> choice;
+				if (choice > 0 && choice <= result.size())
+				{
+					int return_result = curruser->returnBook(result[choice - 1], 0);
+					if (return_result == 0)
+						cout << "《" << result[choice - 1]->caption << "》已被管理员删除！返回用户模式" << endl;
+					else
+						cout << "归还《" << result[choice - 1]->caption << "》成功！返回用户模式" << endl;
+				}
 				else
-					cout << "归还成功！返回用户模式" << endl;
+				{
+					cout << "输入格式非法！返回用户模式" << endl;
+					continue;
+				}
+
+
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
 			}
 		}
 
 		//搜索图书
 		else if (option == "4")
 		{
-			cout << "请输入要搜索的图书信息：（可以为书名，作者，ISBN号，出版社）";
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回用户模式" << endl;
+				continue;
+			}
+			cout << "请输入要搜索的图书信息：";
 			string search_bookinfo;
 			cin >> search_bookinfo;
-			vector<Book*> result = search_book(curruser, search_bookinfo);
-			if (result.empty())
+			vector<Book*> result;
+			if (search_type == 1)
 			{
-				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
+				result = specificSearch(curruser, 'C', search_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', search_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', search_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', search_bookinfo);
 			}
 			else
 			{
-				cout << "成功查找到图书！返回用户模式" << endl;
+				result = globalSearch(curruser, search_bookinfo);
+			}
+
+			if (!result.empty())
+			{
+				showBooks(result);
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
 			}
 		}
 
@@ -400,12 +631,12 @@ void userfunc(Repo& libRepo)
 			{
 				cout << i.time << " ";
 				if (i.action == -1)
-					cout << "借阅 ";
+					cout << "借阅了 《";
 				if (i.action == 1)
-					cout << "归还 ";
+					cout << "归还了 《";
 				if (i.action == 0)
-					cout << "阅览 ";
-				cout << i.p_book->caption << endl;
+					cout << "阅览了 《";
+				cout << i.p_book->caption << "》" << endl;
 			}
 		}
 
@@ -434,12 +665,52 @@ void visitorfunc(Repo& libRepo)
 		string option;
 		cin >> option;
 
-		
-
+		libRepo.users.addUser('V', "visitor583");
+		Visitor* curruser = libRepo.users.findVisitor("visitor583")[0];
 		//搜索图书
 		if (option == "1")
 		{
+			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
+			int search_type;
+			cin >> search_type;
+			if (search_type != 1 && search_type != 2 && search_type != 3 && search_type != 4 && search_type != 5)
+			{
+				cout << "输入格式非法！返回游客模式" << endl;
+				continue;
+			}
+			cout << "请输入要搜索的图书信息：";
+			string search_bookinfo;
+			cin >> search_bookinfo;
+			vector<Book*> result;
+			if (search_type == 1)
+			{
+				result = specificSearch(curruser, 'C', search_bookinfo);
+			}
+			else if (search_type == 2)
+			{
+				result = specificSearch(curruser, 'A', search_bookinfo);
+			}
+			else if (search_type == 3)
+			{
+				result = specificSearch(curruser, 'I', search_bookinfo);
+			}
+			else if (search_type == 4)
+			{
+				result = specificSearch(curruser, 'P', search_bookinfo);
+			}
+			else
+			{
+				result = globalSearch(curruser, search_bookinfo);
+			}
 
+			if (!result.empty())
+			{
+				showBooks(result);
+			}
+			else
+			{
+				cout << "图书馆还没有这本书哦！返回游客模式" << endl;
+			}
 		}
 
 		//退出
@@ -447,7 +718,6 @@ void visitorfunc(Repo& libRepo)
 		{
 			break;
 		}
-
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
