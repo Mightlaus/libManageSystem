@@ -738,7 +738,7 @@ int main()
 
 	string str2("丁若谷");
 	string key2 = "123456";
-	libRepo.users.addUser('S', str2, key2);
+	libRepo.users.addUser('A', str2, key2);
 
 
 	//测试类 ends
