@@ -11,7 +11,7 @@ void showBooks(vector<Book*> book)
 	for (auto i:book)
 	{
 		cout << index << ". " << i->caption << " " << i->author << " " << i->publishing << " " << endl;
-		index++;
+
 		if (index % 10==0)
 		{
 			cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
@@ -22,6 +22,7 @@ void showBooks(vector<Book*> book)
 				break;
 			}
 		}
+		index++;
 	}
 
 }
