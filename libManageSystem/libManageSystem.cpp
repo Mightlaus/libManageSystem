@@ -383,7 +383,7 @@ void adminfunc(Repo& libRepo)
 		}
 
 		//退出
-		else if (option == "9")
+		else if (option == "9" || option=="")
 		{
 			break;
 		}
@@ -716,7 +716,7 @@ void userfunc(Repo& libRepo)
 			}
 		}
 		//退出
-		else if (option == "7")
+		else if (option == "7" || option=="")
 		{
 			break;
 		}
@@ -848,7 +848,7 @@ void visitorfunc(Repo& libRepo)
 				cout << "图书馆还没有这本书哦！返回游客模式" << endl;
 			}
 		}
-		else if (option == "3")
+		else if (option == "3" ||option=="")
 		{
 			break;
 		}
