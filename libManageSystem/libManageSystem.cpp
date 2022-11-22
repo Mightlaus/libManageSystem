@@ -6,11 +6,24 @@ using namespace std;
 
 void showBooks(vector<Book*> book)
 {
-	cout << "搜索到" << book.size() << "个结果，以下是搜索到的结果:" << endl;
-	for (int i = 0; i < book.size(); i++)
+	cout << "搜索到" << book.size() << "个结果，以下是搜索结果第一页:" << endl;
+	int index=1;
+	for (auto i:book)
 	{
-		cout << i + 1 << ". " << book[i]->caption << " " << book[i]->author << " " << book[i]->publishing << " " << endl;
+		cout << index << ". " << i->caption << " " << i->author << " " << i->publishing << " " << endl;
+		index++;
+		if (index % 10==0)
+		{
+			cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
+			char show_choice;
+			cin >> show_choice;
+			if (show_choice == 'b')
+			{
+				break;
+			}
+		}
 	}
+
 }
 vector<Book*> globalSearch(User* curruser, string book_info)
 {
