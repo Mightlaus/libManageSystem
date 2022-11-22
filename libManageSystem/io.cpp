@@ -16,15 +16,15 @@ void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁ
 	outFile.close();
 }
 
-vector<string*> read_csv()
+vector<string*> read_csv(int n)
 {
 	// ´ÓcsvÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
 	fstream inFile;
-	inFile.open("librarydata_books.csv", ios::in);
+	inFile.open("expand.csv", ios::in);
 	vector<string*> data;
 	string tmp;
 	getline(inFile, tmp);
-	for (int i = 0; i < 880; i++)
+	for (int i = 0; i < n; i++)
 	{
 		string *bookInfo=new string[9];
 		for (int j = 0; j < 8; j++)
@@ -36,13 +36,6 @@ vector<string*> read_csv()
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-	
-	/*
-	for (int i = 0; i < 9; i++)
-	{
-		cout << data[37][i] << endl;
-	}
-	*/
 	
 	inFile.close();
 	return data;
