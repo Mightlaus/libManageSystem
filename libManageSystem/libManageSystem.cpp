@@ -925,7 +925,7 @@ int main()
 				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
 			}
 		}
-		else if (option == "7")
+		else if (option == "7" || option=="")
 		{
 			break;
 		}
