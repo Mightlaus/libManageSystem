@@ -869,7 +869,10 @@ int main()
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
 		cout << "3.游客模式" << endl;
-		cout << "4.退出图书馆系统" << endl << endl;
+		cout << "4.借阅次数排行榜——图书" << endl;
+		cout << "5.借阅次数排行榜——读者" << endl;
+		cout << "6.最新出版图书" << endl;
+		cout << "7.退出图书馆系统" << endl << endl;
 		cout << endl << "请输入您的选择：";
 		string option;
 		cin >> option;
@@ -886,6 +889,30 @@ int main()
 			visitorfunc(libRepo);
 		}
 		else if (option == "4")
+		{
+			auto rank_list= libRepo.books.rankBook_borrowest(10);
+			for (int i = 0; i < rank_list.size(); i++)
+			{
+				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
+			}
+		}
+		else if (option == "5")
+		{
+			auto rank_list = libRepo.users.rankUser_borrowest(10);
+			for (int i = 0; i < rank_list.size(); i++)
+			{
+				cout << i + 1 << ". " << rank_list[i]->user_name << endl;
+			}
+		}
+		else if (option == "6")
+		{
+			auto rank_list = libRepo.books.rankBook_newest(10);
+			for (int i = 0; i < rank_list.size(); i++)
+			{
+				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
+			}
+		}
+		else if (option == "7")
 		{
 			break;
 		}
