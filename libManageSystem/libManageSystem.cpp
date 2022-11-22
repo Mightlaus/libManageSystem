@@ -729,8 +729,8 @@ int main()
 {
 	//测试类 begins
 	Repo libRepo;
-	vector<string*> bookBatch = read_csv();
-	libRepo.books.addBatch(bookBatch, 880);
+	vector<string*> bookBatch = read_csv(2560);
+	libRepo.books.addBatch(bookBatch, 2560);
 
 	string str("居文涛");
 	string key = "123456";
@@ -742,7 +742,6 @@ int main()
 
 
 	//测试类 ends
-
 	while (1)
 	{
 		cout << "********************主菜单********************" << endl << endl;
