@@ -223,13 +223,13 @@ vector<Book*> BookRepo::find_isbn(string isbn) // 精准搜索isbn
 	return vector<Book*>(find_result_vec);
 }
 
-vector<Book*> BookRepo::find_caption(string caption) // 精准搜索caption
+vector<Book*> BookRepo::find_caption(string caption) // 模糊搜索caption
 {
 	vector<Book*> find_result_vec;
 
 	for (int i = 0; i < p_book_repo->size(); i++)
 	{
-		if (p_book_repo->at(i).caption == caption && p_book_repo->at(i).exist)
+		if (sparseMatch(p_book_repo->at(i).caption, caption) && p_book_repo->at(i).exist)
 		{
 			find_result_vec.push_back(&(p_book_repo->at(i)));
 		}
