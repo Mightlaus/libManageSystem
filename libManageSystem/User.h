@@ -56,6 +56,8 @@ public:
 	// 借还书操作
 	int borrowBook(Book* p_book, int time);
 	int returnBook(Book* p_book, int time);
+	// 获得所有正在借还未归还的图书
+	vector<Book*> getBorrowing();
 };
 
 class Admin :public User

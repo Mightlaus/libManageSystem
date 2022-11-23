@@ -465,7 +465,15 @@ void userfunc(Repo& libRepo)
 				}
 			}
 		}
-
+		//测试getBorrrowing方法
+		else if (option == "-1")
+		{
+			auto books = curruser->getBorrowing();
+			for (auto x : books)
+			{
+				cout << x->caption << endl;
+			}
+		}
 		//借阅图书
 		else if (option == "2")
 		{
