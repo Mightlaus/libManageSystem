@@ -174,6 +174,11 @@ vector<Student*> UserRepo::rankUser_borrowest(int rank_len)
 
 	}
 
+	if (rank_len > rank_vec.size())
+	{
+		rank_len = rank_vec.size();
+	}
+
 	studentSort_borrowest(rank_vec, rank_len);
 
 	for (int i = 0; i < rank_len; i++)

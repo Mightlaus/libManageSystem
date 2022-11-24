@@ -300,11 +300,16 @@ vector<Book*> BookRepo::rankBook_borrowest(int rank_len)
 
 	for (auto& book : *p_book_repo)
 	{
-		if (book.exist)
+		if (book.exist and book.borrowed_times>0)
 		{
 			rank_vec.push_back(&book);
 		}
 
+	}
+
+	if (rank_len > rank_vec.size())
+	{
+		rank_len = rank_vec.size();
 	}
 
 	bookSort_borrowest(rank_vec, rank_len);
