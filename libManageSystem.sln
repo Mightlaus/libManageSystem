@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libManageSystem", "libManageSystem\libManageSystem.vcxproj", "{A8DF9A10-DF6E-458C-A101-D4F8D2C58A84}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "myLib", "myLib\myLib.vdproj", "{7BA6146C-DA3A-490F-B15F-BAB8B70CD1BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{A8DF9A10-DF6E-458C-A101-D4F8D2C58A84}.Release|x64.Build.0 = Release|x64
 		{A8DF9A10-DF6E-458C-A101-D4F8D2C58A84}.Release|x86.ActiveCfg = Release|Win32
 		{A8DF9A10-DF6E-458C-A101-D4F8D2C58A84}.Release|x86.Build.0 = Release|Win32
+		{7BA6146C-DA3A-490F-B15F-BAB8B70CD1BF}.Debug|x64.ActiveCfg = Debug
+		{7BA6146C-DA3A-490F-B15F-BAB8B70CD1BF}.Debug|x86.ActiveCfg = Debug
+		{7BA6146C-DA3A-490F-B15F-BAB8B70CD1BF}.Release|x64.ActiveCfg = Release
+		{7BA6146C-DA3A-490F-B15F-BAB8B70CD1BF}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -143,6 +143,9 @@
     <ClInclude Include="User.h" />
     <ClInclude Include="UserRepo.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="expand.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
