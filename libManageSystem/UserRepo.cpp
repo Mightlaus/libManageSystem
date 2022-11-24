@@ -27,6 +27,10 @@ int UserRepo::addUser(char identity, string user_name, string key, int exist)
 
 	if (identity == 'A')
 	{
+		if (!findAdmin(user_name, 1).empty())
+		{
+			return -1;
+		}
 		Admin admin(user_name, key, p_book_repo);
 		admin.exist = exist;
 		p_admin_repo->push_back(admin);
@@ -39,6 +43,10 @@ int UserRepo::addUser(char identity, string user_name, string key, int exist)
 	}
 	else if (identity == 'S')
 	{
+		if (!findStudent(user_name, 1).empty())
+		{
+			return -1;
+		}
 		Student student(user_name, key, p_book_repo);
 		student.exist = exist;
 		p_student_repo->push_back(student);
@@ -51,6 +59,10 @@ int UserRepo::addUser(char identity, string user_name, string key, int exist)
 	}
 	else if (identity == 'V')
 	{
+		if (!findVisitor(user_name, 1).empty())
+		{
+			return -1;
+		}
 		Visitor visitor(user_name, key, p_book_repo);
 		p_visitor_repo->push_back(visitor);
 		if (exist)
@@ -129,43 +141,74 @@ int UserRepo::modifKey(Visitor* p_cust, string new_key)
 }
 
 
-vector<Student*> UserRepo::findStudent(string user_name)
+vector<Student*> UserRepo::findStudent(string user_name, int precise)
 {
 	vector<Student*> result_vec;
 
 	for (int i = 0; i < p_student_repo->size(); i++)
 	{
-		if (sparseMatch(p_student_repo->at(i).user_name, user_name) and p_student_repo->at(i).exist)
+		if (precise)
 		{
-			result_vec.push_back(&p_student_repo->at(i));
+			if (p_student_repo->at(i).user_name == user_name and p_student_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_student_repo->at(i));
+			}
+		}
+		else
+		{
+			if (sparseMatch(p_student_repo->at(i).user_name, user_name) and p_student_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_student_repo->at(i));
+			}
 		}
 	}
 	return vector<Student*>(result_vec);
 }
 
-vector<Admin*> UserRepo::findAdmin(string user_name)
+vector<Admin*> UserRepo::findAdmin(string user_name, int precise)
 {
 	vector<Admin*> result_vec;
 
 	for (int i = 0; i < p_admin_repo->size(); i++)
 	{
-		if (sparseMatch(p_admin_repo->at(i).user_name, user_name) and p_admin_repo->at(i).exist)
+		if (precise)
 		{
-			result_vec.push_back(&p_admin_repo->at(i));
+			if (p_admin_repo->at(i).user_name == user_name and p_admin_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_admin_repo->at(i));
+			}
+		}
+		else
+		{
+			if (sparseMatch(p_admin_repo->at(i).user_name, user_name) and p_admin_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_admin_repo->at(i));
+			}
 		}
 	}
 	return vector<Admin*>(result_vec);
 }
 
-vector<Visitor*> UserRepo::findVisitor(string user_name)
+vector<Visitor*> UserRepo::findVisitor(string user_name, int precise)
 {
 	vector<Visitor*> result_vec;
 
 	for (int i = 0; i < p_visitor_repo->size(); i++)
 	{
-		if (sparseMatch(p_visitor_repo->at(i).user_name, user_name) and p_visitor_repo->at(i).exist)
+		if (precise)
 		{
-			result_vec.push_back(&p_visitor_repo->at(i));
+			if (p_visitor_repo->at(i).user_name == user_name and p_visitor_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_visitor_repo->at(i));
+
+			}
+		}
+		else
+		{
+			if (sparseMatch(p_visitor_repo->at(i).user_name, user_name) and p_visitor_repo->at(i).exist)
+			{
+				result_vec.push_back(&p_visitor_repo->at(i));
+			}
 		}
 	}
 	return vector<Visitor*>(result_vec);

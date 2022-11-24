@@ -35,9 +35,9 @@ public:
 	int modifKey(Visitor* p_cust, string new_key);
 
 	//查user 按姓名查找，返回查找到所有结果的vector， 未找到返回空vector
-	vector<Student*> findStudent(string user_name);
-	vector<Admin*> findAdmin(string user_name);
-	vector<Visitor*> findVisitor(string user_name);
+	vector<Student*> findStudent(string user_name, int precise=0);
+	vector<Admin*> findAdmin(string user_name, int precise = 0);
+	vector<Visitor*> findVisitor(string user_name, int precise = 0);
 
 	vector<Student*> rankUser_borrowest(int rank_len); //在Student库中找到借阅图书次数最多的学生并返回
 	
