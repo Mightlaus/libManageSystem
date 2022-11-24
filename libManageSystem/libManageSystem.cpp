@@ -1180,7 +1180,6 @@ int main()
 	libRepo.books.addBatch(bookBatch, 2560);
 
 	io::add_user_from_file(&libRepo);
-	io::save_user_to_file(&libRepo);
 	while (1)
 	{
 		cout << "欢迎来到图书馆管理系统！" << endl;
@@ -1254,6 +1253,7 @@ int main()
 		}
 		else if (option == "7")
 		{
+			io::save_user_to_file(&libRepo);
 			break;
 		}
 		else
