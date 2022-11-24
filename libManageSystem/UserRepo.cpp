@@ -34,8 +34,11 @@ int UserRepo::addUser(char identity, string user_name, string key, int exist)
 		Admin admin(user_name, key, p_book_repo);
 		admin.exist = exist;
 		p_admin_repo->push_back(admin);
-		userNums++;
-		adminNums++;
+		if (exist)
+		{
+			userNums++;
+			adminNums++;
+		}
 		return 1;
 	}
 	else if (identity == 'S')
@@ -47,8 +50,11 @@ int UserRepo::addUser(char identity, string user_name, string key, int exist)
 		Student student(user_name, key, p_book_repo);
 		student.exist = exist;
 		p_student_repo->push_back(student);
-		userNums++;
-		studentNums++;
+		if (exist)
+		{
+			userNums++;
+			studentNums++;
+		}
 		return 1;
 	}
 	else if (identity == 'V')
