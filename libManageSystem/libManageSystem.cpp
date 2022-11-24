@@ -154,7 +154,7 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”";
 			string insert_account;
 			cin >> insert_account;
-			int insert_result=libRepo.users.addUser(insert_account[0], insert_account.substr(1));
+			int insert_result = libRepo.users.addUser(insert_account[0], insert_account.substr(1));
 			if (insert_result == 0)
 			{
 				system("cls");
@@ -443,6 +443,7 @@ void adminfunc(Repo& libRepo)
 		//退出
 		else if (option == "9")
 		{
+			system("cls");
 			break;
 		}
 		else
@@ -590,7 +591,7 @@ void userfunc(Repo& libRepo)
 				{
 					int choice = stoi(str);
 					GetLocalTime(&sys);
-					long long time = sys.wYear*10000000000+sys.wMonth*100000000+sys.wDay*1000000+sys.wHour*10000+sys.wMinute*100+sys.wSecond;
+					long long time = sys.wYear * 10000000000 + sys.wMonth * 100000000 + sys.wDay * 1000000 + sys.wHour * 10000 + sys.wMinute * 100 + sys.wSecond;
 					int borrow_result = curruser->borrowBook(result[choice - 1], time);
 					if (borrow_result == 0)
 					{
@@ -627,7 +628,7 @@ void userfunc(Repo& libRepo)
 		else if (option == "3")
 		{
 			vector<Book*> result = curruser->getBorrowing();
-			if(result.empty())
+			if (result.empty())
 			{
 				cout << "您没有正在借阅的图书！返回用户模式" << endl;
 			}
@@ -735,7 +736,7 @@ void userfunc(Repo& libRepo)
 			for (User::UserHistory i : curruser->histories)
 			{
 				string timestr = to_string(i.time);
-				cout << timestr.substr(0,4) << "/" <<timestr.substr(4,2)<<"/"<<timestr.substr(6,2)<<" "<<setfill('0') << setw(2) << timestr.substr(8,2) << ":" << setw(2) << timestr.substr(10, 2) << ":" << setw(2) << timestr.substr(12, 2);
+				cout << timestr.substr(0, 4) << "/" << timestr.substr(4, 2) << "/" << timestr.substr(6, 2) << " " << setfill('0') << setw(2) << timestr.substr(8, 2) << ":" << setw(2) << timestr.substr(10, 2) << ":" << setw(2) << timestr.substr(12, 2);
 				if (i.action == -1)
 					cout << "借阅了 《";
 				if (i.action == 1)
@@ -816,6 +817,7 @@ void userfunc(Repo& libRepo)
 		//退出
 		else if (option == "7")
 		{
+			system("cls");
 			break;
 		}
 		else
@@ -961,6 +963,7 @@ void visitorfunc(Repo& libRepo)
 		}
 		else if (option == "3")
 		{
+			system("cls");
 			break;
 		}
 		else
@@ -991,8 +994,8 @@ int main()
 	{
 		cout << "欢迎来到图书馆管理系统！" << endl;
 		GetLocalTime(&sys);
-		cout << sys.wYear << "年" << sys.wMonth << "月" << sys.wDay << "日 "<<setfill('0') << setw(2) << sys.wHour << ":" << setw(2) << sys.wMinute << ":" << setw(2) << sys.wSecond << " 星期" << sys.wDayOfWeek << endl;
-		cout << "当前图书馆共有" << libRepo.books.bookNums << "本书，" << libRepo.users.userNums << "个用户" << endl <<endl;
+		cout << sys.wYear << "年" << sys.wMonth << "月" << sys.wDay << "日 " << setfill('0') << setw(2) << sys.wHour << ":" << setw(2) << sys.wMinute << ":" << setw(2) << sys.wSecond << " 星期" << sys.wDayOfWeek << endl;
+		cout << "当前图书馆共有" << libRepo.books.bookNums << "本书，" << libRepo.users.userNums << "个用户" << endl << endl;
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
@@ -1021,7 +1024,7 @@ int main()
 			auto rank_list = libRepo.books.rankBook_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times <<"次"<<endl;
+				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times << "次" << endl;
 			}
 
 			string buffer;
@@ -1035,7 +1038,7 @@ int main()
 			auto rank_list = libRepo.users.rankUser_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->user_name << "\t借阅了" << rank_list[i]->borrowTimes << "次"<<endl;
+				cout << i + 1 << ". " << rank_list[i]->user_name << "\t借阅了" << rank_list[i]->borrowTimes << "次" << endl;
 			}
 
 			string buffer;
