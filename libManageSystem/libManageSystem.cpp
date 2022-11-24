@@ -1193,7 +1193,7 @@ int main()
 		cout << "4.借阅次数排行榜——图书" << endl;
 		cout << "5.借阅次数排行榜——读者" << endl;
 		cout << "6.最新出版图书" << endl;
-		cout << "7.退出图书馆系统" << endl << endl;
+		cout << "7.保存数据然后退出系统" << endl << endl;
 		cout << endl << "请输入您的选择：";
 		string option;
 		cin >> option;
@@ -1228,7 +1228,7 @@ int main()
 			auto rank_list = libRepo.users.rankUser_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->user_name << "\t借阅了" << rank_list[i]->borrowTimes << "次" << endl;
+				cout << i + 1 << ". " << rank_list[i]->borrowTimes << "次" << "\t" << rank_list[i]->user_name << endl;
 			}
 
 			string buffer;

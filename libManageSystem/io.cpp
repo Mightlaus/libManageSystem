@@ -75,7 +75,7 @@ void io::save_user_to_file(Repo* repo)
 	}
 
 	//visitor
-	for (int i = 0; i < repo->users.p_admin_repo->size(); i++)
+	for (int i = 0; i < repo->users.p_visitor_repo->size(); i++)
 	{
 		string name, identity, key;
 		int exist;
