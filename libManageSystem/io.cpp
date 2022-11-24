@@ -1,6 +1,6 @@
 #include "io.h"
 
-void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
+void io::write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁĞÊı
 {
 	// ½«Êı¾İĞ´ÈëcsvÎÄ¼ş
 	fstream outFile;
@@ -16,7 +16,22 @@ void write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊıºÍÁ
 	outFile.close();
 }
 
-vector<string*> read_csv(int n)
+void io::add_user_from_file(Repo* repo, int n)
+{
+	fstream inFile;
+	inFile.open("users.csv", ios::in);
+	for (int i = 0; i < n; i++)
+	{
+		// dientity name key
+		string name, identity, key;
+		getline(inFile, identity, ',');
+		getline(inFile, name, ',');
+		getline(inFile, key);
+		repo->users.addUser(identity[0], name, key);
+	}
+}
+
+vector<string*> io::read_csv(int n)
 {
 	// ´ÓcsvÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
 	fstream inFile;
@@ -26,7 +41,7 @@ vector<string*> read_csv(int n)
 	getline(inFile, tmp);
 	for (int i = 0; i < n; i++)
 	{
-		string *bookInfo=new string[9];
+		string* bookInfo = new string[9];
 		for (int j = 0; j < 8; j++)
 		{
 			getline(inFile, bookInfo[j], ',');
@@ -36,7 +51,7 @@ vector<string*> read_csv(int n)
 		bookInfo[8] = tmp;
 		data.push_back(bookInfo);
 	}
-	
+
 	inFile.close();
 	return data;
 }

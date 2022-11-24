@@ -995,7 +995,7 @@ void visitorfunc(Repo& libRepo)
 int main()
 {
 	Repo libRepo;
-	vector<string*> bookBatch = read_csv(2560);
+	vector<string*> bookBatch = io::read_csv(2560);
 	libRepo.books.addBatch(bookBatch, 2560);
 
 	string str("居文涛");
@@ -1005,6 +1005,8 @@ int main()
 	string str2("丁若谷");
 	string key2 = "123456";
 	libRepo.users.addUser('A', str2, key2);
+
+	io::add_user_from_file(&libRepo, 4);
 
 	while (1)
 	{
