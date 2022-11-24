@@ -62,6 +62,7 @@ void adminfunc(Repo& libRepo)
 	while (libRepo.users.findAdmin(account).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+		cin.ignore(20, '\n');
 		cin >> account;
 		if (account == "*")	return;
 	}
@@ -75,6 +76,7 @@ void adminfunc(Repo& libRepo)
 	while (!curruser->checkKey(password))
 	{
 		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
+		cin.ignore(20, '\n');
 		cin >> password;
 		if (password == "*") return;
 	}
@@ -122,6 +124,7 @@ void adminfunc(Repo& libRepo)
 				else
 				{
 					cout << "密码错误！请再试一次（输入*以回到管理员模式）" << endl;
+					cin.ignore(20, '\n');
 				}
 			}
 		}
@@ -136,6 +139,7 @@ void adminfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式错误！返回管理员模式" << endl;
+				cin.ignore(20, '\n');
 			}
 			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == -1)
 			{
@@ -220,6 +224,7 @@ void adminfunc(Repo& libRepo)
 				Book book(book_info[0], book_info[1], book_info[2], book_info[3], book_info[4], book_info[5], pagenum, price);
 				libRepo.books.addOne(book);
 			}
+			system("cls");
 			cout << "添加图书成功！返回管理员模式" << endl;
 		}
 
@@ -233,6 +238,7 @@ void adminfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回管理员模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要删除的图书信息：";
@@ -277,6 +283,7 @@ void adminfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回管理员模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 			}
@@ -297,6 +304,7 @@ void adminfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回管理员模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要更改的图书信息：";
@@ -335,6 +343,7 @@ void adminfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回管理员模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 				cout << "请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
@@ -343,6 +352,7 @@ void adminfunc(Repo& libRepo)
 				while (curruser->modifBook(result[choice - 1], change_str[0], change_str.substr(1)) == 0)
 				{
 					cout << "输入格式错误！请重试" << endl;
+					cin.ignore(20, '\n');
 					cin >> change_str;
 				}
 				system("cls");
@@ -365,6 +375,7 @@ void adminfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回管理员模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要搜索的图书信息：";
@@ -394,6 +405,7 @@ void adminfunc(Repo& libRepo)
 
 			if (!result.empty())
 			{
+				system("cls");
 				showBooks(result);
 				cout << "返回管理员模式" << endl;
 			}
@@ -412,6 +424,7 @@ void adminfunc(Repo& libRepo)
 		else
 		{
 			cout << "输入格式非法，请重试！" << endl;
+			cin.ignore(20, '\n');
 		}
 	}
 }
@@ -424,6 +437,7 @@ void userfunc(Repo& libRepo)
 	while (libRepo.users.findStudent(account).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+		cin.ignore(20, '\n');
 		cin >> account;
 		if (account == "*")	return;
 	}
@@ -437,6 +451,7 @@ void userfunc(Repo& libRepo)
 	while (!curruser->checkKey(password))
 	{
 		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
+		cin.ignore(20, '\n');
 		cin >> password;
 		if (password == "*") return;
 	}
@@ -482,6 +497,7 @@ void userfunc(Repo& libRepo)
 				else
 				{
 					cout << "密码错误！请再试一次（输入*以回到用户模式）" << endl;
+					cin.ignore(20, '\n');
 				}
 			}
 		}
@@ -504,6 +520,7 @@ void userfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回用户模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要借阅的图书信息：";
@@ -561,6 +578,7 @@ void userfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回用户模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 			}
@@ -581,6 +599,7 @@ void userfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回用户模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要归还的图书信息：";
@@ -633,6 +652,7 @@ void userfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回用户模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 
@@ -655,6 +675,7 @@ void userfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回用户模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要搜索的图书信息：";
@@ -718,6 +739,7 @@ void userfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回用户模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入推荐基于的图书信息：";
@@ -764,6 +786,7 @@ void userfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回用户模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 			}
@@ -782,6 +805,7 @@ void userfunc(Repo& libRepo)
 		{
 			system("cls");
 			cout << "输入格式非法，请重试！" << endl;
+			cin.ignore(20, '\n');
 		}
 	}
 }
@@ -811,6 +835,7 @@ void visitorfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回游客模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入要搜索的图书信息：";
@@ -859,6 +884,7 @@ void visitorfunc(Repo& libRepo)
 			{
 				system("cls");
 				cout << "输入格式非法！返回游客模式" << endl;
+				cin.ignore(20, '\n');
 				continue;
 			}
 			cout << "请输入推荐基于的图书信息：";
@@ -906,6 +932,7 @@ void visitorfunc(Repo& libRepo)
 				{
 					system("cls");
 					cout << "输入格式非法！返回游客模式" << endl;
+					cin.ignore(20, '\n');
 					continue;
 				}
 			}
@@ -923,6 +950,7 @@ void visitorfunc(Repo& libRepo)
 		{
 			system("cls");
 			cout << "输入格式非法，请重试！" << endl;
+			cin.ignore(20, '\n');
 		}
 	}
 }
@@ -991,8 +1019,13 @@ int main()
 			auto rank_list = libRepo.books.rankBook_newest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
+				cout << i + 1 << "." << rank_list[i]->published_time << "\t\t" << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
 			}
+
+			string buffer;
+			cout << "\n按任意键返回主菜单:";
+			getline(cin, buffer);
+			cin.ignore(20, '\n');
 		}
 		else if (option == "7")
 		{
@@ -1002,6 +1035,7 @@ int main()
 		{
 			system("cls");
 			cout << "输入格式非法，请重试！" << endl;
+			cin.ignore(20, '\n');
 		}
 	}
 

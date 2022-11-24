@@ -14,10 +14,6 @@ int publishTime(string str_time)
 		return -1;
 	}
 
-	if (stoi(str_time.substr(0, 4)) > 2022) {
-		return -1;
-	}
-
 	regex pattern_year("(\\d+)");
 	regex pattern_month("\\d+.+?(\\d+)");
 	regex pattern_day("\\d+[-_Äê]\\d+[-_ÔÂ](\\d+)");
