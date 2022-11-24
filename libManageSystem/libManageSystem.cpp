@@ -209,7 +209,7 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的书名，作者，isbn，出版社，出版时间，描述，页数，价格，中间用空格隔开" << endl;
 			string str;
 			cin >> str;
-			int size = str[0] - '0';
+			int size = stoi(str);
 			for (int i = 0; i < size; i++)
 			{
 				string book_info[6];
@@ -272,9 +272,9 @@ void adminfunc(Repo& libRepo)
 				cout << "请输入要删除的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice > 0 && choice <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
+					int choice = stoi(str);
 					curruser->delBook(result[choice - 1], 0);
 					system("cls");
 					cout << "删除图书《" << result[choice - 1]->caption << "》成功！" << endl;
@@ -338,8 +338,12 @@ void adminfunc(Repo& libRepo)
 				cout << "请输入要修改的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice <1 || choice > result.size())
+				int choice;
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
+				{
+					choice = stoi(str);
+				}
+				else
 				{
 					system("cls");
 					cout << "输入格式非法！返回管理员模式" << endl;
@@ -545,9 +549,9 @@ void userfunc(Repo& libRepo)
 				cout << "请输入要借阅的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice > 0 && choice <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
+					int choice = stoi(str);
 					int borrow_result = curruser->borrowBook(result[choice - 1], 0);
 					if (borrow_result == 0)
 					{
@@ -610,9 +614,9 @@ void userfunc(Repo& libRepo)
 				cout << "请输入要归还的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice > 0 && choice <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
+					int choice = stoi(str);
 					int return_result = curruser->returnBook(result[choice - 1], 0);
 					if (return_result == 0)
 					{
@@ -743,10 +747,11 @@ void userfunc(Repo& libRepo)
 				cout << "请输入要选择的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice > 0 && choice <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
+					int choice = stoi(str);
 					vector<Book*> reco_list = libRepo.books.recommend(result[choice - 1]);
+					cout << "以下是推荐结果：" << endl;
 					for (int i = 0; i < reco_list.size(); i++)
 					{
 						cout << i + 1 << ". " << reco_list[i]->caption << " " << reco_list[i]->author << " " << reco_list[i]->publishing << " " << endl;
@@ -888,9 +893,9 @@ void visitorfunc(Repo& libRepo)
 				cout << "请输入要选择的图书序号：";
 				string str;
 				cin >> str;
-				int choice = str[0] - '0';
-				if (choice > 0 && choice <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
+					int choice = stoi(str);
 					vector<Book*> reco_list = libRepo.books.recommend(result[choice - 1]);
 					cout << "以下是为您推荐的图书" << endl;
 					for (int i = 0; i < reco_list.size(); i++)
@@ -940,11 +945,10 @@ int main()
 	string key2 = "123456";
 	libRepo.users.addUser('A', str2, key2);
 
-
 	//测试类 ends
+	
 	while (1)
 	{
-		system("cls");
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
