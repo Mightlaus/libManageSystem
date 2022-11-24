@@ -180,16 +180,32 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要删除的账号（学号/教师编号）：";
 			string del_account;
 			cin >> del_account;
-			if (libRepo.users.delAdmin(libRepo.users.findAdmin(del_account)[0]) || libRepo.users.delStudent(libRepo.users.findStudent(del_account)[0]) || libRepo.users.delVisitor(libRepo.users.findVisitor(del_account)[0]))
+			auto result1 = libRepo.users.findAdmin(del_account);
+			if (!result1.empty())
 			{
+				libRepo.users.delAdmin(result1[0]);
 				system("cls");
-				cout << "删除账号" << del_account << "成功！返回管理员模式" << endl;
+				cout << "删除管理员账号" << del_account << "成功！返回管理员模式" << endl;
+				continue;
 			}
-			else
+			auto result2 = libRepo.users.findStudent(del_account);
+			if (!result2.empty())
 			{
+				libRepo.users.delStudent(result2[0]);
 				system("cls");
-				cout << "账号不存在！返回管理员模式" << endl;
+				cout << "删除用户账号" << del_account << "成功！返回管理员模式" << endl;
+				continue;
 			}
+			auto result3 = libRepo.users.findVisitor(del_account);
+			if (!result3.empty())
+			{
+				libRepo.users.delVisitor(result3[0]);
+				system("cls");
+				cout << "删除游客账号" << del_account << "成功！返回管理员模式" << endl;
+				continue;
+			}
+			system("cls");
+			cout << "账号不存在！返回管理员模式" << endl;			
 		}
 
 		//恢复账号
