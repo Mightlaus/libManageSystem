@@ -170,7 +170,7 @@ void adminfunc(Repo& libRepo)
 			else if (insert_result == 1)
 			{
 				system("cls");
-				cout << "添加账号" << insert_account << "成功！返回管理员模式" << endl;
+				cout << "添加账号" << insert_account.substr(1) << "成功！返回管理员模式" << endl;
 			}
 		}
 
