@@ -74,6 +74,22 @@ void io::save_user_to_file(Repo* repo)
 		outFile << endl;
 	}
 
+	//visitor
+	for (int i = 0; i < repo->users.p_admin_repo->size(); i++)
+	{
+		string name, identity, key;
+		int exist;
+		name = repo->users.p_visitor_repo->at(i).user_name;
+		identity = repo->users.p_visitor_repo->at(i).identity;
+		key = repo->users.p_visitor_repo->at(i).key;
+		exist = repo->users.p_visitor_repo->at(i).exist;
+		outFile << identity << ',';
+		outFile << name << ',';
+		outFile << key << ',';
+		outFile << exist;
+		outFile << endl;
+	}
+
 	outFile.close();
 }
 
