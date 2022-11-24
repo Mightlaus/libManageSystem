@@ -60,13 +60,21 @@ void adminfunc(Repo& libRepo)
 	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 	string account;
 	cin >> account;
-	if (account == "*") return;
+	if (account == "*")
+	{
+		system("cls");
+		return;
+	}
 	while (libRepo.users.findAdmin(account).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> account;
-		if (account == "*")	return;
+		if (account == "*")
+		{
+			system("cls");
+			return;
+		}
 	}
 
 	Admin* curruser = libRepo.users.findAdmin(account)[0];
@@ -74,13 +82,21 @@ void adminfunc(Repo& libRepo)
 	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 	string password;
 	cin >> password;
-	if (password == "*") return;
+	if (password == "*")
+	{
+		system("cls");
+		return;
+	}
 	while (!curruser->checkKey(password))
 	{
 		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> password;
-		if (password == "*") return;
+		if (password == "*")
+		{
+			system("cls");
+			return;
+		}
 	}
 
 	system("cls");
@@ -121,6 +137,7 @@ void adminfunc(Repo& libRepo)
 				}
 				else if (verify_password == "*")
 				{
+					system("cls");
 					break;
 				}
 				else
@@ -137,22 +154,23 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”";
 			string insert_account;
 			cin >> insert_account;
-			if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == 0)
+			int insert_result=libRepo.users.addUser(insert_account[0], insert_account.substr(1));
+			if (insert_result == 0)
 			{
 				system("cls");
 				cout << "输入格式错误！返回管理员模式" << endl;
 				cin.ignore(20, '\n');
 			}
-			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == -1)
+			else if (insert_result == -1)
 			{
 				system("cls");
-				cout << "用户" << insert_account << "已存在！返回管理员模式" << endl;
+				cout << "用户" << insert_account.substr(1) << "已存在！返回管理员模式" << endl;
 				continue;
 			}
-			else if (libRepo.users.addUser(insert_account[0], insert_account.substr(1)) == 1)
+			else if (insert_result == 1)
 			{
 				system("cls");
-				cout << "添加账号" << insert_account << "成功！返回管理员模式" << endl;
+				cout << "添加账号" << insert_account.substr(1) << "成功！返回管理员模式" << endl;
 			}
 		}
 
@@ -439,13 +457,21 @@ void userfunc(Repo& libRepo)
 	cout << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 	string account;
 	cin >> account;
-	if (account == "*") return;
+	if (account == "*")
+	{
+		system("cls");
+		return;
+	}
 	while (libRepo.users.findStudent(account).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> account;
-		if (account == "*")	return;
+		if (account == "*")
+		{
+			system("cls");
+			return;
+		}
 	}
 
 	Student* curruser = libRepo.users.findStudent(account)[0];
@@ -453,13 +479,21 @@ void userfunc(Repo& libRepo)
 	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 	string password;
 	cin >> password;
-	if (password == "*") return;
+	if (password == "*")
+	{
+		system("cls");
+		return;
+	}
 	while (!curruser->checkKey(password))
 	{
 		cout << "密码错误，请重试！" << endl << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> password;
-		if (password == "*") return;
+		if (password == "*")
+		{
+			system("cls");
+			return;
+		}
 	}
 
 	system("cls");
@@ -498,6 +532,7 @@ void userfunc(Repo& libRepo)
 				}
 				else if (verify_password == "*")
 				{
+					system("cls");
 					break;
 				}
 				else
