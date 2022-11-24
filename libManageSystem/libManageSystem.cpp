@@ -1,6 +1,7 @@
 ﻿#include "io.h"
 #include "Repo.h"
 #include <windows.h>
+#include <iomanip>
 using namespace std;
 
 void showBooks(vector<Book*> book)
@@ -595,9 +596,9 @@ void userfunc(Repo& libRepo)
 			else
 			{
 				cout << "您正在借阅的图书有" << result.size() << "本，以下是您已经借阅的图书：" << endl;
+				int index = 1;
 				for (auto x : result)
 				{
-					int index = 1;
 					cout << index << '.' << x->caption << " " << x->author << " " << x->publishing << endl;
 					if (index % 10 == 0)
 					{
@@ -932,7 +933,6 @@ void visitorfunc(Repo& libRepo)
 
 int main()
 {
-	//测试类 begins
 	Repo libRepo;
 	vector<string*> bookBatch = read_csv(2560);
 	libRepo.books.addBatch(bookBatch, 2560);
@@ -945,10 +945,13 @@ int main()
 	string key2 = "123456";
 	libRepo.users.addUser('A', str2, key2);
 
-	//测试类 ends
-	
+	SYSTEMTIME sys;
+	GetLocalTime(&sys);
+
 	while (1)
 	{
+		cout << "欢迎来到图书馆管理系统！" << endl;
+		cout << sys.wYear << "年" << sys.wMonth << "月" << sys.wDay << "日 "<<setfill('0') << setw(2) << sys.wHour << ":" << setw(2) << sys.wMinute << ":" << setw(2) << sys.wSecond << " 星期" << sys.wDayOfWeek << endl;
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
@@ -977,7 +980,7 @@ int main()
 			auto rank_list = libRepo.books.rankBook_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
+				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times <<"次"<<endl;
 			}
 		}
 		else if (option == "5")
@@ -985,7 +988,7 @@ int main()
 			auto rank_list = libRepo.users.rankUser_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->user_name << endl;
+				cout << i + 1 << ". " << rank_list[i]->user_name <<  endl;
 			}
 		}
 		else if (option == "6")
