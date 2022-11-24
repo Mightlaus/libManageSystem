@@ -376,7 +376,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.modifKey(result1[stoi(reset_choice.substr(1)) - 1], "123456");
 						system("cls");
-						cout << "成功恢复管理员账号" << result1[stoi(reset_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功恢复管理员账号" << result1[stoi(reset_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
@@ -390,7 +390,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.modifKey(result2[stoi(reset_choice.substr(1)) - 1], "123456");
 						system("cls");
-						cout << "成功恢复用户账号" << result2[stoi(reset_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功恢复用户账号" << result2[stoi(reset_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
@@ -404,7 +404,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.modifKey(result3[stoi(reset_choice.substr(1)) - 1], "123456");
 						system("cls");
-						cout << "成功恢复游客账号" << result3[stoi(reset_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功恢复游客账号" << result3[stoi(reset_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
