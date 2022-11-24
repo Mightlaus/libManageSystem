@@ -8,7 +8,7 @@
 // 出版时间转换
 int publishTime(string str_time)
 {
-	int time = 0;
+	long long time = 0;
 
 	if (str_time.empty()) {
 		return -1;

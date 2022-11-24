@@ -10,11 +10,11 @@ class Book
 public:
 	struct BookHistory
 	{
-		int time;
+		long long time;
 		int action; // -1ΩË£¨ 0‘ƒ¿¿£¨1ªπ
 		User* user;
 
-		BookHistory(int time, int action, User* user)
+		BookHistory(long long time, int action, User* user)
 			:time(time), action(action), user(user) {}
 	};
 
@@ -63,7 +63,7 @@ public:
 
 	void resetPrice(double price);
 
-	void addHistory(int time, int action, User* p_user);
+	void addHistory(long long time, int action, User* p_user);
 
 };
 

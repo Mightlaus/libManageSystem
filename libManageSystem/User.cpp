@@ -1,7 +1,7 @@
 #include "User.h"
 
 //借书，不存在返回0，存在但被借走返回-1，成功返回1
-int Student::borrowBook(Book* p_book, int time)
+int Student::borrowBook(Book* p_book, long long time)
 {
 	if(!p_book->exist) return 0;
 	if (p_book->exist and p_book->borrowed) return -1;
@@ -16,7 +16,7 @@ int Student::borrowBook(Book* p_book, int time)
 
 
 // 还书，不存在该书返回0，成功返回1
-int Student::returnBook(Book* p_book, int time)
+int Student::returnBook(Book* p_book, long long time)
 {
 	if (!p_book->exist) return 0;
 
@@ -101,20 +101,20 @@ vector<Book*> User::findBook_publish(string publish)
 	return vector<Book*>(p_book_repo->find_publish(publish));
 }
 
-int User::addHistory(int time, int action, Book* p_book)
+int User::addHistory(long long time, int action, Book* p_book)
 {
 	UserHistory this_history(time, action, p_book);
 	histories.push_back(UserHistory(time, action, p_book));
 	return 0;
 }
  
-int Admin::addBook(Book book, int time)
+int Admin::addBook(Book book, long long time)
 {
 	p_book_repo->addOne(book);
 	return 1;
 }
 
-int Admin::delBook(Book* p_book, int time)
+int Admin::delBook(Book* p_book, long long time)
 {
 	p_book_repo->delOne(p_book);
 	return 1;

@@ -38,7 +38,7 @@ void Book::resetPrice(double price)
 	this->price = price;
 }
 
-void Book::addHistory(int time, int action, User* p_user)
+void Book::addHistory(long long time, int action, User* p_user)
 {
 	BookHistory this_history = BookHistory(time, action, p_user);
 	histories.push_back(this_history);
