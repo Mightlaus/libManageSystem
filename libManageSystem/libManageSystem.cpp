@@ -1179,16 +1179,7 @@ int main()
 	vector<string*> bookBatch = io::read_csv(2560);
 	libRepo.books.addBatch(bookBatch, 2560);
 
-	string str("居文涛");
-	string key = "123456";
-	libRepo.users.addUser('S', str, key);
-
-	string str2("丁若谷");
-	string key2 = "123456";
-	libRepo.users.addUser('A', str2, key2);
-
-	io::add_user_from_file(&libRepo, 4);
-
+	io::add_user_from_file(&libRepo);
 	while (1)
 	{
 		cout << "欢迎来到图书馆管理系统！" << endl;
@@ -1262,6 +1253,7 @@ int main()
 		}
 		else if (option == "7")
 		{
+			io::save_user_to_file(&libRepo);
 			break;
 		}
 		else

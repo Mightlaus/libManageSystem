@@ -16,20 +16,67 @@ void io::write_csv(int n, int m, string* s) // ´«ÈëÒ»¸ö¶şÎ¬stringÊı×é£¬²¢¸æÖªĞĞÊ
 	outFile.close();
 }
 
-void io::add_user_from_file(Repo* repo, int n)
+void io::add_user_from_file(Repo* repo)
 {
 	fstream inFile;
 	inFile.open("users.csv", ios::in);
-	for (int i = 0; i < n; i++)
+	while(1)
 	{
-		// dientity name key
-		string name, identity, key;
+		// dientity, name, key, exist
+		string name, identity, key, exist;
 		getline(inFile, identity, ',');
+		if (identity.empty())
+		{
+			break;
+		}
 		getline(inFile, name, ',');
-		getline(inFile, key);
-		repo->users.addUser(identity[0], name, key);
+		getline(inFile, key, ',');
+		getline(inFile, exist);
+		repo->users.addUser(identity[0], name, key, stoi(exist));
 	}
 }
+
+void io::save_user_to_file(Repo* repo)
+{
+	// ½«Êı¾İĞ´ÈëcsvÎÄ¼ş
+	fstream outFile;
+	outFile.open("users.csv", ios::out);
+
+	//student
+	for (int i = 0; i < repo->users.p_student_repo->size(); i++)
+	{
+		string name, identity, key;
+		int exist;
+		name = repo->users.p_student_repo->at(i).user_name;
+		identity = repo->users.p_student_repo->at(i).identity;
+		key = repo->users.p_student_repo->at(i).key;
+		exist = repo->users.p_student_repo->at(i).exist;
+		outFile << identity << ',';
+		outFile << name << ',';
+		outFile << key << ',';
+		outFile << exist;
+		outFile << endl;
+	}
+
+	//admin
+	for (int i = 0; i < repo->users.p_admin_repo->size(); i++)
+	{
+		string name, identity, key;
+		int exist;
+		name = repo->users.p_admin_repo->at(i).user_name;
+		identity = repo->users.p_admin_repo->at(i).identity;
+		key = repo->users.p_admin_repo->at(i).key;
+		exist = repo->users.p_admin_repo->at(i).exist;
+		outFile << identity << ',';
+		outFile << name << ',';
+		outFile << key << ',';
+		outFile << exist;
+		outFile << endl;
+	}
+
+	outFile.close();
+}
+
 
 vector<string*> io::read_csv(int n)
 {
