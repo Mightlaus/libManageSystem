@@ -13,9 +13,9 @@ public:
 	struct UserHistory
 	{
 		int action; // -1借书， 1还书， 0阅览
-		int time;
+		long long time;
 		Book* p_book;
-		UserHistory(int time, int action, Book* p_book) :action(action), time(time), p_book(p_book) {}
+		UserHistory(long long time, int action, Book* p_book) :action(action), time(time), p_book(p_book) {}
 	};
 	User(string user_name, string key, char identity, BookRepo* p_book_repo) {
 		this->user_name = user_name;
@@ -41,7 +41,7 @@ public:
 	vector<Book*> findBook_publish(string publish);
 
 	// 图书变动记录
-	int addHistory(int time, int action, Book* p_book);
+	int addHistory(long long time, int action, Book* p_book);
 
 protected:
 	string key;
@@ -51,11 +51,16 @@ protected:
 class Student :public User
 {
 public:
-	Student(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'S', p_book_repo) {}
+	Student(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'S', p_book_repo) 
+	{
+		borrowTimes = 0;
+	}
+
+	int borrowTimes;
 
 	// 借还书操作
-	int borrowBook(Book* p_book, int time);
-	int returnBook(Book* p_book, int time);
+	int borrowBook(Book* p_book, long long time);
+	int returnBook(Book* p_book, long long time);
 	// 获得所有正在借还未归还的图书
 	vector<Book*> getBorrowing();
 };
@@ -66,8 +71,8 @@ public:
 	Admin(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'A', p_book_repo) {}
 
 	// 管理图书操作
-	int addBook(Book book, int time);
-	int delBook(Book* p_book, int time);
+	int addBook(Book book, long long time);
+	int delBook(Book* p_book, long long time);
 	int modifBook(Book* p_book, char modif_item, string new_content); // 除price、pages外的其他属性
 	int modifBook(Book* p_book, char modif_tiem, double new_price); // price属性
 };

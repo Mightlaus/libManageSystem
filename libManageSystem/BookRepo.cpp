@@ -8,7 +8,7 @@
 // 出版时间转换
 int publishTime(string str_time)
 {
-	int time = 0;
+	long long time = 0;
 
 	if (str_time.empty()) {
 		return -1;
@@ -280,6 +280,11 @@ vector<Book*> BookRepo::rankBook_newest(int rank_len)
 			rank_vec.push_back(&book);
 		}
 
+	}
+
+	if (rank_len > rank_vec.size())
+	{
+		rank_len = rank_vec.size();
 	}
 
 	bookSort_publish(rank_vec, rank_len);
