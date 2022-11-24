@@ -982,6 +982,12 @@ int main()
 			{
 				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times <<"次"<<endl;
 			}
+
+			string buffer;
+			cout << "\n按任意键返回主菜单...";
+			getline(cin, buffer);
+			cin.ignore(20, '\n');
+			system("cls");
 		}
 		else if (option == "5")
 		{
@@ -990,6 +996,12 @@ int main()
 			{
 				cout << i + 1 << ". " << rank_list[i]->user_name <<  endl;
 			}
+
+			string buffer;
+			cout << "\n按任意键返回主菜单...";
+			getline(cin, buffer);
+			cin.ignore(20, '\n');
+			system("cls");
 		}
 		else if (option == "6")
 		{
@@ -1000,9 +1012,10 @@ int main()
 			}
 
 			string buffer;
-			cout << "\n按任意键返回主菜单:";
+			cout << "\n按任意键返回主菜单...";
 			getline(cin, buffer);
 			cin.ignore(20, '\n');
+			system("cls");
 		}
 		else if (option == "7")
 		{
