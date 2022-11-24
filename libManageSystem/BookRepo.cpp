@@ -14,10 +14,6 @@ int publishTime(string str_time)
 		return -1;
 	}
 
-	if (stoi(str_time.substr(0, 4)) > 2022) {
-		return -1;
-	}
-
 	regex pattern_year("(\\d+)");
 	regex pattern_month("\\d+.+?(\\d+)");
 	regex pattern_day("\\d+[-_年]\\d+[-_月](\\d+)");
@@ -112,13 +108,13 @@ bool sparseMatch(string str1, string str2)
 	// 首先要转换为widestring
 	wstring wstr1 = str2wstr(str1);
 	wstring wstr2 = str2wstr(str2);
-	// 如果str1中的全部char在str2中出现过或者相反，且两长度(len1+len2)/(len1-len2)>=2则认为匹配
+	// 如果str1中的全部char在str2中出现过或者相反，暂时不要了**且两长度(len1+len2)/(len1-len2)>=2则认为匹配**
 	int len1 = wstr1.size();
 	int len2 = wstr2.size();
-	if ((len1 + len2) / abs(len1 - len2 + 0.0001) < 2)
-	{
-		return false;
-	}
+	//if ((len1 + len2) / abs(len1 - len2 + 0.0001) < 2)
+	//{
+	//	return false;
+	//}
 
 	bool match1 = true, match2 = true;
 	for (int i = 0; i < len1; i++)

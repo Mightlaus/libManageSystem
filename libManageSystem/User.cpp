@@ -25,6 +25,46 @@ int Student::returnBook(Book* p_book, int time)
 	return 1;
 }
 
+vector<Book*> Student::getBorrowing()
+{
+	vector<Book*> result;
+
+	for (int i = 0; i < this->histories.size(); i++)
+	{	
+		int borrowTimes = 0;
+		int returnTimes = 0;
+
+		// 已经存在不重复添加
+		if (find(result.begin(), result.end(), histories[i].p_book) != result.end())
+		{
+			continue;
+		}
+
+		//统计借阅次数与归还次数
+		for (int j = 0; j < this->histories.size(); j++)
+		{
+			if (this->histories[j].p_book == this->histories[i].p_book)
+			{
+				if (this->histories[j].action == -1)
+				{
+					borrowTimes++;
+				}
+				else if (this->histories[j].action == 1)
+				{
+					returnTimes++;
+				}
+			}
+		}
+
+		if (borrowTimes > returnTimes)
+		{
+			result.push_back(this->histories[i].p_book);
+		}
+	}
+
+	return vector<Book*>(result);
+}
+
 bool User::checkKey(string input_key)
 {
 	if (input_key == this->key)
