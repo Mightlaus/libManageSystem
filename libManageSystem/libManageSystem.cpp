@@ -201,10 +201,10 @@ void adminfunc(Repo& libRepo)
 			auto result2 = libRepo.users.findStudent(del_account);
 			if (!result2.empty())
 			{
-				cout << "找到用户账户" << result1.size() << "个：" << endl;
-				for (int i = 0; i < result1.size(); i++)
+				cout << "找到用户账户" << result2.size() << "个：" << endl;
+				for (int i = 0; i < result2.size(); i++)
 				{
-					cout << i + 1 << ". " << result1[i]->user_name << endl;
+					cout << i + 1 << ". " << result2[i]->user_name << endl;
 					if (i % 10 == 9)
 					{
 						cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
@@ -220,10 +220,10 @@ void adminfunc(Repo& libRepo)
 			auto result3 = libRepo.users.findVisitor(del_account);
 			if (!result3.empty())
 			{
-				cout << "找到游客账户" << result1.size() << "个：" << endl;
-				for (int i = 0; i < result1.size(); i++)
+				cout << "找到游客账户" << result3.size() << "个：" << endl;
+				for (int i = 0; i < result3.size(); i++)
 				{
-					cout << i + 1 << ". " << result1[i]->user_name << endl;
+					cout << i + 1 << ". " << result3[i]->user_name << endl;
 					if (i % 10 == 9)
 					{
 						cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
@@ -325,10 +325,10 @@ void adminfunc(Repo& libRepo)
 			auto result2 = libRepo.users.findStudent(reset_account);
 			if (!result2.empty())
 			{
-				cout << "找到用户账户" << result1.size() << "个：" << endl;
-				for (int i = 0; i < result1.size(); i++)
+				cout << "找到用户账户" << result2.size() << "个：" << endl;
+				for (int i = 0; i < result2.size(); i++)
 				{
-					cout << i + 1 << ". " << result1[i]->user_name << endl;
+					cout << i + 1 << ". " << result2[i]->user_name << endl;
 					if (i % 10 == 9)
 					{
 						cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
@@ -344,10 +344,10 @@ void adminfunc(Repo& libRepo)
 			auto result3 = libRepo.users.findVisitor(reset_account);
 			if (!result3.empty())
 			{
-				cout << "找到游客账户" << result1.size() << "个：" << endl;
-				for (int i = 0; i < result1.size(); i++)
+				cout << "找到游客账户" << result3.size() << "个：" << endl;
+				for (int i = 0; i < result3.size(); i++)
 				{
-					cout << i + 1 << ". " << result1[i]->user_name << endl;
+					cout << i + 1 << ". " << result3[i]->user_name << endl;
 					if (i % 10 == 9)
 					{
 						cout << "输入n查看下一页，或输入b退出搜索结果查看" << endl;
@@ -417,33 +417,6 @@ void adminfunc(Repo& libRepo)
 					system("cls");
 					cout << "输入格式错误！返回管理员模式" << endl;
 				}
-			}
-			
-			
-			
-			
-			if (!libRepo.users.findAdmin(reset_account).empty())
-			{
-				libRepo.users.modifKey(libRepo.users.findAdmin(reset_account)[0], "123456");
-				system("cls");
-				cout << "恢复管理员账号" << reset_account << "成功！返回管理员模式" << endl;
-			}
-			else if (!libRepo.users.findStudent(reset_account).empty())
-			{
-				libRepo.users.modifKey(libRepo.users.findStudent(reset_account)[0], "123456");
-				system("cls");
-				cout << "恢复学生账号" << reset_account << "成功！返回管理员模式" << endl;
-			}
-			else if (!libRepo.users.findVisitor(reset_account).empty())
-			{
-				libRepo.users.modifKey(libRepo.users.findVisitor(reset_account)[0], "123456");
-				system("cls");
-				cout << "恢复游客账号" << reset_account << "成功！返回管理员模式" << endl;
-			}
-			else
-			{
-				system("cls");
-				cout << "账号不存在！返回管理员模式" << endl;
 			}
 		}
 
