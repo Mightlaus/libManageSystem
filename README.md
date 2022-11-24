@@ -125,3 +125,6 @@ Admin中
   |  void resetxxxx  | 修改xxx属性  | string实参提供了重载函数可以接收char*型形参 |
   | addBorrowHistory | 添加借书日志 |                                             |
   |                  |              |                                             |
+
+
+#前端接口
