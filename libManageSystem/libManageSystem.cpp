@@ -501,15 +501,6 @@ void userfunc(Repo& libRepo)
 				}
 			}
 		}
-		//测试getBorrrowing方法
-		else if (option == "-1")
-		{
-			auto books = curruser->getBorrowing();
-			for (auto x : books)
-			{
-				cout << x->caption << endl;
-			}
-		}
 		//借阅图书
 		else if (option == "2")
 		{
@@ -592,37 +583,31 @@ void userfunc(Repo& libRepo)
 		//归还图书
 		else if (option == "3")
 		{
-			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
-			libRepo.users.
-			cout << "请输入要归还的图书信息：";
-			string return_bookinfo;
-			cin >> return_bookinfo;
-			vector<Book*> result;
-			if (search_type == "1")
+			vector<Book*> result = curruser->getBorrowing();
+			if(result.empty())
 			{
-				result = specificSearch(curruser, 'C', return_bookinfo);
-			}
-			else if (search_type == "2")
-			{
-				result = specificSearch(curruser, 'A', return_bookinfo);
-			}
-			else if (search_type == "3")
-			{
-				result = specificSearch(curruser, 'I', return_bookinfo);
-			}
-			else if (search_type == "4")
-			{
-				result = specificSearch(curruser, 'P', return_bookinfo);
+				cout << "您没有正在借阅的图书！返回用户模式" << endl;
 			}
 			else
 			{
-				result = globalSearch(curruser, return_bookinfo);
-			}
-
-			if (!result.empty())
-			{
-				showBooks(result);
-				cout << "请输入要借阅的图书序号：";
+				cout << "您正在借阅的图书有" << result.size() << "本，以下是您已经借阅的图书：" << endl;
+				for (auto x : result)
+				{
+					int index = 1;
+					cout << index << '.' << x->caption << " " << x->author << " " << x->publishing << endl;
+					if (index % 10 == 0)
+					{
+						cout << "输入n查看下一页，或输入b退出已借阅图书查看" << endl;
+						string show_choice;
+						cin >> show_choice;
+						if (show_choice == "b")
+						{
+							break;
+						}
+					}
+					index++;
+				}
+				cout << "请输入要归还的图书序号：";
 				string str;
 				cin >> str;
 				int choice = str[0] - '0';
@@ -647,13 +632,6 @@ void userfunc(Repo& libRepo)
 					cin.ignore(20, '\n');
 					continue;
 				}
-
-
-			}
-			else
-			{
-				system("cls");
-				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
 			}
 		}
 
