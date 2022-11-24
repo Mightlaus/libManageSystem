@@ -939,7 +939,7 @@ void visitorfunc(Repo& libRepo)
 				{
 					int choice = stoi(str);
 					vector<Book*> reco_list = libRepo.books.recommend(result[choice - 1]);
-					cout << "以下是为您推荐的图书" << endl;
+					cout << "以下是为您推荐的图书：" << endl;
 					for (int i = 0; i < reco_list.size(); i++)
 					{
 						cout << i + 1 << ". " << reco_list[i]->caption << " " << reco_list[i]->author << " " << reco_list[i]->publishing << " " << endl;
@@ -992,6 +992,7 @@ int main()
 		cout << "欢迎来到图书馆管理系统！" << endl;
 		GetLocalTime(&sys);
 		cout << sys.wYear << "年" << sys.wMonth << "月" << sys.wDay << "日 "<<setfill('0') << setw(2) << sys.wHour << ":" << setw(2) << sys.wMinute << ":" << setw(2) << sys.wSecond << " 星期" << sys.wDayOfWeek << endl;
+		cout << "当前图书馆共有" << libRepo.books.bookNums << "本书，" << libRepo.users.userNums << "个用户" << endl <<endl;
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
 		cout << "2.用户模式" << endl;
