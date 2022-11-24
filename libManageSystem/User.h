@@ -43,7 +43,6 @@ public:
 	// 图书变动记录
 	int addHistory(long long time, int action, Book* p_book);
 
-protected:
 	string key;
 	BookRepo* p_book_repo;
 };

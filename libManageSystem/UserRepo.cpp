@@ -22,7 +22,7 @@ extern wstring str2wstr(string str);
 // Ä£ºıÆ¥Åä×Ö·û´®
 extern bool sparseMatch(string str1, string str2);
 
-int UserRepo::addUser(char identity, string user_name, string key)
+int UserRepo::addUser(char identity, string user_name, string key, int exist)
 {
 
 	if (identity == 'A')
@@ -32,6 +32,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 			return -1;
 		}
 		Admin admin(user_name, key, p_book_repo);
+		admin.exist = exist;
 		p_admin_repo->push_back(admin);
 		userNums++;
 		adminNums++;
@@ -44,6 +45,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 			return -1;
 		}
 		Student student(user_name, key, p_book_repo);
+		student.exist = exist;
 		p_student_repo->push_back(student);
 		userNums++;
 		studentNums++;

@@ -22,7 +22,7 @@ public:
 	int visitorNums;
 
 	//增user identity:'S'->student, 'A'->admin, 'V'->visitor; 如果用户已存在，返回-1，identity类型错误返回0，成功返回1
-	int addUser(char identity, string user_name, string key="123456");
+	int addUser(char identity, string user_name, string key="123456", int exist=1);
 
 	//删user 如果用户不存在(exist=0)返回0， 成功返回1；
 	int delAdmin(Admin* p_admin);
@@ -41,7 +41,6 @@ public:
 
 	vector<Student*> rankUser_borrowest(int rank_len); //在Student库中找到借阅图书次数最多的学生并返回
 	
-protected:
 	BookRepo* p_book_repo;
 	vector<Admin>* p_admin_repo;
 	vector<Student>* p_student_repo;
