@@ -16,7 +16,7 @@ public:
 		p_visitor_repo = new vector<Visitor>;
 	}
 
-	int userNums;
+	int userNums; // 所有用户总数
 	int adminNums;
 	int studentNums;
 	int visitorNums;

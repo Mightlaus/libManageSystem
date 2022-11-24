@@ -27,6 +27,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 		}
 		Admin admin(user_name, key, p_book_repo);
 		p_admin_repo->push_back(admin);
+		userNums++;
 		adminNums++;
 		return 1;
 	}
@@ -38,6 +39,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 		}
 		Student student(user_name, key, p_book_repo);
 		p_student_repo->push_back(student);
+		userNums++;
 		studentNums++;
 		return 1;
 	}
@@ -49,6 +51,7 @@ int UserRepo::addUser(char identity, string user_name, string key)
 		}
 		Visitor visitor(user_name, key, p_book_repo);
 		p_visitor_repo->push_back(visitor);
+		userNums++;
 		visitorNums++;
 		return 1;
 	}
@@ -66,6 +69,7 @@ int UserRepo::delAdmin(Admin* p_admin)
 	{
 		p_admin->exist = 0;
 		adminNums--;
+		userNums--;
 		return 1;
 	}
 }
@@ -79,6 +83,7 @@ int UserRepo::delStudent(Student* p_student)
 	else
 	{
 		p_student->exist = 0;
+		userNums--;
 		studentNums--;
 		return 1;
 	}
@@ -93,6 +98,7 @@ int UserRepo::delVisitor(Visitor* p_visitor)
 	else
 	{
 		p_visitor->exist = 0;
+		userNums--;
 		visitorNums--;
 		return 1;
 	}
