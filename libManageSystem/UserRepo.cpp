@@ -1,4 +1,5 @@
 #include "UserRepo.h"
+#include <windows.h>
 
 // °´student½èÔÄ´ÎÊı½µĞòÅÅÁĞ
 void studentSort_borrowest(vector<Student*>& studentRepo, int len)
@@ -15,6 +16,11 @@ void studentSort_borrowest(vector<Student*>& studentRepo, int len)
 		}
 	}
 }
+
+// string -> wstring
+extern wstring str2wstr(string str);
+// Ä£ºıÆ¥Åä×Ö·û´®
+extern bool sparseMatch(string str1, string str2);
 
 int UserRepo::addUser(char identity, string user_name, string key)
 {
@@ -130,7 +136,7 @@ vector<Student*> UserRepo::findStudent(string user_name)
 
 	for (int i = 0; i < p_student_repo->size(); i++)
 	{
-		if (p_student_repo->at(i).user_name == user_name and p_student_repo->at(i).exist)
+		if (sparseMatch(p_student_repo->at(i).user_name, user_name) and p_student_repo->at(i).exist)
 		{
 			result_vec.push_back(&p_student_repo->at(i));
 		}
@@ -144,7 +150,7 @@ vector<Admin*> UserRepo::findAdmin(string user_name)
 
 	for (int i = 0; i < p_admin_repo->size(); i++)
 	{
-		if (p_admin_repo->at(i).user_name == user_name and p_admin_repo->at(i).exist)
+		if (sparseMatch(p_admin_repo->at(i).user_name, user_name) and p_admin_repo->at(i).exist)
 		{
 			result_vec.push_back(&p_admin_repo->at(i));
 		}
@@ -158,7 +164,7 @@ vector<Visitor*> UserRepo::findVisitor(string user_name)
 
 	for (int i = 0; i < p_visitor_repo->size(); i++)
 	{
-		if (p_visitor_repo->at(i).user_name == user_name and p_visitor_repo->at(i).exist)
+		if (sparseMatch(p_visitor_repo->at(i).user_name, user_name) and p_visitor_repo->at(i).exist)
 		{
 			result_vec.push_back(&p_visitor_repo->at(i));
 		}
