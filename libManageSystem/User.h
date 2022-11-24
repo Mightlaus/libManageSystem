@@ -51,7 +51,12 @@ protected:
 class Student :public User
 {
 public:
-	Student(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'S', p_book_repo) {}
+	Student(string user_name, string key, BookRepo* p_book_repo) :User(user_name, key, 'S', p_book_repo) 
+	{
+		borrowTimes = 0;
+	}
+
+	int borrowTimes;
 
 	// ½è»¹Êé²Ù×÷
 	int borrowBook(Book* p_book, int time);

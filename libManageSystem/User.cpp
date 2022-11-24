@@ -8,6 +8,7 @@ int Student::borrowBook(Book* p_book, int time)
 
 	p_book->addHistory(time, -1, this);
 	this->addHistory(time, -1, p_book);
+	this->borrowTimes++;
 	p_book->borrowed = 1;
 	return 1;
 	// todo 加borrow数量统计

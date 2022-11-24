@@ -282,6 +282,11 @@ vector<Book*> BookRepo::rankBook_newest(int rank_len)
 
 	}
 
+	if (rank_len > rank_vec.size())
+	{
+		rank_len = rank_vec.size();
+	}
+
 	bookSort_publish(rank_vec, rank_len);
 
 	for (int i = 0; i < rank_len; i++)
