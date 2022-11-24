@@ -252,7 +252,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.delAdmin(result1[stoi(del_choice.substr(1)) - 1]);
 						system("cls");
-						cout << "成功删除管理员账号" << result1[stoi(del_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功删除管理员账号" << result1[stoi(del_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
@@ -266,7 +266,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.delStudent(result2[stoi(del_choice.substr(1)) - 1]);
 						system("cls");
-						cout << "成功删除用户账号" << result2[stoi(del_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功删除用户账号" << result2[stoi(del_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
@@ -280,7 +280,7 @@ void adminfunc(Repo& libRepo)
 					{
 						libRepo.users.delVisitor(result3[stoi(del_choice.substr(1)) - 1]);
 						system("cls");
-						cout << "成功删除游客账号" << result3[stoi(del_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
+						cout << "成功删除游客账号" << result3[stoi(del_choice.substr(1)) - 1]->user_name << "！返回管理员模式" << endl;
 					}
 					else
 					{
@@ -302,7 +302,7 @@ void adminfunc(Repo& libRepo)
 			cout << "请输入要恢复的账号（学号/教师编号）：";
 			string reset_account;
 			cin >> reset_account;
-			
+
 			auto result1 = libRepo.users.findAdmin(reset_account);
 			if (!result1.empty())
 			{
@@ -374,7 +374,7 @@ void adminfunc(Repo& libRepo)
 				{
 					if (reset_choice[1] >= '0' && reset_choice[1] <= '9' && stoi(reset_choice.substr(1)) <= result1.size())
 					{
-						libRepo.users.modifKey(result1[stoi(reset_choice.substr(1))-1], "123456");
+						libRepo.users.modifKey(result1[stoi(reset_choice.substr(1)) - 1], "123456");
 						system("cls");
 						cout << "成功恢复管理员账号" << result1[stoi(reset_choice.substr(1)) - 1] << "！返回管理员模式" << endl;
 					}
