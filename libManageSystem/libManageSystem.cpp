@@ -4,6 +4,7 @@
 #include <iomanip>
 using namespace std;
 
+SYSTEMTIME sys;
 void showBooks(vector<Book*> book)
 {
 	cout << "搜索到" << book.size() << "个结果，以下是搜索结果第一页:" << endl;
@@ -553,7 +554,9 @@ void userfunc(Repo& libRepo)
 				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
 					int choice = stoi(str);
-					int borrow_result = curruser->borrowBook(result[choice - 1], 0);
+					GetLocalTime(&sys);
+					long long time = sys.wYear*10000000000+sys.wMonth*100000000+sys.wDay*1000000+sys.wHour*10000+sys.wMinute*100+sys.wSecond;
+					int borrow_result = curruser->borrowBook(result[choice - 1], time);
 					if (borrow_result == 0)
 					{
 						system("cls");
@@ -618,7 +621,9 @@ void userfunc(Repo& libRepo)
 				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
 					int choice = stoi(str);
-					int return_result = curruser->returnBook(result[choice - 1], 0);
+					GetLocalTime(&sys);
+					long long time = sys.wYear * 10000000000 + sys.wMonth * 100000000 + sys.wDay * 1000000 + sys.wHour * 10000 + sys.wMinute * 100 + sys.wSecond;
+					int return_result = curruser->returnBook(result[choice - 1], time);
 					if (return_result == 0)
 					{
 						system("cls");
@@ -694,7 +699,8 @@ void userfunc(Repo& libRepo)
 		{
 			for (User::UserHistory i : curruser->histories)
 			{
-				cout << i.time << " ";
+				string timestr = to_string(i.time);
+				cout << timestr.substr(0,4) << "/" <<timestr.substr(4,2)<<"/"<<timestr.substr(6,2)<<" "<<setfill('0') << setw(2) << timestr.substr(8,2) << ":" << setw(2) << timestr.substr(10, 2) << ":" << setw(2) << timestr.substr(12, 2);
 				if (i.action == -1)
 					cout << "借阅了 《";
 				if (i.action == 1)
@@ -931,6 +937,7 @@ void visitorfunc(Repo& libRepo)
 	}
 }
 
+
 int main()
 {
 	Repo libRepo;
@@ -945,12 +952,10 @@ int main()
 	string key2 = "123456";
 	libRepo.users.addUser('A', str2, key2);
 
-	SYSTEMTIME sys;
-	GetLocalTime(&sys);
-
 	while (1)
 	{
 		cout << "欢迎来到图书馆管理系统！" << endl;
+		GetLocalTime(&sys);
 		cout << sys.wYear << "年" << sys.wMonth << "月" << sys.wDay << "日 "<<setfill('0') << setw(2) << sys.wHour << ":" << setw(2) << sys.wMinute << ":" << setw(2) << sys.wSecond << " 星期" << sys.wDayOfWeek << endl;
 		cout << "********************主菜单********************" << endl << endl;
 		cout << "1.管理员模式" << endl;
