@@ -752,7 +752,7 @@ void userfunc(Repo& libRepo)
 			for (User::UserHistory i : curruser->histories)
 			{
 				string timestr = to_string(i.time);
-				cout << timestr.substr(0,4) << "/" <<timestr.substr(4,2)<<"/"<<timestr.substr(6,2)<<" "<<setfill('0') << setw(2) << timestr.substr(8,2) << ":" << setw(2) << timestr.substr(10, 2) << ":" << setw(2) << timestr.substr(12, 2);
+				cout << timestr.substr(0,4) << "/" <<timestr.substr(4,2)<<"/"<<timestr.substr(6,2)<<" "<<setfill('0') << setw(2) << timestr.substr(8,2) << ":" << setw(2) << timestr.substr(10, 2) << ":" << setw(2) << timestr.substr(12, 2)<<" ";
 				if (i.action == -1)
 					cout << "借阅了 《";
 				if (i.action == 1)
