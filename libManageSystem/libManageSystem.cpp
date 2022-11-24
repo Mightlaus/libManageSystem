@@ -535,13 +535,7 @@ void userfunc(Repo& libRepo)
 		else if (option == "3")
 		{
 			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
-			string search_type;
-			cin >> search_type;
-			if (search_type != "1" && search_type != "2" && search_type != "3" && search_type != "4" && search_type != "5")
-			{
-				cout << "输入格式非法！返回用户模式" << endl;
-				continue;
-			}
+			libRepo.users.
 			cout << "请输入要归还的图书信息：";
 			string return_bookinfo;
 			cin >> return_bookinfo;
