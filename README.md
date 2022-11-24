@@ -137,7 +137,7 @@ Admin负责图书馆的管理，所以对于图书的增删改查的方法都被
 
 ## UserRepo.h
 
-类如其名，这个类的作用就是**存放所有的用户**和操作用户。所以，你可以在这里面找到对用户的增删改查操作。
+类如其名，这个类的作用就是**存放所有的用户**和**操作用户**。所以，你可以在这里面找到对用户的增删改查操作。
 
 注意！在实际使用它时，它已经在Repo中被初始化为了一个对象，名为users。所以正确的使用方法是：(repo对象).users.(它的方法)
 
@@ -161,10 +161,35 @@ Admin负责图书馆的管理，所以对于图书的增删改查的方法都被
 >
 > 删改操作的返回值int与之前提到到一样，成功返回1
 
-| 类属性   | 描述                   | 参数类型 |
-| -------- | ---------------------- | -------- |
-| userNums | 当前的用户（三类）总数 |          |
-|          |                        |          |
-|          |                        |          |
-|          |                        |          |
+| 类属性                     | 描述                   | 参数类型          |
+| -------------------------- | ---------------------- | ----------------- |
+| userNums                   | 当前的用户（三类）总数 | int               |
+| adminNums                  | 当前管理员总数         | int               |
+| studentNums                | 当前读者总数           | int               |
+| visitorNums                | 当前访客总数           | int               |
+| p_book_repo (protected)    | 指向图书库的指针       | BookRepo*         |
+| p_admin_repo (protected)   | 存放admin用户数据库    | vector\<Admin>*   |
+| p_student_repo (protected) | 存放student用户数据库  | vector\<Student>* |
+| p_visitor_repo (protected) | 存放visitor用户数据库  | vector\<Visitor>* |
+
+> 使用addXXX的方法添加的用户都会被添加入对应的数据库中
+
+这里有一个很有意思（也很强大）的一个属性: **BookRepo* p_book_repo**。
+
+他是一个指向图书库(BookRepo)的指针，我们就是通过这个指针来建立用户库和图书库的联系，使得users们可以通过自己的方法来对图书增删改查，这个指针就是user与books的单向总线。更加强大的是，你仅仅只用修改这个指针的指向就可以赋予当前的所有用户管理其他图书库的权利！！因此，你需要在实例化UserRepo对象时提供这个参数。
+
+以下是UserRepo的构造函数
+
+```cpp
+	UserRepo(BookRepo* p_book_repo) {
+		this->p_book_repo = p_book_repo;
+		int userNums = 0;
+		int adminNums=0;
+		int studentNums=0;
+		int visitorNums=0;
+		p_admin_repo = new vector<Admin>;
+		p_student_repo = new vector<Student>;
+		p_visitor_repo = new vector<Visitor>;
+	}
+```
 
