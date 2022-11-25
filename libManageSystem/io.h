@@ -15,4 +15,5 @@ namespace io
 	void save_user_to_file(Repo* repo);
 	void welcome();
 	void bye();
+	void full_screen();
 }

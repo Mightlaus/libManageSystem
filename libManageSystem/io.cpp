@@ -96,7 +96,7 @@ void io::save_user_to_file(Repo* repo)
 
 void io::welcome()
 {
-	system("mode con cols=150 lines=40");
+	io::full_screen();
 	fstream inFile;
 	inFile.open("welcome.txt", ios::in);
 	while (1)
@@ -128,6 +128,18 @@ void io::bye()
 		cout << curLine << endl;
 	}
 	Sleep(2500);
+}
+
+void io::full_screen()
+{
+	HWND hwnd = GetForegroundWindow();
+	int cx = GetSystemMetrics(SM_CXSCREEN);            /* 屏幕宽度 像素 */
+	int cy = GetSystemMetrics(SM_CYSCREEN);            /* 屏幕高度 像素 */
+
+	LONG l_WinStyle = GetWindowLong(hwnd, GWL_STYLE);   /* 获取窗口信息 */
+	/* 设置窗口信息 最大化  */
+	SetWindowLong(hwnd, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE));
+	SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
 }
 
 

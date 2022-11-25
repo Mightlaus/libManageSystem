@@ -1123,11 +1123,15 @@ int main()
 	libRepo.books.addBatch(bookBatch, 2560);
 	io::add_user_from_file(&libRepo);
 	cout << "欢迎来到HNUlib图书管理系统" << endl;
-	cout << "你可以：\n\t0.阅读我们的技术文档与使用手册 \n\t1.进入系统"  << endl;
+	cout << "你可以：\n\t0.阅读我们的技术文档与使用手册 \n\t1.进入系统" << endl;
+	//改变字体颜色
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+	cout << endl << "！！为保证数据安全，进入系统后只能通过程序提供的退出选项退出，暴力退出将会被禁用！！" << endl;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 	cout << "请输入你的选择： ";
 	string choice;
 	cin >> choice;
-	if (choice=="0") {
+	if (choice == "0") {
 		system("..\\README.md");
 		cout << "按任意键进入系统";
 		getline(cin, choice);
@@ -1135,6 +1139,19 @@ int main()
 	}
 
 	system("mode con cols=115 lines=30");
+
+	//屏蔽控制台退出和缩小按钮
+	HWND hwnd = GetConsoleWindow();
+	HMENU hmenu = GetSystemMenu(hwnd, false);
+	RemoveMenu(hmenu, SC_CLOSE, MF_BYCOMMAND);
+	LONG style = GetWindowLong(hwnd, GWL_STYLE);
+	//style &= ~(WS_MINIMIZEBOX);
+	SetWindowLong(hwnd, GWL_STYLE, style);
+	SetWindowPos(hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	ShowWindow(hwnd, SW_SHOWNORMAL);
+	DestroyMenu(hmenu);
+	ReleaseDC(hwnd, NULL);
+
 	system("cls");
 	while (1)
 	{
