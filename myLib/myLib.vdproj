@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_40E8BFCF5CD741D08E5492146B0B5888"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_430CB68DAAB3F0C055D2E0676F57BE06"
         "OwnerKey" = "8:_F9DDACCB81E348388B8DC46F07A8E8D4"
         "MsmSig" = "8:_UNDEFINED"
@@ -39,7 +45,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_947F369FD45A46FE8A2C5C77F048ED75"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9C2CD76748BB4832A73A5EDD2A741288"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B5EB236FD311472A83392F1A71C0919E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -73,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -89,6 +115,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -128,6 +162,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40E8BFCF5CD741D08E5492146B0B5888"
+            {
+            "SourcePath" = "8:..\\libManageSystem\\bye.txt"
+            "TargetName" = "8:bye.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_BE0DA01BEFF24F8B92FCA08F29449933"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_430CB68DAAB3F0C055D2E0676F57BE06"
@@ -190,10 +244,50 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_947F369FD45A46FE8A2C5C77F048ED75"
+            {
+            "SourcePath" = "8:..\\libManageSystem\\welcome.txt"
+            "TargetName" = "8:welcome.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_BE0DA01BEFF24F8B92FCA08F29449933"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C2CD76748BB4832A73A5EDD2A741288"
             {
             "SourcePath" = "8:..\\ico.ico"
             "TargetName" = "8:ico.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_BE0DA01BEFF24F8B92FCA08F29449933"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B5EB236FD311472A83392F1A71C0919E"
+            {
+            "SourcePath" = "8:..\\libManageSystem\\users.csv"
+            "TargetName" = "8:users.csv"
             "Tag" = "8:"
             "Folder" = "8:_BE0DA01BEFF24F8B92FCA08F29449933"
             "Condition" = "8:"

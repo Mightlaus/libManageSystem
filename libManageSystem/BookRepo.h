@@ -9,7 +9,6 @@ public:
 		bookNums = 0;
 		p_book_repo = new vector<Book>;
 	}
-
 	
 	int bookNums; // 库内图书总数
 

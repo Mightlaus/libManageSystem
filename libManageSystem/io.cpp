@@ -127,7 +127,7 @@ void io::bye()
 		}
 		cout << curLine << endl;
 	}
-	Sleep(2000);
+	Sleep(2500);
 }
 
 

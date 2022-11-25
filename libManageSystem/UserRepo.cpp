@@ -243,3 +243,26 @@ vector<Student*> UserRepo::rankUser_borrowest(int rank_len)
 	return vector<Student*>(result_vec);
 }
 
+vector<Book*> UserRepo::recmdBooks(Student* student)
+{
+	vector<Book*> result;
+	for (int i = 0; i < student->histories.size(); i++)
+	{
+		auto p_book_repo = *student->p_book_repo;
+		vector<Book*> books = p_book_repo.recommend(student->histories[i].p_book);
+		for (auto& book : books)
+		{
+			if (find(result.begin(), result.end(), book) == result.end())
+			{
+				continue;
+			}
+			else
+			{
+				result.push_back(book);
+			}
+		}
+	}
+
+	return vector<Book*>(result);
+}
+

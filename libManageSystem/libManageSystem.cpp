@@ -946,6 +946,14 @@ void userfunc(Repo& libRepo)
 		//推荐图书
 		else if (option == "6")
 		{
+			auto books = libRepo.users.recmdBooks(curruser);
+			cout << "以下是推荐结果：" << endl;
+			for (int i = 0; i < books.size(); i++)
+			{
+				cout << i + 1 << ". " << books[i]->caption << " " << books[i]->author << " " << books[i]->publishing << " " << endl;
+			}
+
+			// old
 			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
 			string search_type;
 			cin >> search_type;
@@ -1192,7 +1200,7 @@ int main()
 		cin.ignore(20, '\n');
 	}
 
-	system("mode con cols=100 lines=30");
+	system("mode con cols=115 lines=30");
 	system("cls");
 	while (1)
 	{
