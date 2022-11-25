@@ -1176,10 +1176,24 @@ void visitorfunc(Repo& libRepo)
 int main()
 {
 	Repo libRepo;
+	io::welcome();
 	vector<string*> bookBatch = io::read_csv(2560);
 	libRepo.books.addBatch(bookBatch, 2560);
-
 	io::add_user_from_file(&libRepo);
+	cout << "欢迎来到HNUlib图书管理系统" << endl;
+	cout << "你可以：\n\t0.阅读我们的技术文档与使用手册 \n\t1.进入系统"  << endl;
+	cout << "请输入你的选择： ";
+	string choice;
+	cin >> choice;
+	if (choice=="0") {
+		system("..\\README.md");
+		cout << "按任意键进入系统";
+		getline(cin, choice);
+		cin.ignore(20, '\n');
+	}
+
+	system("mode con cols=100 lines=30");
+	system("cls");
 	while (1)
 	{
 		cout << "欢迎来到图书馆管理系统！" << endl;
@@ -1254,6 +1268,7 @@ int main()
 		else if (option == "7")
 		{
 			io::save_user_to_file(&libRepo);
+			io::bye();
 			break;
 		}
 		else

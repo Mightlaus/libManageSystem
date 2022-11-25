@@ -1,4 +1,5 @@
 #include "io.h"
+#include <Windows.h>
 
 void io::write_csv(int n, int m, string* s) // 传入一个二维string数组，并告知行数和列数
 {
@@ -91,6 +92,42 @@ void io::save_user_to_file(Repo* repo)
 	}
 
 	outFile.close();
+}
+
+void io::welcome()
+{
+	system("mode con cols=150 lines=40");
+	fstream inFile;
+	inFile.open("welcome.txt", ios::in);
+	while (1)
+	{
+		string curLine;
+		getline(inFile, curLine);
+		if (curLine.empty())
+		{
+			break;
+		}
+		cout << curLine << endl;
+	}
+}
+
+void io::bye()
+{
+	system("cls");
+	system("mode con cols=75 lines=35");
+	fstream inFile;
+	inFile.open("bye.txt", ios::in);
+	while (1)
+	{
+		string curLine;
+		getline(inFile, curLine);
+		if (curLine.empty())
+		{
+			break;
+		}
+		cout << curLine << endl;
+	}
+	Sleep(2000);
 }
 
 

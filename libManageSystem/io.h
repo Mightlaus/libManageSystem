@@ -13,4 +13,6 @@ namespace io
 	void write_csv(int n, int m, string* s);
 	void add_user_from_file(Repo* repo);
 	void save_user_to_file(Repo* repo);
+	void welcome();
+	void bye();
 }
