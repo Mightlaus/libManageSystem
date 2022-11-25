@@ -249,17 +249,28 @@ vector<Book*> UserRepo::recmdBooks(Student* student)
 	for (int i = 0; i < student->histories.size(); i++)
 	{
 		auto p_book_repo = *student->p_book_repo;
-		vector<Book*> books = p_book_repo.recommend(student->histories[i].p_book);
-		for (auto& book : books)
+		vector<Book*> rbooks = p_book_repo.recommend(student->histories[i].p_book);
+		for (auto& book : rbooks)
 		{
-			if (find(result.begin(), result.end(), book) == result.end())
+			if (find(result.begin(), result.end(), book) != result.end())
 			{
-				continue;
+					continue;
 			}
-			else
+
+			bool alreadyAdd = 0;
+			for (auto history : student->histories)
+			{
+				if (book == history.p_book)
+				{
+					alreadyAdd = 1;
+				}
+			}
+
+			if (!alreadyAdd)
 			{
 				result.push_back(book);
 			}
+
 		}
 	}
 

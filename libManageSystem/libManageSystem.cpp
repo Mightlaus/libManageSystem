@@ -65,7 +65,7 @@ void adminfunc(Repo& libRepo)
 		system("cls");
 		return;
 	}
-	while (libRepo.users.findAdmin(account).empty())
+	while (libRepo.users.findAdmin(account, 1).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
@@ -77,7 +77,7 @@ void adminfunc(Repo& libRepo)
 		}
 	}
 
-	Admin* curruser = libRepo.users.findAdmin(account)[0];
+	Admin* curruser = libRepo.users.findAdmin(account, 1)[0];
 
 	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 	string password;
@@ -660,7 +660,7 @@ void userfunc(Repo& libRepo)
 		system("cls");
 		return;
 	}
-	while (libRepo.users.findStudent(account).empty())
+	while (libRepo.users.findStudent(account, 1).empty())
 	{
 		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
@@ -672,7 +672,7 @@ void userfunc(Repo& libRepo)
 		}
 	}
 
-	Student* curruser = libRepo.users.findStudent(account)[0];
+	Student* curruser = libRepo.users.findStudent(account, 1)[0];
 
 	cout << "请输入您的密码（默认密码为123456，输入*以回到主菜单）" << endl;
 	string password;
@@ -947,76 +947,10 @@ void userfunc(Repo& libRepo)
 		else if (option == "6")
 		{
 			auto books = libRepo.users.recmdBooks(curruser);
-			cout << "以下是推荐结果：" << endl;
+			cout << "与你书品相同的读者也借阅过以下这些书哦：" << endl;
 			for (int i = 0; i < books.size(); i++)
 			{
 				cout << i + 1 << ". " << books[i]->caption << " " << books[i]->author << " " << books[i]->publishing << " " << endl;
-			}
-
-			// old
-			cout << "请输入搜索类型，1为搜索书名，2为搜索作者，3为ISBN号，4为出版社，5为全局搜索" << endl;
-			string search_type;
-			cin >> search_type;
-			if (search_type != "1" && search_type != "2" && search_type != "3" && search_type != "4" && search_type != "5")
-			{
-				system("cls");
-				cout << "输入格式非法！返回用户模式" << endl;
-				cin.ignore(20, '\n');
-				continue;
-			}
-			cout << "请输入推荐基于的图书信息：";
-			string reco_bookinfo;
-			cin >> reco_bookinfo;
-			vector<Book*> result;
-			if (search_type == "1")
-			{
-				result = specificSearch(curruser, 'C', reco_bookinfo);
-			}
-			else if (search_type == "2")
-			{
-				result = specificSearch(curruser, 'A', reco_bookinfo);
-			}
-			else if (search_type == "3")
-			{
-				result = specificSearch(curruser, 'I', reco_bookinfo);
-			}
-			else if (search_type == "4")
-			{
-				result = specificSearch(curruser, 'P', reco_bookinfo);
-			}
-			else
-			{
-				result = globalSearch(curruser, reco_bookinfo);
-			}
-
-			if (!result.empty())
-			{
-				showBooks(result);
-				cout << "请输入要选择的图书序号：";
-				string str;
-				cin >> str;
-				if (str[0] >= '0' && str[0] <= '9' && stoi(str) <= result.size())
-				{
-					int choice = stoi(str);
-					vector<Book*> reco_list = libRepo.books.recommend(result[choice - 1]);
-					cout << "以下是推荐结果：" << endl;
-					for (int i = 0; i < reco_list.size(); i++)
-					{
-						cout << i + 1 << ". " << reco_list[i]->caption << " " << reco_list[i]->author << " " << reco_list[i]->publishing << " " << endl;
-					}
-				}
-				else
-				{
-					system("cls");
-					cout << "输入格式非法！返回用户模式" << endl;
-					cin.ignore(20, '\n');
-					continue;
-				}
-			}
-			else
-			{
-				system("cls");
-				cout << "图书馆还没有这本书哦！返回用户模式" << endl;
 			}
 		}
 		//退出

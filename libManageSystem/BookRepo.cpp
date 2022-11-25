@@ -305,7 +305,7 @@ vector<Book*> BookRepo::rankBook_borrowest(int rank_len)
 
 	for (auto& book : *p_book_repo)
 	{
-		if (book.exist and book.borrowed_times>0)
+		if (book.exist and book.borrowed_times > 0)
 		{
 			rank_vec.push_back(&book);
 		}
@@ -334,27 +334,29 @@ vector<Book*> BookRepo::recommend(Book* p_book)
 	vector<User*> parallels;
 
 	//找到借这本书的所有user放到parallels里
-	for (auto history : p_book->histories)
+	for(int i=0; i< p_book->histories.size(); ++i)
 	{
-		if (history.action == 1)
+		if (p_book->histories[i].action == 1)
 		{
-			for (auto p_user : parallels)
+			//users重复不考虑
+			if (find(parallels.begin(), parallels.end(), p_book->histories[i].user) == parallels.end())
 			{
-				if (p_user->user_name == history.user->user_name) continue;
+				if(!parallels.empty())
+					continue;
+			}
+			parallels.push_back(p_book->histories[i].user);
 
-				parallels.push_back(history.user);
-				// 找到这个user所借的所有书放到recm_list中
-				for (auto u_history : history.user->histories)
+			// 找到这个user所借的所有书放到recm_list中
+			for(int j=0; j< p_book->histories[i].user->histories.size(); ++j)
+			{
+				if (p_book->histories[i].user->histories[j].action == -1)
 				{
-					if (u_history.action == 1)
+					//book重复不考虑
+					if (find(recm_list.begin(), recm_list.end(), p_book->histories[i].user->histories[j].p_book) != recm_list.end())
 					{
-						for (auto book : recm_list)
-						{
-							if (u_history.p_book->caption == book->caption) continue;
-							recm_list.push_back(u_history.p_book);
-						}
-						
+							continue;
 					}
+					recm_list.push_back(p_book->histories[i].user->histories[j].p_book);
 				}
 			}
 		}
