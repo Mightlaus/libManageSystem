@@ -13,14 +13,11 @@
 
 # 后端接口
 
-后端为前端提供的接口主要分布于三个头文件中:BookRepo.h, UserRepo.h, User.h
+后端为前端提供的接口主要分布于三个头文件中
 
 - BookRepo.h
-  - Book.h
-
 - UserRepo.h
-  - User.h
-
+- User.h
 
 你可以通过浏览这三个文件中的public属性和方法来掌握调用方法。
 
@@ -146,39 +143,34 @@ Admin负责图书馆的管理，所以对于图书的增删改查的方法都被
 
 因为user类一共有三个子类（Student, Admin, Visitor），因此我们需要不同的容器去存放他们，和不同的方法去修改他们。所以你可以看到很多相似的属性和方法，分类调用就可以啦。
 
-| 类方法                                                       | 描述                                                       |
-| ------------------------------------------------------------ | ---------------------------------------------------------- |
-| int addUser(char identity, string user_name, string key="123456"); | 添加用户，需要声明用户类型（identity）默认密码为123456     |
-| int delAdmin(Admin* p_admin);                                | 删除管理员用户                                             |
-| int delStudent(Student* p_student);                          | 删除读者用户                                               |
-| int delVisitor(Visitor* p_visitor);                          | 删除访客用户                                               |
-| int modifKey(Student* p_stu, string new_key);                | 改变读者用户密码                                           |
-| int modifKey(Admin* p_admin, string new_key);                | 改变管理员用户密码                                         |
-| int modifKey(Visitor* p_cust, string new_key);               | 改变访客用户密码                                           |
-| vector<Student*> findStudent(string user_name);              | 按用户名查找读者                                           |
-| vector<Admin*> findAdmin(string user_name);                  | 按用户名查找管理员                                         |
-| vector<Visitor*> findVisitor(string user_name);              | 按用户名查找访客                                           |
-| vector<Student*> rankUser_borrowest(int rank_len);           | 在Student库中找到借阅图书次数最多的读者并返回              |
-| vector<Book*> recmdBooks(Student* student);                  | 就用户借阅图书列表推荐图书(借阅相同图书的其他读者借阅的书) |
+| 类方法                                                       | 描述                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------ |
+| int addUser(char identity, string user_name, string key="123456"); | 添加用户，需要声明用户类型（identity）默认密码为123456 |
+| int delAdmin(Admin* p_admin);                                | 删除管理员用户                                         |
+| int delStudent(Student* p_student);                          | 删除读者用户                                           |
+| int delVisitor(Visitor* p_visitor);                          | 删除访客用户                                           |
+| int modifKey(Student* p_stu, string new_key);                | 改变读者用户密码                                       |
+| int modifKey(Admin* p_admin, string new_key);                | 改变管理员用户密码                                     |
+| int modifKey(Visitor* p_cust, string new_key);               | 改变访客用户密码                                       |
+| vector<Student*> findStudent(string user_name);              | 按用户名查找读者                                       |
+| vector<Admin*> findAdmin(string user_name);                  | 按用户名查找管理员                                     |
+| vector<Visitor*> findVisitor(string user_name);              | 按用户名查找访客                                       |
+| vector<Student*> rankUser_borrowest(int rank_len);           | 在Student库中找到借阅图书次数最多的读者并返回          |
 
 > 用户类型(identity)： 'S':Student	'A':Admain	'V':Visirot
 >
 > 删改操作的返回值int与之前提到到一样，成功返回1
 
-recmdbBooks是用来给特定用户推荐图书的方法，他的推荐逻辑如下：先找出用户所有借阅过的书，根据这些书找到借阅同一本书的其他读者，然后再从这些读者里找出他们借阅过的书构成列表返回。听起来挺复杂的，但实际上因为User和Book的借阅记录（histories）里都存放了指向对应书籍和对应读者的指针而不是简单的字符串，所以可以很方便地查找到我们需要的内容。
-
-这是一个推荐系统的雏形。我们可以尝试再加深推荐深度，不停地利用**借阅的图书->借阅它的读者->借阅的图书...**这样一层层树状搜索，然后统计所有被提及读者的次数与被提及图书的次数降序排列。仅仅只用确定起始于中止条件，这样可以实现**书对书、书对读者、读者对读者、读者对书**的四种推荐形式。由于时间有限，暂未实现这些功能，但可想而知这实际上都可以用递归算法实现，并不复杂。
-
-| 类属性         | 描述                   | 参数类型          |
-| -------------- | ---------------------- | ----------------- |
-| userNums       | 当前的用户（三类）总数 | int               |
-| adminNums      | 当前管理员总数         | int               |
-| studentNums    | 当前读者总数           | int               |
-| visitorNums    | 当前访客总数           | int               |
-| p_book_repo    | 指向图书库的指针       | BookRepo*         |
-| p_admin_repo   | 存放admin用户数据库    | vector\<Admin>*   |
-| p_student_repo | 存放student用户数据库  | vector\<Student>* |
-| p_visitor_repo | 存放visitor用户数据库  | vector\<Visitor>* |
+| 类属性                     | 描述                   | 参数类型          |
+| -------------------------- | ---------------------- | ----------------- |
+| userNums                   | 当前的用户（三类）总数 | int               |
+| adminNums                  | 当前管理员总数         | int               |
+| studentNums                | 当前读者总数           | int               |
+| visitorNums                | 当前访客总数           | int               |
+| p_book_repo (protected)    | 指向图书库的指针       | BookRepo*         |
+| p_admin_repo (protected)   | 存放admin用户数据库    | vector\<Admin>*   |
+| p_student_repo (protected) | 存放student用户数据库  | vector\<Student>* |
+| p_visitor_repo (protected) | 存放visitor用户数据库  | vector\<Visitor>* |
 
 > 使用addXXX的方法添加的用户都会被添加入对应的数据库中
 
@@ -201,148 +193,13 @@ recmdbBooks是用来给特定用户推荐图书的方法，他的推荐逻辑如
 	}
 ```
 
-## BookRepo.h
+  |      方法名      | 描述         | 备注                                        |
+  | :--------------: | ------------ | ------------------------------------------- |
+  |  void resetxxxx  | 修改xxx属性  | string实参提供了重载函数可以接收char*型形参 |
+  | addBorrowHistory | 添加借书日志 |                                             |
+  |                  |              |                                             |
 
-说完用户部分，我们接着谈**BookRepo* p_book_repo**这个指针所指向的BookRepo的功能。
 
-与UserRepo一样，这是一个用于管理图书的类，所有的图书都应该保存在其中并且都应该由它来操作。因此，BookRepo针对其内的图书提供了以下方法。
-
-| 类方法                                                     | 描述                                            |
-| ---------------------------------------------------------- | ----------------------------------------------- |
-| void addOne(Book book);                                    | 向书库中增加一本书                              |
-| void addBatch(vector<string*> book_batch, int batch_size); | 通过文件读写的方式向书库中批量增加书            |
-| void delOne(Book* p_book);                                 | 删除书库中的一本书（属性exist置为0）            |
-| void delBatch(vector<Book*> book_vec);                     | 批量删除传入列表中的全部书                      |
-| void modifCaption(Book* p_book, string caption);           | 修改书名                                        |
-| void modifAuthor(Book* p_book, string author);             | 修改作者                                        |
-| void modifIsbn(Book* p_book, string isbn);                 | 修改ISBN                                        |
-| void modifPrice(Book* p_book, double price);               | 修改价格                                        |
-| vector<Book*> find_isbn(string isbn);                      | ISBN精准查找                                    |
-| vector<Book*> find_caption(string caption);                | 书名模糊查找                                    |
-| vector<Book*> find_author(string author);                  | 按作者名模糊查找                                |
-| vector<Book*> find_publish(string publish);                | 按出版社名模糊查找                              |
-| vector<Book*> rankBook_newest(int rank_len);               | 在书库中找到最新出版的rank_len本书并返回        |
-| vector<Book*> rankBook_borrowest(int rank_len);            | 在书库中找到被借阅次数最多的rank_len本书并返回  |
-| vector<Book*> recommend(Book* p_book);                     | 推荐,返回借阅传入图书的全部用户借阅的其他所有书 |
-
-增、删、改、查，四种方法字如其名，方法自身声明已经很显式地告知了使用方法，不再赘述。这里重点谈一下最后的三种方法和模糊查找。
-
-- 模糊查找
-
-  模糊查找实际上就是字符串的匹配。当然，为了更高级的查找功能，本程序里设计的模糊查找功能基于综合判断字长、广义子串功能实现。
-
-  假设现在有字符串str1与str2。判断两字符串“成功匹配”（也就是查找到）的条件如下
-
-  1. str1中的全部字符在str2中出现过（不考虑顺序）或者相反
-  2. 两字符串长度(len1+len2)/(len1-len2)>=2
-
-  众所周知C++基本没有对汉字的处理能力，一个汉字需要两个字节的位置存放，所以不能通过char的简单ascall编码来查找，否则会发生很严重错误，这就需要我们在查找前首先把汉字做格式转换。必须想办法把单字节的string转换成双字节的wstring，这个函数(str2wst)的在BookRepo.cpp中得到实现。
-
-  这个单字节向双字节的转换函数非常重要，几乎所有处理汉字字符串匹配的都要用到。
-
-  ```cpp
-  wstring str2wstr(string str)
-  {
-  	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
-  	if (len == 0)
-  		return wstring(L"");
-  	wchar_t* wct = new wchar_t[len];
-  	if (!wct)
-  		return std::wstring(L"");
-  
-  	MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, wct, len);
-  	wstring wstr(wct);
-  	delete[] wct;
-  	wct = NULL;
-  	return wstr;
-  }
-  ```
-
-- 最新出版图书排序
-
-  这是个苦功夫，提供的原始图书数据库的时间信息格式非常乱，单单在洗数据上就花费了很多时间。
-
-  此外，由于我们读取存入的是string对象，我们还要想办法对其排序。还是因为格式信息不同，想要简单的使用string比大小肯定漏洞百出，我们最终的解决办法是，用正则表达式匹配来兼容不同格式的数据并提出年月日信息转化为int比较，代码如下。
-
-  ```cpp
-  // 出版时间转换
-  int publishTime(string str_time)
-  {
-  	long long time = 0;
-  
-  	if (str_time.empty()) {
-  		return -1;
-  	}
-  
-  	regex pattern_year("(\\d+)");
-  	regex pattern_month("\\d+.+?(\\d+)");
-  	regex pattern_day("\\d+[-_年]\\d+[-_月](\\d+)");
-  
-  	smatch result;
-  	if (regex_search(str_time, result, pattern_year))
-  	{
-  		time += stoi(result.str()) * 10000;
-  	}
-  	if (regex_search(str_time, result, pattern_month))
-  	{
-  		time += stoi(result[1].str()) * 100;
-  	}
-  	if (regex_search(str_time, result, pattern_day))
-  	{
-  		time += stoi(result[1].str());
-  	}
-  
-  	return time;
-  
-  }
-  ```
-
-  它可以识别2022-1-1、2022年1月1日、2022_1_1、2022 1 1等类型的日期表示方法，然后转化为*年\*10000+月\*100+日*的int类型以供比较。
-
-  有了确切的比较对象，那么我们只需要构造一个比较规则然后利用sort函数就可以实现了。可是我们这里并不需要对整个图书库全部排序，只需要找出最新出版的X本就足够了。所以我们的项目里采用冒泡排序即可
-
-  ```cpp
-  // 按被借阅次数降序排列
-  void bookSort_borrowest(vector<Book*>& bookRepo, int len)
-  {
-  	int size = bookRepo.size();
-  	for (int i = 0; i < len; i++)
-  	{
-  		for (int j = size - 1; j > i; j--)
-  		{
-  			if (bookRepo[j]->histories.size() > bookRepo[j - 1]->histories.size())
-  			{
-  				swap(bookRepo[j], bookRepo[j - 1]);
-  			}
-  		}
-  	}
-  }
-  ```
-
-- 被借阅次数最多的图书
-
-  方法与最新出版图书类似，略。
-
-- 书->书 推荐
-
-  推荐逻辑在UserRepo里提到过，不再重复。值得注意的是，UserRepo里实现给用户推荐书的方法调用了这个函数的接口，因为在找到用户借的图书后需要根据这些图书找到借他们的用户然后再去找这些用户借的书。(但这是一个递归！难免有些绕)
-
-这个类还包含了一些记录图书库的属性
-
-| 类属性       | 描述         | 数据类型      |
-| ------------ | ------------ | ------------- |
-| bookNums     | 库内图书总数 | int           |
-| *p_book_repo | 书库         | vector\<Book> |
-
-构造函数初始化了这两个属性 
-
-```cpp
-BookRepo()
-{
-    bookNums = 0;
-    p_book_repo = new vector<Book>;
-}
-```
 
 # 前端
 
@@ -356,15 +213,17 @@ BookRepo()
 
 - ### 主菜单
 
-​	刚进入系统的菜单分为管理员模式、学校用户模式和游客模式。我将三个模式**封装**成了三个函数，这样代码结构更清晰一些。
+​	刚进入系统的菜单分为管理员、学校用户和游客三个模式，用户可以选择其中一个进入。我将三个模式**封装**成了三个函数，这样代码结构更清晰一些。在主界面还可以看到当前时间，图书馆系统当前用户数和图书数量，访问三个排行榜，对图书馆的大致情况进行了解。
 
-- ### 用户模式
+- ### 三种用户模式
 
 ​	在特定的模式子菜单下，显示当前账号类型所允许的操作列表，并让用户去选择要进行的操作。这里主要就是调用后端的接口，并根据传入的参数和返回的结果，搭配前端用户操作输入输出的逻辑，实现整个系统**“看起来”**的样子。
 
-- ### 从csv导入数据
+- ### 从csv读写数据
 
-​	图书的数据比较“脏”，所以过程中格式出了很多问题，因此我们先通过excel清洗了数据，再将其读入内存。
+​	每次打开图书馆系统，系统会先读取当前目录下的图书和用户csv文件到内存，而每次关闭系统会将内存中的数据写入csv文件，以保证图书馆系统的数据实时保持更新。
+
+​	图书的原始数据比较“脏”，所以过程中格式出了很多问题，因此我们先通过excel清洗了数据，再将其读入内存。
 
 - ### 读取系统时间
 
@@ -390,8 +249,17 @@ BookRepo()
 
 ​	当图书数量增加到很多，搜索图书的结果可能有七八十个，而这时如果直接输出所有结果，用户需要一点一点往上翻到第一页开始看，这非常不方便，而且有时其实用户仅仅需要前面十条的搜索记录。有鉴于此，我增加了搜索结果分页显示的功能，并让用户自己选择翻页，这样便很好的解决了这个问题。
 
+## 代码复用率
+
+​	为了提高代码复用率，使代码更容易阅读，开发维护成本更低。将搜索图书和输出图书信息的功能封装成了函数，在不同用户模式和操作中去调用它，从而少去了复制粘贴的过程，并且后期修改能够只改一个地方，提高了开发效率
 
 
-1. 为了提高代码复用率，使代码更容易阅读，开发维护成本更低。将搜索图书和输出图书信息的功能封装成了函数，在不同用户模式和操作中去调用它，从而少去了复制粘贴的过程，并且后期修改能够只改一个地方。
-2. 提供了在主菜单显示当前图书馆图书数量和读者数量的功能
+
+- [x] 提供了在主菜单显示当前图书馆图书数量和读者数量的功能，方便用户更直观地了解图书馆的实时情况
+- [x] 管理员模式提供了更改密码，添加用户，删除用户，恢复用户默认密码，增加图书，删除图书，修改图书信息，搜索图书8个功能，覆盖了对图书馆系统用户账号和所有图书的增删改查
+- [x] 对用户账号和图书的删、改、查，都采用了相似的一套流程，输入查找类型（可有可无），系统精确搜索（或模糊搜索），按分页的形式列出搜索结果，用户选择继续查看下一页或退出搜索结果查询，并通过序号选择自己要操作的对象。
+- [x] 当输入非法格式时，系统自动跳回上一级菜单。但当输入密码错误时，系统会给予重试的机会，这时用户如果放弃输入密码，可以按*退出
+- [x] 用户模式提供了更改密码，借阅图书，归还图书，搜索图书，推荐图书，查看借阅记录6个功能
+- [x] 用户的推荐图书功能系统会直接列出与当前用户借过相同的书的读者借阅的其他书，而游客模式的推荐图书功能需要用户选择一本书进行相关推荐
+- [x] 游客模式提供了搜索图书，推荐图书2个功能，进入此模式系统会自动分配账号，无需通过账号密码登录
 

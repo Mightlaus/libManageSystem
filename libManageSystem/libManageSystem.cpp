@@ -1185,7 +1185,7 @@ int main()
 		cout << "4.借阅次数排行榜——图书" << endl;
 		cout << "5.借阅次数排行榜——读者" << endl;
 		cout << "6.最新出版图书" << endl;
-		cout << "7.保存数据然后退出系统" << endl << endl;
+		cout << "7.保存数据并退出系统" << endl << endl;
 		cout << endl << "请输入您的选择：";
 		string option;
 		cin >> option;
