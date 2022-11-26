@@ -151,7 +151,8 @@ void adminfunc(Repo& libRepo)
 		//添加用户
 		else if (option == "2")
 		{
-			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”";
+			cout << "请输入要添加的账号（学号/教师编号）：格式为“A（管理员账号）/S（用户账号）+账号”"<<endl;
+			cout << "如：A2022为添加一个用户账号为2022的管理员账号: " << endl;
 			string insert_account;
 			cin >> insert_account;
 			int insert_result = libRepo.users.addUser(insert_account[0], insert_account.substr(1));
@@ -182,6 +183,8 @@ void adminfunc(Repo& libRepo)
 			auto result1 = libRepo.users.findAdmin(del_account);
 			if (!result1.empty())
 			{
+				cout << endl;
+
 				cout << "找到管理员账户" << result1.size() << "个：" << endl;
 				for (int i = 0; i < result1.size(); i++)
 				{
@@ -201,6 +204,8 @@ void adminfunc(Repo& libRepo)
 			auto result2 = libRepo.users.findStudent(del_account);
 			if (!result2.empty())
 			{
+				cout << endl;
+
 				cout << "找到用户账户" << result2.size() << "个：" << endl;
 				for (int i = 0; i < result2.size(); i++)
 				{
@@ -220,6 +225,8 @@ void adminfunc(Repo& libRepo)
 			auto result3 = libRepo.users.findVisitor(del_account);
 			if (!result3.empty())
 			{
+				cout << endl;
+
 				cout << "找到游客账户" << result3.size() << "个：" << endl;
 				for (int i = 0; i < result3.size(); i++)
 				{
@@ -235,6 +242,7 @@ void adminfunc(Repo& libRepo)
 						}
 					}
 				}
+				cout << endl;
 			}
 			if (result1.empty() && result2.empty() && result3.empty())
 			{
@@ -306,6 +314,8 @@ void adminfunc(Repo& libRepo)
 			auto result1 = libRepo.users.findAdmin(reset_account);
 			if (!result1.empty())
 			{
+				cout << endl;
+
 				cout << "找到管理员账户" << result1.size() << "个：" << endl;
 				for (int i = 0; i < result1.size(); i++)
 				{
@@ -325,6 +335,8 @@ void adminfunc(Repo& libRepo)
 			auto result2 = libRepo.users.findStudent(reset_account);
 			if (!result2.empty())
 			{
+				cout << endl;
+
 				cout << "找到用户账户" << result2.size() << "个：" << endl;
 				for (int i = 0; i < result2.size(); i++)
 				{
@@ -344,6 +356,8 @@ void adminfunc(Repo& libRepo)
 			auto result3 = libRepo.users.findVisitor(reset_account);
 			if (!result3.empty())
 			{
+				cout << endl;
+
 				cout << "找到游客账户" << result3.size() << "个：" << endl;
 				for (int i = 0; i < result3.size(); i++)
 				{
@@ -423,7 +437,7 @@ void adminfunc(Repo& libRepo)
 		//添加图书
 		else if (option == "5")
 		{
-			cout << "请输入要增加的图书信息，格式：第一行为要增加的本数，之后每一行为一本书的书名，作者，isbn，出版社，出版时间，描述，页数，价格，中间用空格隔开" << endl;
+			cout << "请输入要增加的图书信息，\n格式：第一行为要增加的本数，之后每一行输入一本书的信息：\n书名，作者，isbn，出版社，出版时间，描述，页数，价格，中间用空格隔开" << endl;
 			string str;
 			cin >> str;
 			int size = stoi(str);
@@ -567,7 +581,7 @@ void adminfunc(Repo& libRepo)
 					cin.ignore(20, '\n');
 					continue;
 				}
-				cout << "请输入要修改的种类和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				cout << "请输入要修改的类型条目和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
 				string change_str;
 				cin >> change_str;
 				while (curruser->modifBook(result[choice - 1], change_str[0], change_str.substr(1)) == 0)
@@ -827,6 +841,8 @@ void userfunc(Repo& libRepo)
 			vector<Book*> result = curruser->getBorrowing();
 			if (result.empty())
 			{
+				system("cls");
+				cin.ignore(20, '\n');
 				cout << "您没有正在借阅的图书！返回用户模式" << endl;
 			}
 			else
@@ -919,6 +935,7 @@ void userfunc(Repo& libRepo)
 			if (!result.empty())
 			{
 				showBooks(result);
+				io::click_back();
 			}
 			else
 			{
@@ -942,6 +959,8 @@ void userfunc(Repo& libRepo)
 					cout << "阅览了 《";
 				cout << i.p_book->caption << "》" << endl;
 			}
+
+			io::click_back();
 		}
 		//推荐图书
 		else if (option == "6")
@@ -952,6 +971,7 @@ void userfunc(Repo& libRepo)
 			{
 				cout << i + 1 << ". " << books[i]->caption << " " << books[i]->author << " " << books[i]->publishing << " " << endl;
 			}
+			io::click_back();
 		}
 		//退出
 		else if (option == "7")
@@ -1138,9 +1158,8 @@ int main()
 		cin.ignore(20, '\n');
 	}
 
-	system("mode con cols=115 lines=30");
 
-	//屏蔽控制台退出和缩小按钮
+	//屏蔽控制台退出按钮
 	HWND hwnd = GetConsoleWindow();
 	HMENU hmenu = GetSystemMenu(hwnd, false);
 	RemoveMenu(hmenu, SC_CLOSE, MF_BYCOMMAND);
@@ -1189,12 +1208,7 @@ int main()
 			{
 				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times << "次" << endl;
 			}
-
-			string buffer;
-			cout << "\n按任意键返回主菜单...";
-			getline(cin, buffer);
-			cin.ignore(20, '\n');
-			system("cls");
+			io::click_back();
 		}
 		else if (option == "5")
 		{
@@ -1204,25 +1218,20 @@ int main()
 				cout << i + 1 << ". " << rank_list[i]->borrowTimes << "次" << "\t" << rank_list[i]->user_name << endl;
 			}
 
-			string buffer;
-			cout << "\n按任意键返回主菜单...";
-			getline(cin, buffer);
-			cin.ignore(20, '\n');
-			system("cls");
+			io::click_back();
+
 		}
 		else if (option == "6")
 		{
+			cout << "正在查找，请稍等..." << endl;
 			auto rank_list = libRepo.books.rankBook_newest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
 				cout << i + 1 << "." << rank_list[i]->published_time << "\t\t" << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " " << endl;
 			}
 
-			string buffer;
-			cout << "\n按任意键返回主菜单...";
-			getline(cin, buffer);
-			cin.ignore(20, '\n');
-			system("cls");
+			io::click_back();
+
 		}
 		else if (option == "7")
 		{

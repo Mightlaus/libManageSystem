@@ -142,6 +142,15 @@ void io::full_screen()
 	SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
 }
 
+void io::click_back()
+{
+	string buffer;
+	cout << "\n按任意键返回...";
+	getline(cin, buffer);
+	cin.ignore(20, '\n');
+	system("cls");
+}
+
 
 vector<string*> io::read_csv(int n)
 {

@@ -16,4 +16,5 @@ namespace io
 	void welcome();
 	void bye();
 	void full_screen();
+	void click_back();
 }
