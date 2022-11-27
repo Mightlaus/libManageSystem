@@ -1144,17 +1144,17 @@ int main()
 	vector<string*> bookBatch = io::read_csv(2560);
 	libRepo.books.addBatch(bookBatch, 2560);
 	io::add_user_from_file(&libRepo);
-	cout << "欢迎来到HNUlib图书管理系统" << endl;
-	cout << "你可以：\n\t0.阅读我们的技术文档与使用手册 \n\t1.进入系统" << endl;
+	cout << "欢迎来到HNUlib图书管理系统\n" << endl;
+	cout << "你可以：\n\t0.阅读我们的技术文档与使用手册(README.md) \n\t1.进入系统" << endl;
 	//改变字体颜色
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
-	cout << endl << "！！为保证数据安全，进入系统后只能通过程序提供的退出选项退出，暴力退出将会被禁用！！" << endl;
+	cout << endl << "！！为保证数据安全，进入系统后只能通过系统提供的退出选项退出，暴力退出将会被禁用！！" << endl;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	cout << "请输入你的选择： ";
+	cout << "\n请输入你的选择： ";
 	string choice;
 	cin >> choice;
 	if (choice == "0") {
-		system("README.md");
+		system("..\\README.md");
 		cout << "按任意键进入系统";
 		getline(cin, choice);
 		cin.ignore(20, '\n');
