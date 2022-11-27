@@ -8,7 +8,7 @@
 
 ## 开发环境
 
-Visual Studio 2022 x63 + 内置Git
+Visual Studio 2022 x64 + 内置Git
 
 ## 代码命名风格约定
 
@@ -340,6 +340,109 @@ BookRepo()
     p_book_repo = new vector<Book>;
 }
 ```
+
+## Book.h
+
+这就是图书库操作的对象——图书。
+
+每一本图书的属性包含了他的基本信息和库状态信息
+
+| 类属性         | 描述                     | 变量类型             |
+| -------------- | ------------------------ | -------------------- |
+| caption        | 书名                     | string               |
+| author         | 作者                     | string               |
+| isbn           | ISBN                     | string               |
+| publishing     | 出版社                   | string               |
+| published_time | 出版时间                 | string               |
+| description    | 图书简介                 | string               |
+| pages          | 页数                     | int                  |
+| price          | 价格                     | double               |
+| exist          | 是否还存在（没有被删除） | int                  |
+| borrowed       | 是否被借走               | int                  |
+| borrowed_times | 被借次数                 | int                  |
+| histories      | 借阅记录                 | vector\<BookHistory> |
+
+图书类自己带有修改属性的方法（现在看来没必要，这些方法应该定义在BookRepo中的），下面简单展示
+
+| 类方法                                                     | 描述         |
+| ---------------------------------------------------------- | ------------ |
+| void resetCaption(string new_caption);                     | 修改书名     |
+| void resetAuthor(string new_author);                       | 修改作者     |
+| void resetIsbn(string new_isbn);                           | 修改ISBN     |
+| void resetDescription(string new_description);             | 修改简介     |
+| void resetPrice(double price);                             | 修改价格     |
+| void addHistory(long long time, int action, User* p_user); | 新增历史记录 |
+
+> 这里的历史记录与Users里的历史记录一样，是一个结构体，里面包含了操作发生的时间、操作类型、用户指针。这是它的定义
+
+```cpp
+	struct BookHistory
+	{
+		long long time;
+		int action; // -1借， 0阅览，1还
+		User* user;
+
+		BookHistory(long long time, int action, User* user)
+			:time(time), action(action), user(user) {}
+	};
+```
+
+每一本书被创建时需要提供所有的基础属性，系统自动将borrowed_times置0，exist置1，borrowed置0。
+
+```cpp
+	Book(string caption, string author, string isbn, string publishing, string published_time, string description, int pages, double price)
+		:caption(caption),
+		author(author),
+		isbn(isbn),
+		publishing(publishing),
+		published_time(published_time),
+		description(description),
+		pages(pages),
+		price(price),
+
+		borrowed_times(0),
+		exist(1),
+		borrowed(0) {}
+```
+
+## Repo.h
+
+最后，让我们看一下这些库是如何组织起来的。
+
+Repo.h里的内容少得可怜，因为它就是所有功能库的中央枢纽，在他里面唯一需要做的就是把其他功能库初始化。
+
+```cpp
+class Repo
+{
+private:
+
+	
+
+public:
+	BookRepo books = BookRepo();// 图书库相关功能
+	UserRepo users = UserRepo(&books); //user相关功能
+	
+
+};
+```
+
+有了这个枢纽，前端在调用后端的所有功能时唯一需要初始化的就是Repo仓库，没错，这也只要一行即可
+
+```cpp
+Repo libRepo;
+```
+
+然后，前端就可以通过 . 操作符来使用这里面的各个系统的各个功能。
+
+```cpp
+libRepo.books.addBatch(bookBatch, 2560); // 批量添加图书
+libRepo.users.findAdmin(account, 1); // 查找管理员
+libRepo.books.bookNums; // 图书总数
+libRepo.users.addUser();// 添加用户
+// ...
+```
+
+Repo这个中央枢纽还提供了非常强大的拓展可能。我们现在只设计了图书系统和用户系统的相关功能，未来也许会需要预约系统、存包系统、门禁系统、后勤系统、财务系统等等。那时候需要做的也仅仅就是把这些新系统在中央枢纽里实例化即可。这就像拼积木一样简单，可见我们程序的拓展性与可移植性之强。
 
 # 前端使用手册
 
