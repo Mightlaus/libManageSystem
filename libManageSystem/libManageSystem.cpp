@@ -1152,7 +1152,7 @@ int main()
 	string choice;
 	cin >> choice;
 	if (choice == "0") {
-		system("..\\README.md");
+		system("README.md");
 		cout << "按任意键进入系统";
 		getline(cin, choice);
 		cin.ignore(20, '\n');

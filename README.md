@@ -1,6 +1,8 @@
 # libManageSystem
 
-这里是图书馆项目
+这里是图书馆管理项目
+
+![architecture](README.assets/architecture.png)
 
 ## 代码命名风格约定
 
