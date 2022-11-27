@@ -4,6 +4,12 @@
 
 ![architecture](README.assets/architecture.png)
 
+[TOC]
+
+## 开发环境
+
+Visual Studio 2022 x63 + 内置Git
+
 ## 代码命名风格约定
 
 - 普通成员变量：全小写+下划线(name)
@@ -11,9 +17,7 @@
 - 函数名：小驼峰（getName）
 - 类、结构体：大驼峰 (MyLibrary)
 
-
-
-# 后端接口
+# 后端开发手册
 
 后端为前端提供的接口主要分布于三个头文件中
 
@@ -194,16 +198,150 @@ Admin负责图书馆的管理，所以对于图书的增删改查的方法都被
 		p_visitor_repo = new vector<Visitor>;
 	}
 ```
+## BookRepo.h
 
-  |      方法名      | 描述         | 备注                                        |
-  | :--------------: | ------------ | ------------------------------------------- |
-  |  void resetxxxx  | 修改xxx属性  | string实参提供了重载函数可以接收char*型形参 |
-  | addBorrowHistory | 添加借书日志 |                                             |
-  |                  |              |                                             |
+说完用户部分，我们接着谈**BookRepo* p_book_repo**这个指针所指向的BookRepo的功能。
 
+与UserRepo一样，这是一个用于管理图书的类，所有的图书都应该保存在其中并且都应该由它来操作。因此，BookRepo针对其内的图书提供了以下方法。
 
+| 类方法                                                     | 描述                                            |
+| ---------------------------------------------------------- | ----------------------------------------------- |
+| void addOne(Book book);                                    | 向书库中增加一本书                              |
+| void addBatch(vector<string*> book_batch, int batch_size); | 通过文件读写的方式向书库中批量增加书            |
+| void delOne(Book* p_book);                                 | 删除书库中的一本书（属性exist置为0）            |
+| void delBatch(vector<Book*> book_vec);                     | 批量删除传入列表中的全部书                      |
+| void modifCaption(Book* p_book, string caption);           | 修改书名                                        |
+| void modifAuthor(Book* p_book, string author);             | 修改作者                                        |
+| void modifIsbn(Book* p_book, string isbn);                 | 修改ISBN                                        |
+| void modifPrice(Book* p_book, double price);               | 修改价格                                        |
+| vector<Book*> find_isbn(string isbn);                      | ISBN精准查找                                    |
+| vector<Book*> find_caption(string caption);                | 书名模糊查找                                    |
+| vector<Book*> find_author(string author);                  | 按作者名模糊查找                                |
+| vector<Book*> find_publish(string publish);                | 按出版社名模糊查找                              |
+| vector<Book*> rankBook_newest(int rank_len);               | 在书库中找到最新出版的rank_len本书并返回        |
+| vector<Book*> rankBook_borrowest(int rank_len);            | 在书库中找到被借阅次数最多的rank_len本书并返回  |
+| vector<Book*> recommend(Book* p_book);                     | 推荐,返回借阅传入图书的全部用户借阅的其他所有书 |
 
-# 前端
+增、删、改、查，四种方法字如其名，方法自身声明已经很显式地告知了使用方法，不再赘述。这里重点谈一下最后的三种方法和模糊查找。
+
+- 模糊查找
+
+  模糊查找实际上就是字符串的匹配。当然，为了更高级的查找功能，本程序里设计的模糊查找功能基于综合判断字长、广义子串功能实现。
+
+  假设现在有字符串str1与str2。判断两字符串“成功匹配”（也就是查找到）的条件如下
+
+  1. str1中的全部字符在str2中出现过（不考虑顺序）或者相反
+  2. 两字符串长度(len1+len2)/(len1-len2)>=2
+
+  众所周知C++基本没有对汉字的处理能力，一个汉字需要两个字节的位置存放，所以不能通过char的简单ascall编码来查找，否则会发生很严重错误，这就需要我们在查找前首先把汉字做格式转换。必须想办法把单字节的string转换成双字节的wstring，这个函数(str2wst)的在BookRepo.cpp中得到实现。
+
+  这个单字节向双字节的转换函数非常重要，几乎所有处理汉字字符串匹配的都要用到。
+
+  ```cpp
+  wstring str2wstr(string str)
+  {
+  	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);
+  	if (len == 0)
+  		return wstring(L"");
+  	wchar_t* wct = new wchar_t[len];
+  	if (!wct)
+  		return std::wstring(L"");
+  
+  	MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, wct, len);
+  	wstring wstr(wct);
+  	delete[] wct;
+  	wct = NULL;
+  	return wstr;
+  }
+  ```
+
+- 最新出版图书排序
+
+  这是个苦功夫，提供的原始图书数据库的时间信息格式非常乱，单单在洗数据上就花费了很多时间。
+
+  此外，由于我们读取存入的是string对象，我们还要想办法对其排序。还是因为格式信息不同，想要简单的使用string比大小肯定漏洞百出，我们最终的解决办法是，用正则表达式匹配来兼容不同格式的数据并提出年月日信息转化为int比较，代码如下。
+
+  ```cpp
+  // 出版时间转换
+  int publishTime(string str_time)
+  {
+  	long long time = 0;
+  
+  	if (str_time.empty()) {
+  		return -1;
+  	}
+  
+  	regex pattern_year("(\\d+)");
+  	regex pattern_month("\\d+.+?(\\d+)");
+  	regex pattern_day("\\d+[-_年]\\d+[-_月](\\d+)");
+  
+  	smatch result;
+  	if (regex_search(str_time, result, pattern_year))
+  	{
+  		time += stoi(result.str()) * 10000;
+  	}
+  	if (regex_search(str_time, result, pattern_month))
+  	{
+  		time += stoi(result[1].str()) * 100;
+  	}
+  	if (regex_search(str_time, result, pattern_day))
+  	{
+  		time += stoi(result[1].str());
+  	}
+  
+  	return time;
+  
+  }
+  ```
+
+  它可以识别2022-1-1、2022年1月1日、2022_1_1、2022 1 1等类型的日期表示方法，然后转化为*年\*10000+月\*100+日*的int类型以供比较。
+
+  有了确切的比较对象，那么我们只需要构造一个比较规则然后利用sort函数就可以实现了。可是我们这里并不需要对整个图书库全部排序，只需要找出最新出版的X本就足够了。所以我们的项目里采用冒泡排序即可
+
+  ```cpp
+  // 按被借阅次数降序排列
+  void bookSort_borrowest(vector<Book*>& bookRepo, int len)
+  {
+  	int size = bookRepo.size();
+  	for (int i = 0; i < len; i++)
+  	{
+  		for (int j = size - 1; j > i; j--)
+  		{
+  			if (bookRepo[j]->histories.size() > bookRepo[j - 1]->histories.size())
+  			{
+  				swap(bookRepo[j], bookRepo[j - 1]);
+  			}
+  		}
+  	}
+  }
+  ```
+
+- 被借阅次数最多的图书
+
+  方法与最新出版图书类似，略。
+
+- 书->书 推荐
+
+  推荐逻辑在UserRepo里提到过，不再重复。值得注意的是，UserRepo里实现给用户推荐书的方法调用了这个函数的接口，因为在找到用户借的图书后需要根据这些图书找到借他们的用户然后再去找这些用户借的书。(但这是一个递归！难免有些绕)
+
+这个类还包含了一些记录图书库的属性
+
+| 类属性       | 描述         | 数据类型      |
+| ------------ | ------------ | ------------- |
+| bookNums     | 库内图书总数 | int           |
+| *p_book_repo | 书库         | vector\<Book> |
+
+构造函数初始化了这两个属性 
+
+```cpp
+BookRepo()
+{
+    bookNums = 0;
+    p_book_repo = new vector<Book>;
+}
+```
+
+# 前端使用手册
 
 
 
@@ -264,6 +402,8 @@ Admin负责图书馆的管理，所以对于图书的增删改查的方法都被
 - [x] 用户模式提供了更改密码，借阅图书，归还图书，搜索图书，推荐图书，查看借阅记录6个功能
 - [x] 用户的推荐图书功能系统会直接列出与当前用户借过相同的书的读者借阅的其他书，而游客模式的推荐图书功能需要用户选择一本书进行相关推荐
 - [x] 游客模式提供了搜索图书，推荐图书2个功能，进入此模式系统会自动分配账号，无需通过账号密码登录
+
+
 
 
 

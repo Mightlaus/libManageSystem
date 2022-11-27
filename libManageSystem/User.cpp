@@ -142,20 +142,11 @@ int Admin::modifBook(Book* p_book, char modif_item, string new_content)
 		p_book->resetDescription(new_content);
 		return 1;
 	}
-
-	return 0;
-}
-
-int Admin::modifBook(Book* p_book, char modif_item, double new_price)
-{
-	if (modif_item == 'P')
+	else if (modif_item == 'P')
 	{
-		p_book->resetPrice(new_price);
+		p_book->resetPrice(stod(new_content));
 		return 1;
 	}
-	else
-	{
-		return 0;
-	}
 
+	return 0;
 }
