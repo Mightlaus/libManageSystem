@@ -581,7 +581,7 @@ void adminfunc(Repo& libRepo)
 					cin.ignore(20, '\n');
 					continue;
 				}
-				cout << "请输入要修改的类型条目和内容，格式：A（作者）/B（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
+				cout << "请输入要修改的类型条目和内容，格式：A（作者）/I（ISBN）/C（书名）/D（描述）/P（价格）+新的内容" << endl;
 				string change_str;
 				cin >> change_str;
 				while (curruser->modifBook(result[choice - 1], change_str[0], change_str.substr(1)) == 0)
