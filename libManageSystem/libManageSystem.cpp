@@ -642,6 +642,7 @@ void adminfunc(Repo& libRepo)
 			{
 				system("cls");
 				showBooks(result);
+				io::click_back();
 				cout << "返回管理员模式" << endl;
 			}
 			else
@@ -1044,6 +1045,7 @@ void visitorfunc(Repo& libRepo)
 			if (!result.empty())
 			{
 				showBooks(result);
+				io::click_back();
 			}
 			else
 			{

@@ -73,7 +73,6 @@ public:
 	int addBook(Book book, long long time);
 	int delBook(Book* p_book, long long time);
 	int modifBook(Book* p_book, char modif_item, string new_content); // 除price、pages外的其他属性
-	int modifBook(Book* p_book, char modif_tiem, double new_price); // price属性
 };
 
 class Visitor :public User
