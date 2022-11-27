@@ -57,7 +57,7 @@ vector<Book*> specificSearch(User* curruser, char type, string book_info)
 }
 void adminfunc(Repo& libRepo)
 {
-	cout << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+	cout << "请输入您的管理员账号（默认账号admin，输入*以回到主菜单）" << endl;
 	string account;
 	cin >> account;
 	if (account == "*")
@@ -67,7 +67,7 @@ void adminfunc(Repo& libRepo)
 	}
 	while (libRepo.users.findAdmin(account, 1).empty())
 	{
-		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+		cout << "账号不存在，请重试！" << endl << "请输入您的管理员账号（默认账号admin，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> account;
 		if (account == "*")
@@ -667,7 +667,7 @@ void adminfunc(Repo& libRepo)
 }
 void userfunc(Repo& libRepo)
 {
-	cout << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+	cout << "请输入您的用户账号（默认账号student，输入*以回到主菜单）" << endl;
 	string account;
 	cin >> account;
 	if (account == "*")
@@ -677,7 +677,7 @@ void userfunc(Repo& libRepo)
 	}
 	while (libRepo.users.findStudent(account, 1).empty())
 	{
-		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号为学号/教师编号，输入*以回到主菜单）" << endl;
+		cout << "账号不存在，请重试！" << endl << "请输入您的用户账号（默认账号student，输入*以回到主菜单）" << endl;
 		cin.ignore(20, '\n');
 		cin >> account;
 		if (account == "*")
