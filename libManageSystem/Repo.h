@@ -1,12 +1,6 @@
 #pragma once
-
-#include <vector>
-#include <string>
-#include "Book.h"
 #include "BookRepo.h"
-#include "User.h"
 #include "UserRepo.h"
-
 using namespace std;
 
 class Repo
