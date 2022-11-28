@@ -868,7 +868,7 @@ void userfunc(Repo& libRepo)
 				cout << "请输入要归还的图书序号：";
 				string str;
 				cin >> str;
-				if (str[0] >= '0' && str[0] <= '9' && stoi(str) <= result.size())
+				if (str[0] > '0' && str[0] <= '9' && stoi(str) <= result.size())
 				{
 					int choice = stoi(str);
 					GetLocalTime(&sys);
