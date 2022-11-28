@@ -47,32 +47,59 @@ Windows10, Windows11 Platform; **Linux不兼容！**
 ## 文件结构
 
 |-- libManageSystem	主工程文件
+
 |   	|-- Book.cpp
+
 |   	|-- Book.h
+
 |   	|-- BookRepo.cpp
+
 |   	|-- BookRepo.h
+
 |  	 |-- Repo.cpp
+
 |  	 |-- Repo.h
+
 |   	|-- User.cpp
+
 | 	  |-- User.h
+
 |  	 |-- UserRepo.cpp
+
 |  	 |-- UserRepo.h
+
 |   	|-- bye.txt	退出界面符号图像
+
 |  	 |-- expand.csv	扩容后的图书库
+
 |	   |-- io.cpp
+
 |  	 |-- io.h
+
 |  	 |-- libManageSystem.cpp
+
 |  	 |-- libManageSystem.vcxproj	VS工程文件
+
 |  	 |-- libManageSystem.vcxproj.user	VS工程文件
+
 | 	  |-- users.csv	用户信息
+
 |  	 |-- welcome.txt	欢迎界面符号图像
+
 |-- myLib	VS打包安装工程项目
+
 |  	 |-- Debug
+
 |   	|-- Release
+
 |-- README.assets
+
 |-- README.md
+
 |-- myLib.vdproj	VS工程文件
+
 |-- resource	资源文件，包括ico，程序架构导图，设计要求等
+
 |-- libManageSystem.sln	VS工程文件
 
 ## 代码命名风格约定
