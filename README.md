@@ -46,61 +46,57 @@ Windows10, Windows11 Platform; **Linux不兼容！**
 
 ## 文件结构
 
-|-- libManageSystem	主工程文件
+- libManageSystem	主工程文件
 
-|   	|-- Book.cpp
+  - Book.cpp
 
-|   	|-- Book.h
+  - Book.h
 
-|   	|-- BookRepo.cpp
+  - BookRepo.cpp
 
-|   	|-- BookRepo.h
+  - BookRepo.h
 
-|  	 |-- Repo.cpp
+  - Repo.cpp
 
-|  	 |-- Repo.h
+  - Repo.h
 
-|   	|-- User.cpp
+  - User.cpp
 
-| 	  |-- User.h
+  - User.h
 
-|  	 |-- UserRepo.cpp
+  - UserRepo.cpp
 
-|  	 |-- UserRepo.h
+  - UserRepo.h
 
-|   	|-- bye.txt	退出界面符号图像
+  - bye.txt	退出界面符号图像
 
-|  	 |-- expand.csv	扩容后的图书库
+  - expand.csv	扩容后的图书库
 
-|	   |-- io.cpp
+  -  io.cpp
 
-|  	 |-- io.h
+  - io.h
 
-|  	 |-- libManageSystem.cpp
+  - libManageSystem.cpp
 
-|  	 |-- libManageSystem.vcxproj	VS工程文件
+  - libManageSystem.vcxproj	VS工程文件
 
-|  	 |-- libManageSystem.vcxproj.user	VS工程文件
+  - libManageSystem.vcxproj.user	VS工程文件
+  
+  - users.csv	用户信息
+  
+  - welcome.txt	欢迎界面符号图像
 
-| 	  |-- users.csv	用户信息
+- myLib	VS打包安装工程项目
 
-|  	 |-- welcome.txt	欢迎界面符号图像
+- README.assets
 
-|-- myLib	VS打包安装工程项目
+- README.md
 
-|  	 |-- Debug
+- myLib.vdproj	VS工程文件
 
-|   	|-- Release
+- resource	资源文件，包括ico，程序架构导图，设计要求等
 
-|-- README.assets
-
-|-- README.md
-
-|-- myLib.vdproj	VS工程文件
-
-|-- resource	资源文件，包括ico，程序架构导图，设计要求等
-
-|-- libManageSystem.sln	VS工程文件
+- libManageSystem.sln	VS工程文件
 
 ## 代码命名风格约定
 
