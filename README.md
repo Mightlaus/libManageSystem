@@ -4,7 +4,39 @@
 
 ![architecture](README.assets/architecture.png)
 
-[TOC]
+- [libManageSystem](#libmanagesystem)
+  * [开发环境](#----)
+  * [代码命名风格约定](#--------)
+- [后端开发手册](#------)
+  * [User.h](#userh)
+    + [class User](#class-user)
+    + [class Student](#class-student)
+    + [class Admin](#class-admin)
+    + [class Visitor](#class-visitor)
+  * [UserRepo.h](#userrepoh)
+  * [BookRepo.h](#bookrepoh)
+  * [Book.h](#bookh)
+  * [Repo.h](#repoh)
+- [前端使用手册](#------)
+  * [程序特性](#----)
+    + [主菜单](#---)
+      - [三种用户模式](#------)
+    + [从csv读写数据](#-csv----)
+    + [读取系统时间](#------)
+    + [健壮性](#---)
+    + [用户友好性](#-----)
+    + [代码复用率](#-----)
+    + [数据静态存储](#------)
+  * [操作示范](#----)
+    + [欢迎界面（自动全屏）](#----------)
+    + [系统界面（自动调整console大小）](#---------console---)
+    + [管理员模式](#-----)
+    + [用户模式](#----)
+    + [排行榜](#---)
+    + [退出](#--)
+    + [一键安装](#----)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## 开发环境
 
