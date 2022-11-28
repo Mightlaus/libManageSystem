@@ -336,10 +336,10 @@ vector<Book*> BookRepo::recommend(Book* p_book)
 	//找到借这本书的所有user放到parallels里
 	for(int i=0; i< p_book->histories.size(); ++i)
 	{
-		if (p_book->histories[i].action == 1)
+		if (p_book->histories[i].action == -1)
 		{
 			//users重复不考虑
-			if (find(parallels.begin(), parallels.end(), p_book->histories[i].user) == parallels.end())
+			if (find(parallels.begin(), parallels.end(), p_book->histories[i].user) != parallels.end())
 			{
 				if(!parallels.empty())
 					continue;
@@ -355,6 +355,11 @@ vector<Book*> BookRepo::recommend(Book* p_book)
 					if (find(recm_list.begin(), recm_list.end(), p_book->histories[i].user->histories[j].p_book) != recm_list.end())
 					{
 							continue;
+					}
+					//book与输入book同样不考虑
+					if (p_book->histories[i].user->histories[j].p_book == p_book)
+					{
+						continue;
 					}
 					recm_list.push_back(p_book->histories[i].user->histories[j].p_book);
 				}

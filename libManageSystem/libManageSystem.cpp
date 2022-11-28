@@ -1102,11 +1102,12 @@ void visitorfunc(Repo& libRepo)
 				{
 					int choice = stoi(str);
 					vector<Book*> reco_list = libRepo.books.recommend(result[choice - 1]);
-					cout << "以下是为您推荐的图书：" << endl;
+					cout << "\n\n以下是为您推荐的图书：" << endl;
 					for (int i = 0; i < reco_list.size(); i++)
 					{
 						cout << i + 1 << ". " << reco_list[i]->caption << " " << reco_list[i]->author << " " << reco_list[i]->publishing << " " << endl;
 					}
+					io::click_back();
 				}
 				else
 				{
@@ -1218,7 +1219,7 @@ int main()
 			auto rank_list = libRepo.books.rankBook_borrowest(10);
 			for (int i = 0; i < rank_list.size(); i++)
 			{
-				cout << i + 1 << ". " << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing << " 被借阅了" << rank_list[i]->borrowed_times << "次" << endl;
+				cout << i + 1 << ". " << rank_list[i]->borrowed_times << "次\t" << rank_list[i]->caption << " " << rank_list[i]->author << " " << rank_list[i]->publishing  << endl;
 			}
 			io::click_back();
 		}

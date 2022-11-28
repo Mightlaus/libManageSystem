@@ -223,7 +223,8 @@ vector<Student*> UserRepo::rankUser_borrowest(int rank_len)
 	{
 		if (student.exist)
 		{
-			rank_vec.push_back(&student);
+			if(student.borrowTimes)
+				rank_vec.push_back(&student);
 		}
 
 	}
